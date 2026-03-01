@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>🌸 2026 東京櫻花</title>
+  <title>🌸 2026 東京櫻花探險</title>
   
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CclipPath id='circleView'%3E%3Ccircle cx='50' cy='50' r='50'/%3E%3C/clipPath%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='50' fill='white'/%3E%3Cimage href='https://image2url.com/r2/default/images/1772408684045-7164abd1-ece5-4a82-af34-6182d61f1562.jpg' x='5' y='5' width='90' height='90' clip-path='url(%23circleView)'/%3E%3C/svg%3E">
-  
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3CclipPath id='circleView'%3E%3Ccircle cx='50' cy='50' r='50'/%3E%3C/clipPath%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='50' fill='white'/%3E%3Cimage href='https://image2url.com/r2/default/images/1772408684045-7164abd1-ece5-4a82-af34-6182d61f1562.jpg' x='5' y='5' width='90' height='90' clip-path='url(%23circleView)'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png">
+  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,13 +16,16 @@
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; }
     body { font-family: 'Noto Sans TC', sans-serif; background: #fff5f7; color: #4a4a4a; padding-bottom: 110px; overflow-x: hidden; }
     
-    /* 頁首顯示新上傳的櫻花圖 */
+    /* 頁首專屬櫻花圖標樣式 */
     .custom-sakura-img {
-      width: 110px; height: 110px; 
-      background: white; border-radius: 50%;
-      margin: 0 auto 15px; padding: 5px; 
-      box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5);
-      object-fit: cover; border: 3px solid white;
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 50%;
+      margin: 0 auto 15px;
+      padding: 10px;
+      box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4);
+      object-fit: contain;
     }
 
     .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; position: relative; }
@@ -34,6 +36,7 @@
     @keyframes fall { 
       0% { transform: translateY(0) rotate(0deg); opacity: 0; } 
       10% { opacity: 1; } 
+      90% { opacity: 1; } 
       100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
     }
     
@@ -51,25 +54,42 @@
   <div class="hero-header p-10 text-center shadow-sm relative">
     <div id="countdown" class="absolute top-4 right-4 text-[10px] bg-white/60 px-2 py-1 rounded-full text-pink-500 font-bold tracking-tighter"></div>
     
-    <img src="https://image2url.com/r2/default/images/1772408684045-7164abd1-ece5-4a82-af34-6182d61f1562.jpg" 
+    <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" 
+         alt="Sakura Icon" 
          class="custom-sakura-img animate-bounce">
     
     <h1 class="text-3xl font-bold text-pink-700">2026 東京櫻花季</h1>
-    <p class="text-pink-400 font-light text-sm mt-1 italic">Family Trip | 04.04 - 04.09</p>
+    <p class="text-pink-400 font-light text-sm tracking-widest mt-1 italic">Family Trip | 04.04 - 04.09</p>
   </div>
 
   <div class="p-5">
     <div class="card-v2 p-6">
       <div class="flex justify-between items-center mb-4">
-        <span class="bg-pink-500 text-white text-xs px-3 py-1 rounded-full font-bold">DAY 1</span>
+        <span class="bg-pink-500 text-white text-xs px-3 py-1 rounded-full font-bold">DAY 1 (4/4 六)</span>
         <span class="font-['Zhi_Mang_Xing'] text-pink-300 text-xl tracking-widest">啟程</span>
       </div>
       <h3 class="text-lg font-bold text-gray-700 mb-4"><i class="fas fa-plane-departure mr-2 text-pink-400"></i>星宇 JX802 ➔ 市川飯店</h3>
       <div class="space-y-4 border-l-2 border-pink-100 ml-2 pl-4">
         <div class="flex items-center"><span class="time-pill mr-3">10:40</span><span class="text-sm">桃園機場起飛</span></div>
-        <div class="flex items-center"><span class="time-pill mr-3">17:30</span><span class="text-sm">抵達飯店</span></div>
+        <div class="flex items-center"><span class="time-pill mr-3">15:05</span><span class="text-sm">抵達成田二航廈</span></div>
+        <div class="flex items-center"><span class="time-pill mr-3">17:30</span><span class="text-sm font-bold text-pink-600">HOTEL R9 Premium 市川</span></div>
+      </div>
+      <button onclick="speak('到日本囉！飯店附近有超市，晚上去買草莓！')" class="w-full mt-5 py-3 bg-pink-50 text-pink-500 rounded-xl font-bold text-sm"><i class="fas fa-bullhorn mr-2"></i>領隊廣播</button>
+    </div>
+
+    <div class="card-v2 p-6">
+      <div class="flex justify-between items-center mb-4">
+        <span class="bg-pink-400 text-white text-xs px-3 py-1 rounded-full font-bold">DAY 2 (4/5 日)</span>
+        <span class="font-['Zhi_Mang_Xing'] text-pink-300 text-xl tracking-widest">賞櫻</span>
+      </div>
+      <h3 class="text-lg font-bold text-gray-700 mb-4"><i class="fas fa-camera-retro mr-2 text-pink-400"></i>中目黑賞櫻 ➔ 淺草寺夜櫻</h3>
+      <div class="space-y-5 border-l-2 border-pink-100 ml-2 pl-4">
+        <div class="flex flex-col"><div class="flex items-center"><span class="time-pill mr-3">10:30</span><span class="text-sm font-medium">目黑川櫻花隧道</span></div><span class="text-[11px] text-gray-400 ml-16">800株櫻花交織的粉紅隧道</span></div>
+        <div class="flex flex-col"><div class="flex items-center"><span class="time-pill mr-3">18:30</span><span class="text-sm font-medium">淺草寺 & 雷門</span></div><span class="text-[11px] text-gray-400 ml-16">江戶風情與夢幻夜櫻</span></div>
       </div>
     </div>
+
+    <div class="text-center text-pink-300 text-xs mt-10 italic">向下滾動查看更多...</div>
   </div>
 
   <nav class="nav-bar fixed bottom-0 w-full flex justify-around py-4 pb-6 z-50 shadow-lg">
@@ -81,6 +101,10 @@
       <i class="fas fa-calculator text-xl"></i>
       <span class="text-[10px] font-bold mt-1">換台幣</span>
     </div>
+    <div onclick="window.open('https://line.me/')" class="flex flex-col items-center text-gray-400">
+      <i class="fab fa-line text-2xl"></i>
+      <span class="text-[10px] font-bold">連繫隊長</span>
+    </div>
   </nav>
 
   <script>
@@ -91,25 +115,40 @@
         const diff = target - now;
         if (diff < 0) { document.getElementById('countdown').innerText = "旅途進行中！"; return; }
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('countdown').innerText = `倒數 ${days} 天`;
+        document.getElementById('countdown').innerText = `倒數 ${days} 天出發`;
       }
       update(); setInterval(update, 60000);
     }
-    function triggerSOS() { alert('🚨 SOS 已啟動！'); }
+
+    function speak(text) {
+      window.speechSynthesis.cancel();
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = 'zh-TW';
+      window.speechSynthesis.speak(msg);
+    }
+
+    function triggerSOS() {
+      speak('請幫幫我，我迷路了，請聯繫我的家人。');
+      alert('🚨 SOS 已啟動！');
+    }
+
     function openExchange() {
       let jpy = prompt("💴 輸入日幣：", "1000");
-      if (jpy) alert(`大約台幣 ${Math.round(jpy * 0.21)} 元`);
+      if (jpy) alert(`日幣 ${jpy} ➔ 大約台幣 ${Math.round(jpy * 0.21)} 元`);
     }
+
     function createSakura() {
       const petal = document.createElement('div');
       petal.innerHTML = '🌸';
       petal.className = 'sakura-fall text-pink-200';
       petal.style.left = Math.random() * 100 + 'vw';
+      petal.style.fontSize = (Math.random() * 10 + 10) + 'px';
       const duration = Math.random() * 5 + 7;
       petal.style.animationDuration = duration + 's';
       document.body.appendChild(petal);
       setTimeout(() => petal.remove(), duration * 1000);
     }
+
     initCountdown();
     setInterval(createSakura, 2000);
   </script>
