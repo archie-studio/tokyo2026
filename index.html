@@ -3,396 +3,295 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>🌸 2026 東京櫻花探險 - 完整長輩版</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>🌸 2026 東京櫻花探險</title>
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
+
   <style>
-    :root { --sakura: #ffb7c5; --deep-pink: #ff758c; --bg: #fff5f7; }
-    body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); margin: 0; padding-bottom: 120px; -webkit-tap-highlight-color: transparent; }
-    .page { display: none; } .page.active { display: block; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .day-panel { display: none; } .day-panel.active { display: block; }
-    .timeline-line { width: 2px; border-left: 2px dotted var(--sakura); margin-left: 28px; height: 18px; }
-    .day-btn { flex: 0 0 auto; width: 75px; height: 65px; border-radius: 20px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 2px solid transparent; }
-    .day-btn.active { background: var(--deep-pink); color: white; border-color: #ffcad4; transform: translateY(-3px); }
-    .card { background: white; border-radius: 22px; padding: 18px; display: flex; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid rgba(255,183,197,0.2); }
-    .time-tag { background: #fff0f3; color: var(--deep-pink); padding: 5px 10px; border-radius: 12px; font-weight: 900; font-size: 13px; min-width: 70px; text-align: center; border: 1px solid #ffe0e6; }
-    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: white; display: flex; justify-content: space-around; padding: 15px 10px 35px 10px; border-top: 1px solid #eee; z-index: 9999; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
-    .nav-item { color: #bbb; text-align: center; flex: 1; cursor: pointer; transition: 0.3s; }
+    :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
+    body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 140px; overflow-x: hidden; }
+    
+    /* 0.9秒極致絲滑動畫 */
+    @keyframes slowAppEntrance {
+      0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
+      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { 
+      display: block; 
+      animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+    }
+
+    .day-panel { display: none; }
+    .day-panel.active { 
+      display: block; 
+      animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+    }
+
+    .anim-item { animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+    /* UI 元素設計 */
+    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 45px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .header-logo { width: 75px; height: 75px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
+    
+    .day-selector { display: flex; overflow-x: auto; gap: 12px; padding: 20px; scrollbar-width: none; }
+    .day-btn { flex: 0 0 auto; width: 75px; height: 55px; border-radius: 25px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-5px); box-shadow: 0 8px 15px rgba(255,117,140,0.3); }
+
+    .card-v2 { background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 15px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); }
+    
+    .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
+    .cat-item { background: #fff; border: 2px solid #fdf2f4; border-radius: 18px; padding: 10px 2px; text-align: center; font-size: 11px; transition: 0.3s; }
+    .cat-item.active { border-color: var(--deep-pink); background: #fff0f3; transform: scale(1.05); box-shadow: 0 4px 10px rgba(255,117,140,0.2); }
+    .cat-icon { font-size: 20px; display: block; margin-bottom: 2px; }
+
+    .input-field { width: 100%; padding: 14px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 12px; font-size: 16px; outline: none; background: #fafafa; }
+    .btn-main { background: var(--deep-pink); color: white; width: 100%; padding: 16px; border-radius: 22px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(255,117,140,0.4); }
+    
+    .nav-bar { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,182,193,0.2); }
+    .nav-item { color: #ccc; }
     .nav-item.active { color: var(--deep-pink); }
-    #detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px); }
-    .modal-box { background: white; border-radius: 35px; width: 100%; max-width: 380px; overflow: hidden; animation: pop 0.3s cubic-bezier(0.17, 0.89, 0.32, 1.2); }
-    @keyframes pop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
   </style>
 </head>
 <body>
 
-<div class="sticky top-0 z-50 bg-white shadow-md p-6 text-center rounded-b-[35px]">
-  <h1 id="header-title" class="text-2xl font-black text-pink-600 tracking-tight">📅 櫻花行程表</h1>
-</div>
-
-<div id="page-itinerary" class="page active px-5">
-  <div class="flex overflow-x-auto gap-3 py-5 no-scrollbar">
-    <button class="day-btn active" onclick="switchDay(1, this)"><span class="text-xs">4/4</span><span class="font-bold text-lg">SAT</span></button>
-    <button class="day-btn" onclick="switchDay(2, this)"><span class="text-xs">4/5</span><span class="font-bold text-lg">SUN</span></button>
-    <button class="day-btn" onclick="switchDay(3, this)"><span class="text-xs">4/6</span><span class="font-bold text-lg">MON</span></button>
-    <button class="day-btn" onclick="switchDay(4, this)"><span class="text-xs">4/7</span><span class="font-bold text-lg">TUE</span></button>
-    <button class="day-btn" onclick="switchDay(5, this)"><span class="text-xs">4/8</span><span class="font-bold text-lg">WED</span></button>
-    <button class="day-btn" onclick="switchDay(6, this)"><span class="text-xs">4/9</span><span class="font-bold text-lg">THU</span></button>
+  <div class="hero-header">
+    <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
+    <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" class="header-logo">
+    <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026 東京櫻花探險</h1>
   </div>
 
-  <div id="itinerary-content">
-    <div id="panel-1" class="day-panel active">
-      <div class="font-black text-pink-500 mb-4 ml-2 text-lg">🌸 第一天：抵達東京與夜櫻</div>
-      <div class="card" onclick="openModal('15:05', '🛬 抵達成田機場', '領好行李，深吸一口日本的空氣！準備搭乘火車。', 'Narita Airport')"><span class="time-tag">15:05</span><div class="ml-4 font-bold text-gray-800 text-lg">抵達成田機場</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('16:00', '🚅 前往市川', '搭乘 JR 總武線快速，不用轉車，一班車直達市川站。', '市川駅')"><span class="time-tag">16:00</span><div class="ml-4 font-bold text-gray-800 text-lg">搭乘 JR 前往市川</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('17:15', '🏨 HOTEL R9 入住', '抵達 HOTEL R9 Premium Ichikawa。卸下大行李，稍微洗把臉，換上輕便的鞋子，準備出門賞花！', 'HOTEL R9 Premium Ichikawa')"><span class="time-tag">17:15</span><div class="ml-4 font-bold text-gray-800 text-lg">飯店 Check-in</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('18:45', '🌸 目黑川賞夜櫻', '搭電車前往目黑，迎接我們的是夢幻的夜櫻隧道。', '目黑川櫻花')"><span class="time-tag">18:45</span><div class="ml-4 font-bold text-gray-800 text-lg">目黑川賞夜櫻</div></div>
+  <div id="tab-schedule" class="tab-content active">
+    <div class="day-selector">
+      <button class="day-btn active" onclick="switchDay(1, this)"><span class="text-[10px]">（六）</span><span class="text-lg font-bold">4/4</span></button>
+      <button class="day-btn" onclick="switchDay(2, this)"><span class="text-[10px]">（日）</span><span class="text-lg font-bold">4/5</span></button>
+      <button class="day-btn" onclick="switchDay(3, this)"><span class="text-[10px]">（一）</span><span class="text-lg font-bold">4/6</span></button>
+      <button class="day-btn" onclick="switchDay(4, this)"><span class="text-[10px]">（二）</span><span class="text-lg font-bold">4/7</span></button>
+      <button class="day-btn" onclick="switchDay(5, this)"><span class="text-[10px]">（三）</span><span class="text-lg font-bold">4/8</span></button>
+      <button class="day-btn" onclick="switchDay(6, this)"><span class="text-[10px]">（四）</span><span class="text-lg font-bold">4/9</span></button>
     </div>
-
-    <div id="panel-2" class="day-panel">
-      <div class="font-black text-pink-500 mb-4 ml-2 text-lg">🏮 第二天：淺草與上野風情</div>
-      <div class="card" onclick="openModal('09:40', '🚕 抵達淺草雷門', '為了省體力，我們從錦糸町轉搭計程車，直接停在雷門門口！淺草寺參拜、逛仲見世通。', '淺草雷門')"><span class="time-tag">09:40</span><div class="ml-4 font-bold text-gray-800 text-lg">淺草雷門參拜</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('14:00', '🌸 上野公園賞櫻', '下午轉戰上野，欣賞粉色櫻花海與不忍池美景。', '上野公園')"><span class="time-tag">14:00</span><div class="ml-4 font-bold text-gray-800 text-lg">上野公園</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('18:00', '🛍️ 阿美橫町採購', '在熱鬧的商店街大採購，感受日本市場的活力與美食。', '阿美橫町')"><span class="time-tag">18:00</span><div class="ml-4 font-bold text-gray-800 text-lg">阿美橫町</div></div>
-    </div>
-
-    <div id="panel-3" class="day-panel">
-      <div class="font-black text-pink-500 mb-4 ml-2 text-lg">🌊 第三天：鎌倉江之島 (包車)</div>
-      <div class="card" onclick="openModal('11:00', '⛩️ 鶴岡八幡宮', '參觀古都神社，午餐在小町通商店街自由享用美食。(停留兩小時，13:00 離開)', '鶴岡八幡宮')"><span class="time-tag">11:00</span><div class="ml-4 font-bold text-gray-800 text-lg">鶴岡八幡宮</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('13:10', '🙏 鎌倉大佛', '參拜莊嚴的露天大佛殿高德院。(停留 20 分鐘，13:30 離開)', '鎌倉大佛')"><span class="time-tag">13:10</span><div class="ml-4 font-bold text-gray-800 text-lg">高德院大佛</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('13:51', '🚃 江之電體驗', '搭乘充滿復古風情的江之電。(搭乘 13:51 班次) ▲ 讓包車司機在下一站等候，全家一起體驗一段經典的海線鐵道！', '鎌倉駅')"><span class="time-tag">13:51</span><div class="ml-4 font-bold text-gray-800 text-lg">江之電體驗</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('14:06', '📸 鎌倉高校前', '抵達鎌倉高校，在經典的灌籃高手平交道拍照打卡。(停留 20 分鐘，14:30 離開)', '鎌倉高校前')"><span class="time-tag">14:06</span><div class="ml-4 font-bold text-gray-800 text-lg">高校前平交道</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('14:45', '🌊 江之島散步', '感受海洋能量，散步江之島參道。(停留 90 分鐘，16:15 離開)', '江之島')"><span class="time-tag">14:45</span><div class="ml-4 font-bold text-gray-800 text-lg">江之島散策</div></div>
-    </div>
-
-    <div id="INSERT_REMAINING_DAYS_HERE"></div>
-
-  </div>
-</div><div id="panel-4" class="day-panel">
-      <div class="font-black text-pink-500 mb-4 ml-2 text-lg">🗻 第四天：河口湖富士山 (全日包車)</div>
-      <div class="card" onclick="openModal('10:00', '🌷 大石公園', '欣賞河口湖與富士山的絕美同框景色。（停留 75 分鐘，11:15 離開）', '大石公園')"><span class="time-tag">10:00</span><div class="ml-4 font-bold text-gray-800 text-lg">大石公園</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('11:25', '🦞 餺飥研究所', '午餐享用特製海鮮餺飥鍋。（用餐 100 分鐘，12:50 離開）', '河口湖 ほうとう研究所')"><span class="time-tag">11:25</span><div class="ml-4 font-bold text-gray-800 text-lg">海鮮餺飥午餐</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('13:20', '🦛 KABA 水陸巴士', '體驗直接衝入湖中的快感，從湖面仰望富士山。（停留 80 分鐘，14:30 離開） ▲ 山中湖特色體驗：KABA 陸上與水上雙棲巴士', '山中湖 KABA')"><span class="time-tag">13:20</span><div class="ml-4 font-bold text-gray-800 text-lg">KABA 水陸巴士</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('14:45', '💧 忍野八海', '欣賞富士山雪水濾出的清澈湧泉。（停留 45 分鐘，15:30 離開）', '忍野八海')"><span class="time-tag">14:45</span><div class="ml-4 font-bold text-gray-800 text-lg">忍野八海</div></div>
-    </div>
-
-    <div id="panel-5" class="day-panel">
-      <div class="font-black text-pink-500 mb-4 ml-2 text-lg">👑 第五天：皇家巡禮與觀光巴士</div>
-      <div class="card" onclick="openModal('10:40', '🌲 明治神宮', '森林巡禮，享受寧靜氛圍。午餐在園區內的「FOREST TERRACE」餐廳享用。', '明治神宮')"><span class="time-tag">10:40</span><div class="ml-4 font-bold text-gray-800 text-lg">明治神宮</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('13:30', '🚌 敞篷觀光巴士', '盡情遊覽東京鐵塔和明治神宮外苑等熱門景點，視野極佳！', '東京 SkyBus')"><span class="time-tag">13:30</span><div class="ml-4 font-bold text-gray-800 text-lg">敞篷巴士遊覽</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('15:00', '🏯 皇居 & 東京車站', '下午參觀皇居。接著步行至東京車站逛街 (KITTE 看風景、大丸百貨買伴手禮)。預計 20:00 之後返回飯店避開下班尖峰。', '東京車站')"><span class="time-tag">15:00</span><div class="ml-4 font-bold text-gray-800 text-lg">皇居與東京車站</div></div>
-    </div>
-
-    <div id="panel-6" class="day-panel">
-      <div class="font-black text-pink-500 mb-4 ml-2 text-lg">🍣 第六天：築地市場與返台</div>
-      <div class="card" onclick="openModal('08:30', '🧳 退房寄行李', '行李寄放在 HOTEL R9 櫃台，輕裝前往最後一站。', 'HOTEL R9')"><span class="time-tag">08:30</span><div class="ml-4 font-bold text-gray-800 text-lg">退房寄行李</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('09:40', '🍣 築地市場', '避開尖峰搭車去築地吃早午餐，享受最後的美味海鮮。', '築地市場')"><span class="time-tag">09:40</span><div class="ml-4 font-bold text-gray-800 text-lg">築地海鮮早午餐</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('13:00', '🚐 專車送機', '接送專車直接在飯店門口集合，出發前往成田機場。', '成田機場')"><span class="time-tag">13:00</span><div class="ml-4 font-bold text-gray-800 text-lg">專車前往機場</div></div>
+    <div id="schedule-panels">
+        <div id="day-panel-1" class="day-panel active"><div class="card-v2">🌸 Day 1: 抵達東京，入住市川飯店。</div></div>
+        <div id="day-panel-2" class="day-panel"><div class="card-v2">🌸 Day 2: 中目黑賞櫻。</div></div>
+        <div id="day-panel-3" class="day-panel"><div class="card-v2">🌸 Day 3: 淺草與澀谷。</div></div>
+        <div id="day-panel-4" class="day-panel"><div class="card-v2 text-center py-10">🌸 規劃中</div></div>
+        <div id="day-panel-5" class="day-panel"><div class="card-v2 text-center py-10">🌸 規劃中</div></div>
+        <div id="day-panel-6" class="day-panel"><div class="card-v2 text-center py-10 text-gray-400">Day 6 準備返台</div></div>
     </div>
   </div>
-</div>
 
-<div id="page-helper" class="page px-5 pt-4">
-  <div class="grid gap-4">
-    <div class="bg-white p-6 rounded-[30px] border-l-[10px] border-pink-500 shadow-sm">
-      <p class="text-xs text-pink-400 font-black mb-1">🚻 需求：詢問洗手間</p>
-      <p class="text-2xl font-black mb-1">トイレはどこですか？</p>
-      <p class="text-gray-400 text-sm italic mb-3">To-i-re wa do-ko desu ka?</p>
-      <button onclick="speak('トイレはどこですか')" class="bg-pink-50 text-pink-600 px-4 py-2 rounded-full text-sm font-black"><i class="fas fa-volume-up mr-1"></i> 播放發音</button>
+  <div id="tab-help" class="tab-content">
+    <div class="flex overflow-x-auto gap-2 px-5 py-4 scrollbar-none">
+        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
+        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('tax', this)">💰 退稅</button>
+        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('food', this)">🍜 點餐</button>
+        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('find', this)">🚻 設施</button>
+        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('sos', this)">🚑 緊急</button>
+        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('polite', this)">🤝 禮貌</button>
     </div>
-    <div class="bg-white p-6 rounded-[30px] border-l-[10px] border-pink-500 shadow-sm">
-      <p class="text-xs text-pink-400 font-black mb-1">💰 需求：請幫我結帳</p>
-      <p class="text-2xl font-black mb-1">お会計をお願いします。</p>
-      <p class="text-gray-400 text-sm italic mb-3">O-kai-kei o o-ne-gai shi-masu.</p>
-      <button onclick="speak('お会計をお願いします')" class="bg-pink-50 text-pink-600 px-4 py-2 rounded-full text-sm font-black"><i class="fas fa-volume-up mr-1"></i> 播放發音</button>
+    <div id="help-list" class="mt-2 px-1"></div>
+  </div>
+
+  <div id="tab-exchange" class="tab-content">
+    <div class="card-v2 mt-4 text-center">
+      <h3 class="text-lg font-bold mb-3 text-gray-700">💴 匯率換算 (0.21)</h3>
+      <input type="number" id="jpy-input" placeholder="輸入日幣 ¥" class="w-full p-4 border rounded-2xl text-center text-3xl font-bold bg-pink-50/30 text-pink-600 outline-none">
+      <div id="tw-result" class="text-xl text-center mt-3 text-gray-500 font-bold">約 NT$ 0 元</div>
     </div>
-    <div class="bg-white p-6 rounded-[30px] border-l-[10px] border-pink-500 shadow-sm">
-      <p class="text-xs text-pink-400 font-black mb-1">🆘 需求：緊急求助</p>
-      <p class="text-2xl font-black mb-1">すみません、助けてください。</p>
-      <p class="text-gray-400 text-sm italic mb-3">Su-mi-ma-sen, ta-su-ke-te ku-da-sai.</p>
-      <button onclick="speak('すみません、助けてください')" class="bg-pink-50 text-pink-600 px-4 py-2 rounded-full text-sm font-black"><i class="fas fa-volume-up mr-1"></i> 播放發音</button>
+
+    <div class="card-v2">
+        <h3 class="text-lg font-bold mb-4 text-gray-700">✍️ 簡易記帳</h3>
+        <div class="cat-grid">
+            <div class="cat-item active" onclick="selectRecordCat('💊', '藥妝', this)"><span class="cat-icon">💊</span>藥妝</div>
+            <div class="cat-item" onclick="selectRecordCat('👕', '服飾', this)"><span class="cat-icon">👕</span>服飾</div>
+            <div class="cat-item" onclick="selectRecordCat('🍱', '美食', this)"><span class="cat-icon">🍱</span>美食</div>
+            <div class="cat-item" onclick="selectRecordCat('🍡', '零食', this)"><span class="cat-icon">🍡</span>零食</div>
+            <div class="cat-item" onclick="selectRecordCat('🎁', '紀念品', this)"><span class="cat-icon">🎁</span>紀念品</div>
+            <div class="cat-item" onclick="selectRecordCat('⛩️', '門票', this)"><span class="cat-icon">⛩️</span>門票</div>
+            <div class="cat-item" onclick="selectRecordCat('🚌', '交通', this)"><span class="cat-icon">🚌</span>交通</div>
+            <div class="cat-item" onclick="selectRecordCat('🏪', '超市', this)"><span class="cat-icon">🏪</span>超市</div>
+            <div class="cat-item" onclick="selectRecordCat('🏠', '住宿', this)"><span class="cat-icon">🏠</span>住宿</div>
+            <div class="cat-item" onclick="selectRecordCat('➕', '其他', this)"><span class="cat-icon">➕</span>其他</div>
+        </div>
+        <input type="text" id="rec-name" placeholder="商品名稱" class="input-field">
+        <div class="flex gap-2 mb-4">
+            <input type="number" id="rec-price" placeholder="金額" class="input-field mb-0 flex-1">
+            <select id="rec-currency" class="bg-gray-100 border-none rounded-xl px-3 font-bold text-gray-600 outline-none">
+                <option value="JPY">日幣 ¥</option>
+                <option value="TWD">台幣 $</option>
+            </select>
+        </div>
+        <button onclick="addRecord()" class="btn-main">加入清單 🌸</button>
+    </div>
+    <div id="record-list-container" class="mb-10">
+        <div class="px-6 flex justify-between items-end mb-3">
+            <span class="font-bold text-gray-400">我的清單</span>
+            <span id="total-sum" class="text-pink-600 font-black text-2xl">NT$ 0</span>
+        </div>
+        <div id="record-list"></div>
     </div>
   </div>
-</div>
 
-<div id="page-currency" class="page px-5 pt-4">
-  <div class="bg-white p-8 rounded-[40px] shadow-sm text-center mb-6">
-    <h3 class="font-black text-gray-700 mb-4">💰 日幣自動換算</h3>
-    <p class="text-xs text-gray-400 mb-4">目前匯率設定：0.22 (概算)</p>
-    <div class="relative">
-      <input type="number" id="jpy-in" placeholder="輸入日幣 JPY" class="w-full p-6 bg-gray-50 rounded-3xl text-center font-black text-4xl mb-4 border-none outline-none focus:ring-4 ring-pink-100">
-      <div class="text-pink-600 text-5xl font-black py-4" id="twd-out">≈ NT$ 0</div>
+  <nav class="nav-bar fixed bottom-0 w-full flex justify-around py-4 pb-8 z-50">
+    <div onclick="switchTab('schedule', this)" class="nav-item active flex flex-col items-center">
+      <i class="fas fa-calendar-alt text-2xl"></i><span class="text-[10px] font-bold mt-1">行程表</span>
     </div>
-    <button onclick="addRecord()" class="mt-4 bg-gray-800 text-white px-8 py-3 rounded-2xl font-bold text-sm">＋ 記錄到消費清單</button>
-  </div>
-  <div class="bg-white p-6 rounded-[40px] shadow-sm">
-    <h3 class="font-black text-gray-700 mb-4 ml-2">📝 消費清單 (測試用)</h3>
-    <div id="expense-list" class="space-y-3">
-      <p class="text-center py-6 text-gray-300 italic">尚無記帳紀錄</p>
+    <div onclick="switchTab('help', this)" class="nav-item flex flex-col items-center">
+      <i class="fas fa-comment-dots text-2xl"></i><span class="text-[10px] font-bold mt-1">日文求助</span>
     </div>
-  </div>
-</div>
+    <div onclick="switchTab('exchange', this)" class="nav-item flex flex-col items-center">
+      <i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span>
+    </div>
+    <div onclick="alert('聯絡領隊開發中...')" class="nav-item flex flex-col items-center">
+      <i class="fab fa-line text-2xl"></i><span class="text-[10px] font-bold mt-1">找領隊</span>
+    </div>
+  </nav>
 
-<div id="page-contact" class="page px-5 pt-10 text-center">
-  <div class="bg-white p-12 rounded-[55px] shadow-xl border-4 border-pink-50">
-    <div class="w-28 h-28 bg-pink-100 rounded-full mx-auto mb-6 flex items-center justify-center">
-      <i class="fas fa-user-tie text-5xl text-pink-500"></i>
-    </div>
-    <h2 class="text-3xl font-black text-gray-800 mb-3">專屬領隊協助</h2>
-    <p class="text-gray-400 mb-12 text-sm leading-relaxed">如果您迷路了、或是身體不舒服，<br>請點擊下方按鈕，我會立即為您聯絡。</p>
-    <a href="https://line.me" class="block w-full bg-[#00B900] text-white py-6 rounded-3xl font-black text-2xl shadow-lg active:scale-95 transition">
-      <i class="fab fa-line mr-2 text-3xl"></i> LINE 聯繫領隊
-    </a>
-  </div>
-</div>
+  <script>
+    const EXCHANGE_RATE = 0.21;
+    let records = JSON.parse(localStorage.getItem('tokyo_records')) || [];
+    let selectedCat = { icon: '💊', name: '藥妝' };
 
-<div class="bottom-nav">
-  <div class="nav-item active" onclick="showPage('itinerary', this)"><i class="fas fa-calendar-alt text-2xl"></i><div class="text-[11px] font-black mt-1">行程表</div></div>
-  <div class="nav-item" onclick="showPage('helper', this)"><i class="fas fa-comment-dots text-2xl"></i><div class="text-[11px] font-black mt-1">日文求助</div></div>
-  <div class="nav-item" onclick="showPage('currency', this)"><i class="fas fa-coins text-2xl"></i><div class="text-[11px] font-black mt-1">匯率記帳</div></div>
-  <div class="nav-item" onclick="showPage('contact', this)"><i class="fas fa-user-circle text-2xl"></i><div class="text-[11px] font-black mt-1">找領隊</div></div>
-</div>
+    const helpData = {
+      shopping: [
+        { cn: "這多少錢？", jp: "いくらですか？" },
+        { cn: "我要買這個。", jp: "これをください。" },
+        { cn: "可以刷卡嗎？", jp: "カードは使えますか？" },
+        { cn: "請給我收據。", jp: "領収書をください。" },
+        { cn: "請給我袋子。", jp: "袋をお願いします。" }
+      ],
+      tax: [
+        { cn: "可以退稅嗎？", jp: "免税はできますか？" },
+        { cn: "退稅櫃檯在哪？", jp: "免税カウンターはどこですか？" },
+        { cn: "請幫我退稅。", jp: "免税をお願いします。" }
+      ],
+      food: [
+        { cn: "有中文菜單嗎？", jp: "中国語メニューはありますか？" },
+        { cn: "請給我熱水。", jp: "お湯をください。" },
+        { cn: "結帳。", jp: "お会計をお願いします。" },
+        { cn: "好吃！", jp: "おいしいです！" }
+      ],
+      find: [
+        { cn: "洗手間在哪？", jp: "トイレはどこですか？" },
+        { cn: "電梯在哪？", jp: "エレベーターはどこですか？" },
+        { cn: "這附近有地鐵站嗎？", jp: "駅はどこですか？" }
+      ],
+      sos: [
+        { cn: "我不舒服。", jp: "気分が悪いです。" },
+        { cn: "請幫幫我。", jp: "助けてください。" },
+        { cn: "請叫救護車。", jp: "救急車を呼んでください。" }
+      ],
+      polite: [
+        { cn: "謝謝。", jp: "ありがとうございます。" },
+        { cn: "不好意思/借過。", jp: "すみません。" },
+        { cn: "沒關係/不用了。", jp: "大丈夫です。" }
+      ]
+    };
 
-<div id="detail-modal" onclick="closeModal()">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div id="m-img" class="w-full h-48 bg-gray-200 flex flex-col items-center justify-center text-gray-400">
-      <i class="fas fa-image text-4xl mb-2"></i><p class="text-[10px] uppercase font-bold tracking-widest">Photo Placeholder</p>
-    </div>
-    <div class="p-8">
-      <div class="flex justify-between items-start mb-4">
-        <h2 id="m-title" class="text-2xl font-black text-gray-800 leading-tight"></h2>
-        <span id="m-time" class="text-pink-500 font-black text-lg ml-2"></span>
-      </div>
-      <p id="m-desc" class="text-gray-500 text-md leading-relaxed mb-8"></p>
-      <a id="m-map" href="#" target="_blank" class="block w-full bg-blue-500 text-white text-center py-5 rounded-2xl font-black text-xl shadow-lg shadow-blue-100"><i class="fas fa-location-dot mr-2"></i> Google 地圖導航</a>
-    </div>
-  </div>
-</div>
+    function switchTab(tabId, el) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      el.classList.add('active');
+      if(tabId === 'help') filterHelp('shopping', document.querySelector('.cat-btn'));
+      if(tabId === 'exchange') renderRecords();
+    }
 
-<script>
-  function showPage(p, el) {
-    document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-    document.getElementById('page-' + p).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    el.classList.add('active');
-    const titles = { itinerary: '📅 櫻花行程表', helper: '💬 日文求助', currency: '💰 匯率記帳', contact: '👤 找領隊' };
-    document.getElementById('header-title').innerText = titles[p];
-    window.scrollTo(0,0);
-  }
-  function switchDay(n, b) {
-    document.querySelectorAll('.day-panel').forEach(x => x.classList.remove('active'));
-    document.getElementById('panel-' + n).classList.add('active');
-    document.querySelectorAll('.day-btn').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-  }
-  function openModal(t, ti, d, m) {
-    document.getElementById('m-title').innerText = ti;
-    document.getElementById('m-time').innerText = t;
-    document.getElementById('m-desc').innerText = d;
-    document.getElementById('m-map').href = "https://www.google.com/maps/search/" + encodeURIComponent(m);
-    document.getElementById('detail-modal').style.display = 'flex';
-  }
-  function closeModal() { document.getElementById('detail-modal').style.display = 'none'; }
-  document.getElementById('jpy-in').addEventListener('input', e => {
-    const v = e.target.value;
-    document.getElementById('twd-out').innerText = v ? '≈ NT$ ' + Math.round(v * 0.22).toLocaleString() : '≈ NT$ 0';
-  });
-  function speak(t) {
-    const s = new SpeechSynthesisUtterance(t);
-    s.lang = 'ja-JP';
-    s.rate = 0.8;
-    window.speechSynthesis.speak(s);
-  }
-  function addRecord() {
-    const j = document.getElementById('jpy-in').value;
-    if(!j) return;
-    const list = document.getElementById('expense-list');
-    if(list.innerText.includes('尚無')) list.innerHTML = '';
-    const item = document.createElement('div');
-    item.className = "flex justify-between items-center bg-gray-50 p-4 rounded-2xl border border-gray-100";
-    item.innerHTML = `<span class="font-bold text-gray-500">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span><span class="font-black text-gray-800">¥ ${parseInt(j).toLocaleString()}</span><span class="font-black text-pink-500">NT$ ${Math.round(j*0.22)}</span>`;
-    list.prepend(item);
-  }
-</script>
-</body>
-</html><div id="remaining-days">
-    <div id="panel-3" class="day-panel">
-      <div class="font-black text-pink-500 mb-4 ml-1">🌊 Day 3: 鎌倉江之島 (包車)</div>
-      <div class="card" onclick="openModal('11:00', '⛩️ 鶴岡八幡宮', '停留 120 分鐘，13:00 離開。午餐在小町通自由享用。', '鶴岡八幡宮')"><span class="time-tag">11:00</span><div class="ml-4 font-black text-gray-700">鶴岡八幡宮</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('13:10', '🙏 鎌倉大佛', '停留 20 分鐘，13:30 離開。參拜莊嚴的露天大佛。', '鎌倉大佛')"><span class="time-tag">13:10</span><div class="ml-4 font-black text-gray-700">高德院大佛</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('13:51', '🚃 江之電體驗', '搭乘 13:51 班次。▲ 司機在下一站等，全家體驗海邊電車。', '鎌倉駅')"><span class="time-tag">13:51</span><div class="ml-4 font-black text-gray-700">江之電體驗</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('14:45', '🌊 江之島', '停留 90 分鐘，16:15 離開。漫步江之島參道。', '江之島')"><span class="time-tag">14:45</span><div class="ml-4 font-black text-gray-700 text-lg">江之島散策</div></div>
-    </div>
+    function switchDay(dayNum, el) {
+      document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('day-panel-' + dayNum);
+      target.style.animation = 'none'; target.offsetHeight; target.style.animation = null;
+      target.classList.add('active');
+      document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }
 
-    <div id="panel-4" class="day-panel">
-      <div class="font-black text-pink-500 mb-4 ml-1">🗻 Day 4: 河口湖富士山 (包車)</div>
-      <div class="card" onclick="openModal('10:00', '🌷 大石公園', '停留 75 分鐘，11:15 離開。富士山與湖景最佳拍點。', '大石公園')"><span class="time-tag">10:00</span><div class="ml-4 font-black text-gray-700">大石公園</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('13:20', '🦛 水陸巴士', '停留 80 分鐘，14:30 離開。山中湖 KABA 巴士入水體驗。', '山中湖 KABA')"><span class="time-tag">13:20</span><div class="ml-4 font-black text-gray-700">KABA 水陸巴士</div></div>
-      <div class="timeline-line"></div>
-      <div class="card" onclick="openModal('14:45', '💧 忍野八海', '停留 45 分鐘，15:30 離開。清澈的雪水湧泉。', '忍野八海')"><span class="time-tag">14:45</span><div class="ml-4 font-black text-gray-700">忍野八海</div></div>
-    </div>
+    function filterHelp(cat, btn) {
+        if(btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('bg-pink-500', 'text-white'));
+            btn.classList.add('bg-pink-500', 'text-white');
+        }
+        const list = document.getElementById('help-list');
+        list.innerHTML = '';
+        setTimeout(() => {
+            list.innerHTML = helpData[cat].map(item => `
+                <div class="card-v2 anim-item flex justify-between items-center py-5">
+                    <div><p class="font-bold text-xl">${item.jp}</p><p class="text-sm text-pink-500 mt-1">${item.cn}</p></div>
+                    <button class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-xl" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button>
+                </div>
+            `).join('');
+        }, 50);
+    }
 
-    </div>
+    function playJP(text) {
+      window.speechSynthesis.cancel();
+      const msg = new SpeechSynthesisUtterance(text);
+      msg.lang = 'ja-JP'; msg.rate = 0.8;
+      window.speechSynthesis.speak(msg);
+    }
 
-<div id="page-helper" class="page px-5 pt-4">
-  <div class="space-y-6">
-    <div class="section">
-      <span class="category-tag">📍 基本問路</span>
-      <div class="bg-white p-5 rounded-3xl shadow-sm border-l-8 border-pink-400 mb-3">
-        <p class="text-xs font-black text-gray-400">洗手間在哪？</p>
-        <p class="text-xl font-black mb-2">トイレはどこですか？</p>
-        <button onclick="speak('トイレはどこですか')" class="bg-pink-50 text-pink-600 px-4 py-1 rounded-full text-xs font-black">播放發音</button>
-      </div>
-    </div>
-    <div class="section">
-      <span class="category-tag">🍣 餐廳結帳</span>
-      <div class="bg-white p-5 rounded-3xl shadow-sm border-l-8 border-pink-400 mb-3">
-        <p class="text-xs font-black text-gray-400">請給我帳單</p>
-        <p class="text-xl font-black mb-2">お会計をお願いします。</p>
-        <button onclick="speak('お会計をお願いします')" class="bg-pink-50 text-pink-600 px-4 py-1 rounded-full text-xs font-black">播放發音</button>
-      </div>
-    </div>
-  </div>
-</div><div id="panel-5" class="day-panel">
-  <div class="font-black text-pink-500 mb-4 ml-1">👑 Day 5: 皇家巡禮與觀光巴士</div>
-  <div class="card" onclick="openModal('10:40', '🌲 明治神宮', '森林巡禮，享受寧靜。午餐在園區內的「FOREST TERRACE」餐廳享用。', '明治神宮')"><span class="time-tag">10:40</span><div class="ml-4 font-black text-gray-700 text-lg">明治神宮</div></div>
-  <div class="timeline-line"></div>
-  <div class="card" onclick="openModal('13:30', '🚌 敞篷觀光巴士', '遊覽東京鐵塔和明治神宮外苑。坐在上層視野極佳，感受東京微風！', '東京 SkyBus')"><span class="time-tag">13:30</span><div class="ml-4 font-black text-gray-700 text-lg">敞篷巴士遊覽</div></div>
-  <div class="timeline-line"></div>
-  <div class="card" onclick="openModal('15:00', '🏯 皇居 & 東京車站', '參觀皇居後，步行至東京車站 (KITTE 看風景、大丸百貨)。▲ 20:00 後返回避開尖峰。', '東京車站')"><span class="time-tag">15:00</span><div class="ml-4 font-black text-gray-700 text-lg">皇居與東京車站</div></div>
-</div>
+    // 記帳與計數邏輯
+    function selectRecordCat(icon, name, el) {
+        selectedCat = { icon, name };
+        document.querySelectorAll('.cat-item').forEach(item => item.classList.remove('active'));
+        el.classList.add('active');
+    }
 
-<div id="panel-6" class="day-panel">
-  <div class="font-black text-pink-500 mb-4 ml-1">🍣 Day 6: 築地市場與歸途</div>
-  <div class="card" onclick="openModal('08:30', '🧳 退房寄行李', '行李寄放在 HOTEL R9 櫃台。', 'HOTEL R9')"><span class="time-tag">08:30</span><div class="ml-4 font-black text-gray-700 text-lg">退房寄行李</div></div>
-  <div class="timeline-line"></div>
-  <div class="card" onclick="openModal('09:40', '🍣 築地市場', '避開尖峰搭車去築地吃海鮮早午餐。', '築地市場')"><span class="time-tag">09:40</span><div class="ml-4 font-black text-gray-700 text-lg">築地海鮮之旅</div></div>
-  <div class="timeline-line"></div>
-  <div class="card" onclick="openModal('13:00', '🚐 專車送機', '專車直接在飯店門口接全家前往成田機場，準備返台。', '成田機場')"><span class="time-tag">13:00</span><div class="ml-4 font-black text-gray-700 text-lg">專車前往機場</div></div>
-</div>
+    function addRecord() {
+        const name = document.getElementById('rec-name').value || '項目';
+        const price = parseFloat(document.getElementById('rec-price').value);
+        const curr = document.getElementById('rec-currency').value;
+        if (!price) return;
+        const twPrice = curr === 'JPY' ? Math.round(price * EXCHANGE_RATE) : price;
+        records.unshift({ id: Date.now(), icon: selectedCat.icon, cat: selectedCat.name, name: name, tw: twPrice, orig: price, curr: curr });
+        localStorage.setItem('tokyo_records', JSON.stringify(records));
+        renderRecords();
+        document.getElementById('rec-name').value = ''; document.getElementById('rec-price').value = '';
+    }
 
-<div id="page-currency" class="page px-5 pt-4">
-  <div class="bg-white p-8 rounded-[40px] shadow-sm text-center mb-6">
-    <span class="category-tag">💰 匯率換算 (0.22)</span>
-    <input type="number" id="jpy-in" placeholder="輸入日幣 JPY" class="w-full p-5 bg-gray-50 rounded-3xl text-center font-black text-3xl mb-4 border-none outline-none">
-    <div class="text-pink-600 text-5xl font-black py-2" id="twd-out">≈ NT$ 0</div>
-    
-    <div class="mt-6 flex justify-center gap-2">
-      <button onclick="addRecord('🍱 餐飲')" class="bg-orange-100 text-orange-600 px-4 py-3 rounded-2xl font-black text-sm">🍱 餐飲</button>
-      <button onclick="addRecord('🛍️ 購物')" class="bg-blue-100 text-blue-600 px-4 py-3 rounded-2xl font-black text-sm">🛍️ 購物</button>
-      <button onclick="addRecord('🚃 交通')" class="bg-green-100 text-green-600 px-4 py-3 rounded-2xl font-black text-sm">🚃 交通</button>
-    </div>
-  </div>
-  <div class="bg-white p-6 rounded-[40px] shadow-sm">
-    <h3 class="font-black text-gray-700 mb-4 ml-2">📝 本日消費分類紀錄</h3>
-    <div id="expense-list" class="space-y-3">
-      <p class="text-center py-6 text-gray-300 italic">尚未有分類紀錄</p>
-    </div>
-  </div>
-</div>
+    function deleteRecord(id) {
+        records = records.filter(r => r.id !== id);
+        localStorage.setItem('tokyo_records', JSON.stringify(records));
+        renderRecords();
+    }
 
-<div id="page-contact" class="page px-5 pt-10 text-center">
-  <div class="bg-white p-12 rounded-[55px] shadow-xl border-4 border-pink-50">
-    <div class="w-24 h-24 bg-pink-100 rounded-full mx-auto mb-6 flex items-center justify-center text-pink-500 text-4xl">
-      <i class="fas fa-user-tie"></i>
-    </div>
-    <h2 class="text-2xl font-black text-gray-800 mb-3">專屬領隊協助</h2>
-    <p class="text-gray-400 mb-10 text-sm leading-relaxed">遇到任何問題，請點擊下方按鈕，<br>我會立刻為您服務。</p>
-    <a href="https://line.me" class="block w-full bg-[#00B900] text-white py-5 rounded-3xl font-black text-2xl shadow-lg">
-      <i class="fab fa-line mr-2"></i> LINE 聯繫領隊
-    </a>
-  </div>
-</div>
+    function renderRecords() {
+        const list = document.getElementById('record-list');
+        const totalSumEl = document.getElementById('total-sum');
+        let total = 0;
+        list.innerHTML = records.map(r => {
+            total += r.tw;
+            return `
+                <div class="card-v2 anim-item flex justify-between items-center py-4 mb-3">
+                    <div class="flex items-center">
+                        <span class="text-3xl mr-4">${r.icon}</span>
+                        <div><p class="font-bold text-gray-700">${r.name}</p><p class="text-xs text-gray-400">${r.cat} | ${r.curr === 'JPY' ? '¥'+r.orig : '$'+r.orig}</p></div>
+                    </div>
+                    <div class="text-right"><p class="text-pink-600 font-black text-lg">NT$ ${r.tw}</p><button onclick="deleteRecord(${r.id})" class="text-gray-300 text-xs">刪除</button></div>
+                </div>`;
+        }).join('');
+        totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
+    }
 
-<div class="bottom-nav">
-  <div class="nav-item active" onclick="showPage('itinerary', this)"><i class="fas fa-calendar-alt text-2xl"></i><div class="text-[11px] font-black mt-1">行程表</div></div>
-  <div class="nav-item" onclick="showPage('helper', this)"><i class="fas fa-comment-dots text-2xl"></i><div class="text-[11px] font-black mt-1">日文求助</div></div>
-  <div class="nav-item" onclick="showPage('currency', this)"><i class="fas fa-coins text-2xl"></i><div class="text-[11px] font-black mt-1">匯率記帳</div></div>
-  <div class="nav-item" onclick="showPage('contact', this)"><i class="fas fa-user-circle text-2xl"></i><div class="text-[11px] font-black mt-1">找領隊</div></div>
-</div>
+    document.getElementById('jpy-input').addEventListener('input', (e) => {
+      document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`;
+    });
 
-<div id="detail-modal" onclick="closeModal()">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <div class="w-full h-44 bg-gray-100 flex items-center justify-center text-gray-400"><i class="fas fa-image text-4xl"></i></div>
-    <div class="p-8">
-      <div class="flex justify-between items-start mb-4">
-        <h2 id="m-title" class="text-2xl font-black text-gray-800 leading-tight"></h2>
-        <span id="m-time" class="text-pink-500 font-black text-lg ml-2"></span>
-      </div>
-      <p id="m-desc" class="text-gray-500 text-md leading-relaxed mb-8"></p>
-      <a id="m-map" href="#" target="_blank" class="block w-full bg-blue-500 text-white text-center py-5 rounded-2xl font-black text-xl shadow-lg shadow-blue-100"><i class="fas fa-location-dot mr-2"></i> Google 地圖導航</a>
-    </div>
-  </div>
-</div>
+    function initCountdown() {
+      const target = new Date('2026-04-04T00:00:00').getTime();
+      const el = document.getElementById('countdown');
+      setInterval(() => {
+        const diff = target - new Date().getTime();
+        el.innerText = diff < 0 ? "旅行中" : `出發倒數 ${Math.floor(diff / (1000*60*60*24))} 天`;
+      }, 1000);
+    }
 
-<script>
-  function showPage(p, el) {
-    document.querySelectorAll('.page').forEach(x => x.classList.remove('active'));
-    document.getElementById('page-' + p).classList.add('active');
-    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-    el.classList.add('active');
-    const titles = { itinerary: '📅 櫻花行程表', helper: '💬 日文求助', currency: '💰 匯率記帳', contact: '👤 找領隊' };
-    document.getElementById('header-title').innerText = titles[p];
-    window.scrollTo(0,0);
-  }
-  function switchDay(n, b) {
-    document.querySelectorAll('.day-panel').forEach(x => x.classList.remove('active'));
-    document.getElementById('panel-' + n).classList.add('active');
-    document.querySelectorAll('.day-btn').forEach(x => x.classList.remove('active'));
-    b.classList.add('active');
-  }
-  function openModal(t, ti, d, m) {
-    document.getElementById('m-title').innerText = ti;
-    document.getElementById('m-time').innerText = t;
-    document.getElementById('m-desc').innerText = d;
-    document.getElementById('m-map').href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(m);
-    document.getElementById('detail-modal').style.display = 'flex';
-  }
-  function closeModal() { document.getElementById('detail-modal').style.display = 'none'; }
-  document.getElementById('jpy-in').addEventListener('input', e => {
-    const v = e.target.value;
-    document.getElementById('twd-out').innerText = v ? '≈ NT$ ' + Math.round(v * 0.22).toLocaleString() : '≈ NT$ 0';
-  });
-  function speak(t) {
-    const s = new SpeechSynthesisUtterance(t);
-    s.lang = 'ja-JP';
-    s.rate = 0.8;
-    window.speechSynthesis.speak(s);
-  }
-  function addRecord(cat) {
-    const j = document.getElementById('jpy-in').value;
-    if(!j) { alert('請先輸入日幣金額'); return; }
-    const list = document.getElementById('expense-list');
-    if(list.innerText.includes('尚未有')) list.innerHTML = '';
-    const item = document.createElement('div');
-    item.className = "flex justify-between items-center bg-gray-50 p-4 rounded-2xl border border-gray-100";
-    item.innerHTML = `<div class="flex flex-col"><span class="text-[10px] text-gray-400">${cat}</span><span class="font-black text-gray-800">¥ ${parseInt(j).toLocaleString()}</span></div><span class="font-black text-pink-500">NT$ ${Math.round(j*0.22)}</span>`;
-    list.prepend(item);
-    document.getElementById('jpy-in').value = '';
-    document.getElementById('twd-out').innerText = '≈ NT$ 0';
-  }
-</script>
+    window.onload = () => { initCountdown(); renderRecords(); };
+  </script>
 </body>
 </html>
