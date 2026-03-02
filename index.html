@@ -10,7 +10,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
 
   <style>
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
@@ -19,15 +19,15 @@
     .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 40px 20px 30px; position: relative; }
     .custom-sakura-img { width: 90px; height: 90px; background: white; border-radius: 50%; margin: 0 auto 15px; padding: 10px; box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4); object-fit: contain; }
 
-    /* 極簡圓潤天數按鈕 */
+    /* 圓角矩形（膠囊型）天數選擇器 */
     .day-selector { display: flex; overflow-x: auto; gap: 15px; padding: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .day-selector::-webkit-scrollbar { display: none; }
     
     .day-btn { 
       flex: 0 0 auto; 
-      width: 70px; 
-      height: 90px; 
-      border-radius: 40px; /* 接近圓形的超大圓角 */
+      width: 80px; /* 增加寬度，適配新形狀 */
+      height: 60px; /* 減少高度，適配新形狀 */
+      border-radius: 30px; /* 接近圓形的超大圓角，實現膠囊型 */
       background: white; 
       display: flex; 
       flex-direction: column; 
