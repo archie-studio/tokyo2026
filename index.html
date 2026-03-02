@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>🌸 2026 東京櫻花探險 - 行程全集</title>
+  <title>🌸 2026 東京櫻花探險 - 完整行程版</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -22,190 +22,201 @@
     .day-panel.active { display: block; animation: slowAppEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
     /* 行程點點連結線 */
-    .timeline-dot-line { width: 2px; border-left: 2px dotted var(--sakura-pink); margin-left: 25px; height: 25px; opacity: 0.6; }
+    .timeline-dot-line { width: 2px; border-left: 2px dotted var(--sakura-pink); margin-left: 28px; height: 20px; opacity: 0.8; }
 
-    /* 彈出視窗 */
-    #detail-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; backdrop-filter: blur(8px); }
-    .modal-content { position: absolute; bottom: 0; width: 100%; background: white; border-radius: 35px 35px 0 0; padding: 25px 20px 45px; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); max-height: 85vh; overflow-y: auto; }
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    /* 置中彈窗設計 */
+    #detail-modal { 
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+      background: rgba(0,0,0,0.6); z-index: 1000; backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    .modal-box { 
+      background: white; border-radius: 30px; width: 100%; max-width: 340px; 
+      padding: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      max-height: 80vh; overflow-y: auto;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1); }
+    }
 
     /* UI 元素 */
-    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 45px 20px 25px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 45px 20px 25px; text-align: center; }
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
-    .day-btn { flex: 0 0 auto; width: 75px; height: 65px; border-radius: 22px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.4s; border: 1px solid #fff; }
-    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-5px); border-color: var(--sakura-pink); }
+    .day-btn { flex: 0 0 auto; width: 75px; height: 65px; border-radius: 22px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.4s; }
+    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-5px); }
     
-    .timeline-card { background: white; border-radius: 22px; padding: 16px; display: flex; align-items: center; box-shadow: 0 6px 18px rgba(255,182,193,0.1); border: 1px solid rgba(255,117,140,0.05); }
+    .timeline-card { background: white; border-radius: 22px; padding: 16px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(255,182,193,0.1); border: 1px solid rgba(255,117,140,0.05); }
     .time-badge { background: #fff0f3; color: var(--deep-pink); padding: 5px 10px; border-radius: 12px; font-weight: 800; font-size: 13px; min-width: 65px; text-align: center; }
-    
-    .nav-bar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-top: 1px solid #eee; }
   </style>
 </head>
 <body>
 
   <div class="hero-header">
     <h1 class="text-2xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026 東京櫻花探險</h1>
-    <p class="text-[10px] text-pink-400 mt-1 tracking-widest uppercase font-bold">Family Adventure</p>
   </div>
 
-  <div id="tab-schedule">
-    <div class="day-selector">
-      <button class="day-btn active" onclick="switchDay(1, this)"><span class="text-[10px]">4/4</span><span class="font-bold">SAT</span></button>
-      <button class="day-btn" onclick="switchDay(2, this)"><span class="text-[10px]">4/5</span><span class="font-bold">SUN</span></button>
-      <button class="day-btn" onclick="switchDay(3, this)"><span class="text-[10px]">4/6</span><span class="font-bold">MON</span></button>
-      <button class="day-btn" onclick="switchDay(4, this)"><span class="text-[10px]">4/7</span><span class="font-bold">TUE</span></button>
-      <button class="day-btn" onclick="switchDay(5, this)"><span class="text-[10px]">4/8</span><span class="font-bold">WED</span></button>
-      <button class="day-btn" onclick="switchDay(6, this)"><span class="text-[10px]">4/9</span><span class="font-bold">THU</span></button>
+  <div class="day-selector">
+    <button class="day-btn active" onclick="switchDay(1, this)"><span class="text-[10px]">4/4</span><span class="font-bold">SAT</span></button>
+    <button class="day-btn" onclick="switchDay(2, this)"><span class="text-[10px]">4/5</span><span class="font-bold">SUN</span></button>
+    <button class="day-btn" onclick="switchDay(3, this)"><span class="text-[10px]">4/6</span><span class="font-bold">MON</span></button>
+    <button class="day-btn" onclick="switchDay(4, this)"><span class="text-[10px]">4/7</span><span class="font-bold">TUE</span></button>
+    <button class="day-btn" onclick="switchDay(5, this)"><span class="text-[10px]">4/8</span><span class="font-bold">WED</span></button>
+    <button class="day-btn" onclick="switchDay(6, this)"><span class="text-[10px]">4/9</span><span class="font-bold">THU</span></button>
+  </div>
+
+  <div id="schedule-container" class="px-5">
+    <div id="day-panel-1" class="day-panel active">
+      <div class="text-pink-600 font-bold mb-4 ml-1">🌸 目黑川 夜櫻初見</div>
+      <div class="timeline-card" onclick="openDetail('15:05', '🛬 抵達成田機場', '領好行李，深吸一口日本的空氣！準備搭乘火車。', 'narita')">
+        <span class="time-badge">15:05</span><div class="ml-4 font-bold text-gray-700">抵達東京成田機場</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('16:00', '🚅 前往市川', '搭乘 JR 總武線快速，不用轉車，一班車直達市川站。', 'ichikawa-station')">
+        <span class="time-badge">16:00</span><div class="ml-4 font-bold text-gray-700">搭乘 JR 前往市川</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('17:15', '🏨 飯店 Check-in', '抵達 HOTEL R9 Premium。卸下大行李，稍微洗把臉，換上輕便的鞋子，準備出門賞花！', 'hotel-r9')">
+        <span class="time-badge">17:15</span><div class="ml-4 font-bold text-gray-700">HOTEL R9 入住</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('18:45', '🌸 抵達目黑川', '迎接我們的是夢幻的夜櫻隧道。', 'meguro-river')">
+        <span class="time-badge">18:45</span><div class="ml-4 font-bold text-gray-700">目黑川賞夜櫻</div>
+      </div>
     </div>
 
-    <div id="schedule-container" class="px-5">
+    <div id="day-panel-2" class="day-panel">
+      <div class="text-pink-600 font-bold mb-4 ml-1">🏮 淺草 - 上野 下町風情</div>
+      <div class="timeline-card" onclick="openDetail('09:00', '☀️ 飯店出發', '在附近吃完早餐，避開最擠的時段出發。', 'ichikawa-morning')">
+        <span class="time-badge">09:00</span><div class="ml-4 font-bold text-gray-700">飯店出發</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('09:40', '🚕 直達淺草', '為了省體力，我們從錦糸町轉搭計程車，直接停在雷門門口！', 'asakusa')">
+        <span class="time-badge">09:40</span><div class="ml-4 font-bold text-gray-700">抵達淺草雷門</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('14:00', '🌸 上野公園', '下午轉戰上野，欣賞粉色櫻花海。', 'ueno-park')">
+        <span class="time-badge">14:00</span><div class="ml-4 font-bold text-gray-700">上野公園賞櫻</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('18:00', '🛍️ 阿美橫町', '在熱鬧的商店街大採購，感受日本市場的活力。', 'ameyoko')">
+        <span class="time-badge">18:00</span><div class="ml-4 font-bold text-gray-700">阿美橫町採購</div>
+      </div>
+    </div>
+
+    <div id="day-panel-3" class="day-panel">
+      <div class="text-pink-600 font-bold mb-4 ml-1">🌊 鎌倉 - 江之島 (全日包車)</div>
+      <div class="timeline-card" onclick="openDetail('11:00', '⛩️ 鶴岡八幡宮', '參觀古都神社，午餐在小町通商店街自由享用美食。(停留兩小時，13:00 離開)', 'kamakura-shrine')">
+        <span class="time-badge">11:00</span><div class="ml-4 font-bold text-gray-700">鶴岡八幡宮</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('13:10', '🙏 鎌倉大佛', '參拜莊嚴的露天大佛。(停留 20 分鐘，13:30 離開)', 'daibutsu')">
+        <span class="time-badge">13:10</span><div class="ml-4 font-bold text-gray-700">高德院大佛</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('13:51', '🚃 體驗江之電', '步行前往車站，搭乘充滿復古風情的江之電前往鎌倉高校前站。(搭乘 13:51 班次) ▲ 讓包車司機在下一站等候，全家一起體驗一段經典的海線鐵道！', 'enoden')">
+        <span class="time-badge">13:51</span><div class="ml-4 font-bold text-gray-700">江之電體驗</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('14:06', '📸 鎌倉高校前', '抵達鎌倉高校，在經典的灌籃高手平交道拍照打卡。(停留 20 分鐘，14:30 離開)', 'slamdunk')">
+        <span class="time-badge">14:06</span><div class="ml-4 font-bold text-gray-700">高校前平交道</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('14:45', '🌊 江之島', '感受海洋能量，散步江之島參道。(停留 90 分鐘，16:15 離開)', 'enoshima')">
+        <span class="time-badge">14:45</span><div class="ml-4 font-bold text-gray-700">江之島散步</div>
+      </div>
+    </div>
+
+    <div id="day-panel-4" class="day-panel">
+      <div class="text-pink-600 font-bold mb-4 ml-1">🗻 河口湖 - 富士山下 (全日包車)</div>
+      <div class="timeline-card" onclick="openDetail('10:00', '🌷 大石公園', '抵達大石公園，欣賞河口湖與富士山的絕美同框景色。（停留 75 分鐘，11:15 離開）', 'oishi-park')">
+        <span class="time-badge">10:00</span><div class="ml-4 font-bold text-gray-700">大石公園賞景</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('11:25', '🦞 ほうとう研究所', '午餐享用特製海鮮餺飥鍋。（用餐 100 分鐘，12:50 離開）', 'houtou')">
+        <span class="time-badge">11:25</span><div class="ml-4 font-bold text-gray-700">海鮮餺飥鍋午餐</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('13:20', '🦛 KABA 水陸巴士', '體驗直接衝入湖中的快感，從湖面仰望富士山。（停留 80 分鐘，14:30 離開） ▲ 山中湖特色體驗：KABA 陸上與水上雙棲巴士', 'kaba-bus')">
+        <span class="time-badge">13:20</span><div class="ml-4 font-bold text-gray-700">水陸兩用巴士</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('14:45', '💧 忍野八海', '抵達忍野八海，欣賞富士山雪水濾出的清澈湧泉。（停留 45 分鐘，15:30 離開）', 'oshino-hakkai')">
+        <span class="time-badge">14:45</span><div class="ml-4 font-bold text-gray-700">忍野八海</div>
+      </div>
+    </div>
+
+    <div id="day-panel-5" class="day-panel">
+      <div class="text-pink-600 font-bold mb-4 ml-1">👑 明治神宮 - 皇居 皇家散策</div>
+      <div class="timeline-card" onclick="openDetail('10:40', '🌲 明治神宮', '森林巡禮，午餐在園區內的「FOREST TERRACE」餐廳享用。', 'meiji-shrine')">
+        <span class="time-badge">10:40</span><div class="ml-4 font-bold text-gray-700">明治神宮巡禮</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('13:30', '🚌 敞篷觀光巴士', '盡情遊覽東京鐵塔和明治神宮外苑等熱門景點。', 'skybus')">
+        <span class="time-badge">13:30</span><div class="ml-4 font-bold text-gray-700">敞篷巴士遊覽</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('15:00', '🏯 皇居 & 東京車站', '下午搭 JR 至皇居參觀。接著步行至東京車站逛街 (KITTE 看風景、大丸百貨買伴手禮)。預計 20:00 之後搭車返回飯店，避開下班尖峰。', 'tokyo-station')">
+        <span class="time-badge">15:00</span><div class="ml-4 font-bold text-gray-700">皇居/東京車站</div>
+      </div>
+    </div>
+
+    <div id="day-panel-6" class="day-panel">
+      <div class="text-pink-600 font-bold mb-4 ml-1">🍣 築地市場 - 滿載而歸</div>
+      <div class="timeline-card" onclick="openDetail('08:30', '🧳 退房寄行李', '將大行李全部寄放在 HOTEL R9 櫃台，輕裝出門。', 'checkout')">
+        <span class="time-badge">08:30</span><div class="ml-4 font-bold text-gray-700">退房寄放行李</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('09:40', '🍣 前往築地', '避開尖峰搭車去築地市場吃早午餐。', 'tsukiji')">
+        <span class="time-badge">09:40</span><div class="ml-4 font-bold text-gray-700">築地吃早午餐</div>
+      </div>
+      <div class="timeline-dot-line"></div>
+      <div class="timeline-card" onclick="openDetail('13:00', '🚐 機場接送', '專車直接在飯店門口接我們去成田機場。', 'airport-transfer')">
+        <span class="time-badge">13:00</span><div class="ml-4 font-bold text-gray-700">專車接機前往機場</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="detail-modal" class="flex" onclick="closeDetail()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <img id="m-img" src="" class="w-full h-40 object-cover rounded-2xl mb-4 bg-gray-100">
+      <div class="flex items-center justify-between mb-2">
+        <h2 id="m-title" class="text-xl font-bold text-gray-800 leading-tight"></h2>
+        <span id="m-time" class="bg-pink-100 text-pink-500 px-2 py-1 rounded-lg text-xs font-bold whitespace-nowrap"></span>
+      </div>
+      <p id="m-desc" class="text-gray-500 text-sm leading-relaxed mb-6"></p>
       
-      <div id="day-panel-1" class="day-panel active">
-        <div class="flex items-center mb-5 ml-1"><span class="text-pink-600 font-bold">🌸 Day 1 抵達與夜櫻</span></div>
-        <div class="timeline-card" onclick="openDetail('15:05', '🛬 抵達成田機場', '領好行李，深吸一口日本的空氣！準備搭乘火車。', 'https://images.unsplash.com/photo-1542224566-6e85f2e6772f?w=600', '成田機場')">
-          <span class="time-badge">15:05</span><div class="ml-4 font-bold text-gray-700">抵達成田機場</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('16:00', '🚅 前往市川', '搭乘 JR 總武線快速，不用轉車，直達市川站。', 'https://images.unsplash.com/photo-1532105956626-ce5e407b4975?w=600', '市川駅')">
-          <span class="time-badge">16:00</span><div class="ml-4 font-bold text-gray-700">前往市川</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('17:15', '🏨 飯店 Check-in', '抵達 HOTEL R9 Premium。稍微洗把臉，換上輕便的鞋子。', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600', 'HOTEL R9 Premium Ichikawa')">
-          <span class="time-badge">17:15</span><div class="ml-4 font-bold text-gray-700">飯店 Check-in</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('18:45', '🌸 抵達目黑川', '搭電車前往目黑，迎接我們的是夢幻的夜櫻隧道。', 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600', '目黑川櫻花並木道')">
-          <span class="time-badge">18:45</span><div class="ml-4 font-bold text-gray-700">目黑川賞夜櫻</div>
-        </div>
-      </div>
-
-      <div id="day-panel-2" class="day-panel">
-        <div class="flex items-center mb-5 ml-1"><span class="text-pink-600 font-bold">🏮 Day 2 下町風情</span></div>
-        <div class="timeline-card" onclick="openDetail('09:40', '🚕 抵達淺草', '避開人潮，從錦糸町轉搭計程車直接停在雷門門口！', '', '淺草雷門')">
-          <span class="time-badge">09:40</span><div class="ml-4 font-bold text-gray-700">直達淺草雷門</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('14:00', '🌸 上野公園', '欣賞粉色櫻花海，散步於江戶風格的庭園中。', '', '上野公園')">
-          <span class="time-badge">14:00</span><div class="ml-4 font-bold text-gray-700">上野公園賞櫻</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('18:00', '🛍️ 阿美橫町', '在熱鬧的商店街大採購，感受日本市場活力。', '', '阿美橫町')">
-          <span class="time-badge">18:00</span><div class="ml-4 font-bold text-gray-700">阿美橫町購物</div>
-        </div>
-      </div>
-
-      <div id="day-panel-3" class="day-panel">
-        <div class="flex items-center mb-5 ml-1"><span class="text-pink-600 font-bold">🌊 Day 3 湘南海岸(包車)</span></div>
-        <div class="timeline-card" onclick="openDetail('11:00', '⛩️ 鶴岡八幡宮', '【包車出發】參觀古都神社，小町通美食(停留120分)。', '', '鶴岡八幡宮')">
-          <span class="time-badge">11:00</span><div class="ml-4 font-bold text-gray-700">鶴岡八幡宮</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('13:51', '🚃 體驗江之電', '搭乘復古電車，看著海景穿梭在街道間。', '', '鎌倉車站')">
-          <span class="time-badge">13:51</span><div class="ml-4 font-bold text-gray-700">搭乘江之電</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('14:06', '📸 鎌倉高校前', '灌籃高手平交道，拍下青春回憶照片。', '', '鎌倉高校前駅')">
-          <span class="time-badge">14:06</span><div class="ml-4 font-bold text-gray-700">灌籃高手平交道</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('14:45', '🌊 江之島', '散步江之島參道，感受海洋能量(停留90分)。', '', '江之島')">
-          <span class="time-badge">14:45</span><div class="ml-4 font-bold text-gray-700">江之島散步</div>
-        </div>
-      </div>
-
-      <div id="day-panel-4" class="day-panel">
-        <div class="flex items-center mb-5 ml-1"><span class="text-pink-600 font-bold">🗻 Day 4 富士山下(包車)</span></div>
-        <div class="timeline-card" onclick="openDetail('10:00', '🌷 大石公園', '【包車出發】河口湖與富士山的絕美同框景色。', '', '大石公園')">
-          <span class="time-badge">10:00</span><div class="ml-4 font-bold text-gray-700">大石公園</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('13:20', '🦛 水陸兩用巴士', '山中湖 KABA 巴士，衝入湖中的特色體驗。', '', '山中湖 カババス')">
-          <span class="time-badge">13:20</span><div class="ml-4 font-bold text-gray-700">KABA 水陸巴士</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('14:45', '💧 忍野八海', '富士山雪水濾出的清澈湧泉，絕美水景。', '', '忍野八海')">
-          <span class="time-badge">14:45</span><div class="ml-4 font-bold text-gray-700">忍野八海</div>
-        </div>
-      </div>
-
-      <div id="day-panel-5" class="day-panel">
-        <div class="flex items-center mb-5 ml-1"><span class="text-pink-600 font-bold">👑 Day 5 皇家散策</span></div>
-        <div class="timeline-card" onclick="openDetail('10:40', '🌲 明治神宮', '森林巡禮，享受寧靜的皇家綠意。', '', '明治神宮')">
-          <span class="time-badge">10:40</span><div class="ml-4 font-bold text-gray-700">明治神宮</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('13:30', '🚌 敞篷巴士', '遊覽東京鐵塔和外苑熱門景點(東京觀光巴士)。', '', '東京敞篷巴士')">
-          <span class="time-badge">13:30</span><div class="ml-4 font-bold text-gray-700">敞篷觀光巴士</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('15:00', '🏯 皇居 & 東京車站', '下午茶後散步皇居，東京車站買伴手禮。', '', '東京車站')">
-          <span class="time-badge">15:00</span><div class="ml-4 font-bold text-gray-700">皇居/東京車站</div>
-        </div>
-      </div>
-
-      <div id="day-panel-6" class="day-panel">
-        <div class="flex items-center mb-5 ml-1"><span class="text-pink-600 font-bold">🍣 Day 6 築地返台</span></div>
-        <div class="timeline-card" onclick="openDetail('09:40', '🍣 築地市場', '早午餐吃海鮮，享受日本最後美味。', '', '築地市場')">
-          <span class="time-badge">09:40</span><div class="ml-4 font-bold text-gray-700">築地早午餐</div>
-        </div>
-        <div class="timeline-dot-line"></div>
-        <div class="timeline-card" onclick="openDetail('13:00', '🚐 機場專車', '飯店領行李後，專車送往成田機場。', '', 'HOTEL R9 Premium')">
-          <span class="time-badge">13:00</span><div class="ml-4 font-bold text-gray-700">機場專車接送</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div id="detail-modal" onclick="closeDetail()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-5"></div>
-      <img id="m-img" src="" class="w-full h-44 object-cover rounded-3xl mb-4 shadow-md bg-gray-100">
-      <div class="flex justify-between items-center mb-2">
-        <h2 id="m-title" class="text-2xl font-bold text-gray-800"></h2>
-        <span id="m-time" class="bg-pink-100 text-pink-600 px-3 py-1 rounded-lg text-xs font-black"></span>
-      </div>
-      <p id="m-desc" class="text-gray-500 text-base leading-relaxed mb-8 px-1"></p>
-      <a id="m-map" href="" target="_blank" class="flex items-center justify-center w-full bg-blue-500 text-white py-4 rounded-2xl font-bold text-lg shadow-lg active:scale-95 transition-all">
-        <i class="fas fa-location-dot mr-2"></i> 打開 Google 地圖導航
+      <a id="m-map" href="" target="_blank" class="flex items-center justify-center w-full bg-blue-500 text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition-all mb-2">
+        <i class="fas fa-map-marker-alt mr-2"></i> Google 導航
       </a>
-      <button onclick="closeDetail()" class="w-full mt-5 py-2 text-gray-400 font-bold">回到行程表</button>
+      <button onclick="closeDetail()" class="w-full py-2 text-gray-400 text-sm font-medium">關閉視窗</button>
     </div>
   </div>
 
   <nav class="nav-bar fixed bottom-0 w-full flex justify-around py-4 pb-8 z-50">
-    <div class="nav-item text-pink-500 flex flex-col items-center">
-      <i class="fas fa-calendar-alt text-2xl"></i><span class="text-[10px] font-bold mt-1">行程表</span>
-    </div>
-    <div class="nav-item text-gray-300 flex flex-col items-center">
-      <i class="fas fa-comment-dots text-2xl"></i><span class="text-[10px] font-bold mt-1">日文求助</span>
-    </div>
-    <div class="nav-item text-gray-300 flex flex-col items-center">
-      <i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span>
-    </div>
-    <div class="nav-item text-gray-300 flex flex-col items-center">
-      <i class="fab fa-line text-2xl"></i><span class="text-[10px] font-bold mt-1">找領隊</span>
-    </div>
+    <div class="nav-item text-pink-500 flex flex-col items-center"><i class="fas fa-calendar-alt text-2xl"></i><span class="text-[10px] font-bold mt-1">行程表</span></div>
+    <div class="nav-item text-gray-300 flex flex-col items-center"><i class="fas fa-comment-dots text-2xl"></i><span class="text-[10px] font-bold mt-1">日文求助</span></div>
+    <div class="nav-item text-gray-300 flex flex-col items-center"><i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span></div>
+    <div class="nav-item text-gray-300 flex flex-col items-center"><i class="fab fa-line text-2xl"></i><span class="text-[10px] font-bold mt-1">找領隊</span></div>
   </nav>
 
   <script>
     function switchDay(dayNum, el) {
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-      const target = document.getElementById('day-panel-' + dayNum);
-      if(target) target.classList.add('active');
+      document.getElementById('day-panel-' + dayNum).classList.add('active');
       document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
       el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
-    function openDetail(time, title, desc, img, mapSearch) {
+    function openDetail(time, title, desc, mapSearch) {
       document.getElementById('m-time').innerText = time;
       document.getElementById('m-title').innerText = title;
       document.getElementById('m-desc').innerText = desc;
-      // 這裡預設放一個櫻花圖，如果有給特定圖就會換
-      document.getElementById('m-img').src = img || 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=600';
+      document.getElementById('m-img').src = `https://source.unsplash.com/600x400/?tokyo,${mapSearch}`;
       document.getElementById('m-map').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapSearch)}`;
-      document.getElementById('detail-modal').style.display = 'block';
+      document.getElementById('detail-modal').style.display = 'flex';
     }
 
     function closeDetail() {
