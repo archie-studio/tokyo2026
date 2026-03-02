@@ -4,168 +4,138 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>🌸 2026 東京櫻花探險</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zhi+Mang_Xing&display=swap" rel="stylesheet">
 
   <style>
-    :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
-    body { font-family: sans-serif; background: var(--soft-bg); padding-bottom: 100px; -webkit-tap-highlight-color: transparent; }
+    :root { --sakura: #ffb7c5; --deep: #ff758c; }
+    body { font-family: 'Noto Sans TC', sans-serif; background: #fff5f7; padding-bottom: 100px; }
     
-    /* 膠囊按鈕 */
+    /* 膠囊按鈕設計 */
     .day-selector { display: flex; overflow-x: auto; gap: 12px; padding: 15px 20px; scrollbar-width: none; }
-    .day-btn { flex: 0 0 auto; width: 80px; height: 55px; border-radius: 28px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; }
-    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-3px); }
+    .day-btn { flex: 0 0 auto; width: 85px; height: 60px; border-radius: 30px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; border: 1px solid #ffe4e9; }
+    .day-btn.active { background: var(--deep); color: white; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(255,117,140,0.3); }
 
-    /* 翻譯介面 */
-    #translate-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; backdrop-filter: blur(10px); }
-    .translate-card { position: absolute; bottom: 0; width: 100%; background: white; border-top-left-radius: 35px; border-top-right-radius: 35px; padding: 30px 25px 60px; }
+    /* 翻譯彈窗 */
+    #translate-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; backdrop-filter: blur(10px); }
+    .translate-card { position: absolute; bottom: 0; width: 100%; background: white; border-top-left-radius: 35px; border-top-right-radius: 35px; padding: 25px 20px 50px; text-align: center; }
     
-    .mic-btn { width: 90px; height: 90px; border-radius: 50%; background: var(--deep-pink); color: white; display: flex; justify-content: center; align-items: center; margin: 20px auto; font-size: 35px; border: 5px solid #fff; box-shadow: 0 0 0 5px var(--sakura-pink); }
-    .mic-btn.active { animation: pulse 1s infinite; background: #ff0000; }
-    @keyframes pulse { 0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,0,0,0.4); } 70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255,0,0,0); } 100% { transform: scale(1); } }
+    /* Google 翻譯元件樣式優化 */
+    #google_translate_element { margin: 20px 0; min-height: 50px; }
+    .goog-te-gadget-simple { border-radius: 15px !important; padding: 8px 15px !important; border: 1px solid #eee !important; font-size: 16px !important; }
+    
+    /* 隱藏 Google 頂部橫幅 */
+    .goog-te-banner-frame.skiptranslate { display: none !important; }
+    body { top: 0px !important; }
 
+    .card-v2 { background: white; border-radius: 30px; padding: 25px; margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); }
     .schedule-content { display: none; }
-    .schedule-content.active { display: block; animation: fadeIn 0.4s ease; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .card-v2 { background: white; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); padding: 25px; margin-bottom: 20px; }
+    .schedule-content.active { display: block; animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
 
   <div id="translate-overlay">
     <div class="translate-card">
-      <div class="text-center mb-6">
-        <h3 class="text-xl font-bold text-gray-800">AI 語音翻譯</h3>
-        <p id="mic-status" class="text-sm text-pink-500 mt-2 font-bold">請點擊麥克風說話</p>
+      <h3 class="text-xl font-bold text-gray-800 mb-2">Google 即時翻譯</h3>
+      <p class="text-sm text-gray-400 mb-4">請在下方選擇語言或直接輸入內容</p>
+      
+      <div id="google_translate_element"></div>
+      
+      <div class="bg-blue-50 p-4 rounded-2xl mb-6 text-left">
+        <p class="text-xs text-blue-600 font-bold mb-1"><i class="fas fa-info-circle mr-1"></i> 使用教學：</p>
+        <p class="text-sm text-blue-800">1. 點擊上方翻譯框<br>2. 選擇「日文」<br>3. 頁面即會自動轉換語言</p>
       </div>
-      <div id="trans-result" class="bg-gray-50 p-6 rounded-3xl min-h-[120px] mb-8 text-lg text-center flex flex-col justify-center border-2 border-gray-100 italic text-gray-500">
-        等待語音輸入...
-      </div>
-      <div class="flex flex-col items-center">
-        <button id="mic-trigger" class="mic-btn" onclick="toggleSpeech()">
-          <i class="fas fa-microphone"></i>
-        </button>
-        <span id="mic-label" class="font-bold text-gray-600 mt-3">點我講中文</span>
-      </div>
-      <button onclick="document.getElementById('translate-overlay').style.display='none'" class="w-full mt-10 py-3 text-gray-400 font-bold border-t">關閉介面</button>
+
+      <button onclick="closeTranslate()" class="w-full py-4 bg-gray-100 rounded-2xl font-bold text-gray-500">返回行程</button>
     </div>
   </div>
 
-  <div class="p-6 text-center bg-white rounded-b-[40px] shadow-sm">
-    <h1 class="text-2xl font-bold text-pink-600">🌸 2026 東京櫻花行</h1>
+  <div class="p-8 text-center bg-white rounded-b-[50px] shadow-sm relative">
+    <h1 class="text-2xl font-bold text-pink-600 font-['Zhi_Mang_Xing']">🌸 2026 東京櫻花行</h1>
+    <div id="countdown" class="mt-2 text-xs text-pink-400 font-bold tracking-widest uppercase"></div>
   </div>
 
   <div class="day-selector">
-    <button class="day-btn active" onclick="showDay(1, this)"><span class="text-[10px]">（六）</span><span class="text-lg font-bold">4/4</span></button>
-    <button class="day-btn" onclick="showDay(2, this)"><span class="text-[10px]">（日）</span><span class="text-lg font-bold">4/5</span></button>
-    <button class="day-btn" onclick="showDay(3, this)"><span class="text-[10px]">（一）</span><span class="text-lg font-bold">4/6</span></button>
-    <button class="day-btn" onclick="showDay(4, this)"><span class="text-[10px]">（二）</span><span class="text-lg font-bold">4/7</span></button>
-    <button class="day-btn" onclick="showDay(5, this)"><span class="text-[10px]">（三）</span><span class="text-lg font-bold">4/8</span></button>
-    <button class="day-btn" onclick="showDay(6, this)"><span class="text-[10px]">（四）</span><span class="text-lg font-bold">4/9</span></button>
+    <button class="day-btn active" onclick="showDay(1, this)"><span class="text-[10px] font-bold">（六）</span><span class="text-lg font-black">4/4</span></button>
+    <button class="day-btn" onclick="showDay(2, this)"><span class="text-[10px] font-bold">（日）</span><span class="text-lg font-black">4/5</span></button>
+    <button class="day-btn" onclick="showDay(3, this)"><span class="text-[10px] font-bold">（一）</span><span class="text-lg font-black">4/6</span></button>
+    <button class="day-btn" onclick="showDay(4, this)"><span class="text-[10px] font-bold">（二）</span><span class="text-lg font-black">4/7</span></button>
+    <button class="day-btn" onclick="showDay(5, this)"><span class="text-[10px] font-bold">（三）</span><span class="text-lg font-black">4/8</span></button>
+    <button class="day-btn" onclick="showDay(6, this)"><span class="text-[10px] font-bold">（四）</span><span class="text-lg font-black">4/9</span></button>
   </div>
 
-  <div class="px-6 py-4" id="main-content">
+  <div class="px-6 py-4">
     <div id="day1" class="schedule-content active">
       <div class="card-v2">
         <h3 class="text-xl font-bold text-pink-600 mb-4 border-b pb-2">Day 1：抵達</h3>
-        <p>10:40 桃園起飛 ➔ 15:05 抵達成田</p>
+        <p class="font-bold">10:40 桃園起飛 (JX802)</p>
+        <p class="text-gray-500 mt-2">15:05 抵達成田二航廈</p>
+        <p class="text-pink-500 font-bold mt-4">🏠 住宿：市川 R9 Premium</p>
+      </div>
+    </div>
+    <div id="day2" class="schedule-content">
+      <div class="card-v2">
+        <h3 class="text-xl font-bold text-pink-600 mb-4 border-b pb-2">Day 2：目黑川</h3>
+        <p>10:30 中目黑賞櫻隧道</p>
+        <p class="mt-2">18:30 淺草寺雷門夜櫻</p>
       </div>
     </div>
     </div>
 
-  <nav class="fixed bottom-0 w-full bg-white flex justify-around py-4 border-t shadow-lg">
-    <div onclick="location.reload()" class="flex flex-col items-center text-pink-500">
-      <i class="fas fa-home text-2xl"></i><span class="text-[10px] font-bold">首頁</span>
+  <nav class="fixed bottom-0 w-full bg-white/90 backdrop-blur-md flex justify-around py-4 pb-8 border-t shadow-2xl">
+    <div onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center text-pink-500">
+      <i class="fas fa-calendar-alt text-2xl"></i><span class="text-[10px] font-bold mt-1">行程</span>
     </div>
-    <div onclick="document.getElementById('translate-overlay').style.display='block'" class="flex flex-col items-center text-gray-400">
-      <div class="bg-pink-100 text-pink-500 p-2 rounded-full -mt-4 shadow-md">
+    <div onclick="openTranslate()" class="flex flex-col items-center text-gray-400">
+      <div class="bg-pink-100 text-pink-500 p-3 rounded-full -mt-6 shadow-lg">
         <i class="fas fa-language text-2xl"></i>
       </div>
-      <span class="text-[10px] font-bold">AI 翻譯</span>
+      <span class="text-[10px] font-bold mt-1">AI 翻譯</span>
     </div>
     <div onclick="window.open('https://line.me/')" class="flex flex-col items-center text-gray-400">
-      <i class="fab fa-line text-2xl"></i><span class="text-[10px] font-bold">領隊</span>
+      <i class="fab fa-line text-2xl"></i><span class="text-[10px] font-bold mt-1">領隊</span>
     </div>
   </nav>
 
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'zh-TW',
+        includedLanguages: 'ja,zh-TW', // 限制只顯示日文跟中文，介面比較乾淨
+        layout: google.translate.TranslateElement.InlineMethod.SIMPLE,
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   <script>
-    let recognition;
-    let recognizing = false;
-
-    // 初始化語音物件
-    function initRecognition() {
-      const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (!Speech) {
-        alert("此裝置不支援語音辨識，請使用 Chrome 瀏覽器");
-        return null;
-      }
-      const r = new Speech();
-      r.lang = 'zh-TW';
-      r.continuous = false;
-      r.interimResults = true; // 開啟即時辨識，桌面版比較容易觸發
-
-      r.onstart = () => {
-        recognizing = true;
-        document.getElementById('mic-trigger').classList.add('active');
-        document.getElementById('mic-status').innerText = "🔴 正在聽，請說話...";
-      };
-
-      r.onend = () => {
-        recognizing = false;
-        document.getElementById('mic-trigger').classList.remove('active');
-        document.getElementById('mic-status').innerText = "點擊麥克風重新開始";
-      };
-
-      r.onresult = (event) => {
-        const result = event.results[0][0].transcript;
-        document.getElementById('trans-result').innerHTML = `<span class="text-black font-bold">${result}</span>`;
-        if (event.results[0].isFinal) {
-           document.getElementById('trans-result').innerHTML += `<div class="text-pink-600 mt-2 font-bold italic">日文翻譯：すみません</div>`;
-           playDummyJapanese();
-        }
-      };
-
-      r.onerror = (event) => {
-        console.log("Error:", event.error);
-        document.getElementById('mic-status').innerText = "發生錯誤: " + event.error;
-      };
-
-      return r;
-    }
-
-    async function toggleSpeech() {
-      // PWA 模式關鍵：必須在使用者點擊後立即觸發 AudioContext 喚醒
-      if (!recognition) recognition = initRecognition();
-      
-      try {
-        if (recognizing) {
-          recognition.stop();
-        } else {
-          // 強制請求一次音訊權限
-          await navigator.mediaDevices.getUserMedia({ audio: true });
-          recognition.start();
-        }
-      } catch (err) {
-        alert("無法啟動麥克風，請確認設定中的權限已開啟");
-      }
-    }
-
-    function playDummyJapanese() {
-      const u = new SpeechSynthesisUtterance("すみません");
-      u.lang = "ja-JP";
-      window.speechSynthesis.speak(u);
-    }
-
+    function openTranslate() { document.getElementById('translate-overlay').style.display = 'block'; }
+    function closeTranslate() { document.getElementById('translate-overlay').style.display = 'none'; }
+    
     function showDay(n, b) {
       document.querySelectorAll('.schedule-content').forEach(c => c.classList.remove('active'));
       const target = document.getElementById('day'+n);
       if(target) target.classList.add('active');
       document.querySelectorAll('.day-btn').forEach(x => x.classList.remove('active'));
       b.classList.add('active');
+      b.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
+
+    // 倒數計時
+    const targetDate = new Date('2026-04-04T00:00:00');
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      document.getElementById('countdown').innerText = diff > 0 ? `距離出發還有 ${days} 天` : "旅程進行中！";
+    }
+    updateCountdown();
   </script>
 </body>
 </html>
