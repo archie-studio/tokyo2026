@@ -18,53 +18,53 @@
     .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 45px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     .header-logo { width: 75px; height: 75px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
 
-    /* --- App 感轉場動畫定義 --- */
-    @keyframes appSlideFade {
-      from { 
+    /* --- 改進版：超慢速絲滑 App 動畫 --- */
+    @keyframes slowAppEntrance {
+      0% { 
         opacity: 0; 
-        transform: translateY(20px); /* 從下方滑上來 */
-        filter: blur(4px); /* 初始模糊增加柔和感 */
+        transform: translateY(30px); /* 初始位置更低，滑動感更強 */
+        filter: blur(8px); /* 初始較模糊 */
       }
-      to { 
+      100% { 
         opacity: 1; 
         transform: translateY(0); 
         filter: blur(0);
       }
     }
 
-    /* 分頁主內容動畫 */
+    /* 套用動畫到所有切換內容 */
     .tab-content { display: none; }
     .tab-content.active { 
       display: block; 
-      animation: appSlideFade 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
+      animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
     }
 
-    /* 行程面板與求助清單動畫 */
     .day-panel { display: none; }
     .day-panel.active { 
       display: block; 
-      animation: appSlideFade 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; 
+      animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
     }
 
-    .help-item {
-      animation: appSlideFade 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    /* 針對日文求助列表的每一項做動畫 */
+    .help-card-anim {
+      animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    /* ------------------------ */
+    /* ---------------------------------- */
 
-    /* 天數選擇器（膠囊型） */
+    /* 天數選擇器 */
     .day-selector { display: flex; overflow-x: auto; gap: 12px; padding: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .day-selector::-webkit-scrollbar { display: none; }
-    .day-btn { flex: 0 0 auto; width: 75px; height: 55px; border-radius: 25px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(255,117,140,0.1); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(255,117,140,0.3); border: none; }
+    .day-btn { flex: 0 0 auto; width: 75px; height: 55px; border-radius: 25px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(255,117,140,0.1); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-5px); box-shadow: 0 8px 15px rgba(255,117,140,0.3); border: none; }
 
-    /* 行程細節 */
+    /* 卡片設計 */
     .card-v2 { background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 15px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); }
     .time-pill { background: #fdf2f4; color: var(--deep-pink); padding: 2px 12px; border-radius: 12px; font-weight: 700; font-size: 0.8rem; margin-right: 12px; }
 
-    /* 語音分類標籤 */
+    /* 分類按鈕 */
     .category-scroll { display: flex; overflow-x: auto; gap: 10px; padding: 15px 20px; scrollbar-width: none; }
-    .cat-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; background: white; border: 1px solid var(--sakura-pink); color: var(--deep-pink); font-weight: bold; font-size: 14px; transition: 0.3s; }
-    .cat-btn.active { background: var(--deep-pink); color: white; border: none; }
+    .cat-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; background: white; border: 1px solid var(--sakura-pink); color: var(--deep-pink); font-weight: bold; font-size: 14px; transition: 0.4s; }
+    .cat-btn.active { background: var(--deep-pink); color: white; border: none; transform: scale(1.05); }
 
     /* 語音按鈕 */
     .speak-btn { background: var(--sakura-pink); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
@@ -167,85 +167,94 @@
   <script>
     const helpData = {
       shopping: [
-        { cn: "這個多少錢？", jp: "這是多少錢？", jpText: "これはいくらですか？" },
-        { cn: "我要買這個。", jp: "我要買這個。", jpText: "これをください。" },
-        { cn: "可以刷卡嗎？", jp: "可以刷卡嗎？", jpText: "クレジットカードは使えますか？" },
-        { cn: "請給我收據。", jp: "請給我收據。", jpText: "領収書をお願いします。" },
-        { cn: "請給我袋子。", jp: "請給我袋子。", jpText: "袋をお願いします。" }
+        { cn: "這個多少錢？", jp: "これはいくらですか？" },
+        { cn: "我要買這個。", jp: "これをください。" },
+        { cn: "可以刷卡嗎？", jp: "クレジットカードは使えますか？" },
+        { cn: "請給我收據。", jp: "領収書をお願いします。" },
+        { cn: "請給我袋子。", jp: "袋をお願いします。" }
       ],
       tax: [
-        { cn: "請問可以退稅嗎？", jp: "請問可以退稅嗎？", jpText: "免税はできますか？" },
-        { cn: "要在哪裡辦理退稅？", jp: "要在哪裡辦理退稅？", jpText: "免税の手続きはどこですか？" },
-        { cn: "請幫我辦理退稅。", jp: "請幫我辦理退稅。", jpText: "免税の手続きをお願いします。" },
-        { cn: "可以用這張優惠券嗎？", jp: "可以用這張優惠券嗎？", jpText: "このクーポンは使えますか？" },
-        { cn: "請給我新的。", jp: "請給我新的。", jpText: "新しいものはありますか？" }
+        { cn: "請問可以退稅嗎？", jp: "免税はできますか？" },
+        { cn: "要在哪裡辦理退稅？", jp: "免税の手続きはどこですか？" },
+        { cn: "請幫我辦理退稅。", jp: "免税の手続きをお願いします。" },
+        { cn: "可以用這張優惠券嗎？", jp: "このクーポンは使えますか？" },
+        { cn: "請給我新的。", jp: "新しいものはありますか？" }
       ],
       food: [
-        { cn: "請問有中文菜單嗎？", jp: "請問有中文菜單嗎？", jpText: "中国語のメニューはありますか？" },
-        { cn: "推薦的菜色是什麼？", jp: "推薦的菜色是什麼？", jpText: "おすすめは何ですか？" },
-        { cn: "請給我熱水。", jp: "請給我熱水。", jpText: "お湯をいただけますか？" },
-        { cn: "結帳。", jp: "結帳。", jpText: "お会計をお願いします。" }
+        { cn: "請問有中文菜單嗎？", jp: "中国語のメニューはありますか？" },
+        { cn: "推薦的菜色是什麼？", jp: "おすすめは何ですか？" },
+        { cn: "請給我熱水。", jp: "お湯をいただけますか？" },
+        { cn: "結帳。", jp: "お会計をお願いします。" }
       ],
       find: [
-        { cn: "請問洗手間在哪裡？", jp: "請問洗手間在哪裡？", jpText: "お手洗いはどこですか？" },
-        { cn: "請問電梯在哪裡？", jp: "請問電梯在哪裡？", jpText: "エレベーターはどこですか？" },
-        { cn: "請問這裡有免費 Wi-Fi 嗎？", jp: "請問這裡有免費 Wi-Fi 嗎？", jpText: "無料Wi-Fiはありますか？" }
+        { cn: "請問洗手間在哪裡？", jp: "お手洗いはどこですか？" },
+        { cn: "請問電梯在哪裡？", jp: "エレベーターはどこですか？" },
+        { cn: "請問這裡有免費 Wi-Fi 嗎？", jp: "無料Wi-Fiはありますか？" }
       ],
       sos: [
-        { cn: "我不舒服，請幫幫我。", jp: "我不舒服，請幫幫我。", jpText: "気分が悪いです。助けてください。" },
-        { cn: "我對食物/藥物過敏。", jp: "我對食物/藥物過敏。", jpText: "私はアレルギーがあります。" },
-        { cn: "請幫我叫救護車。", jp: "請幫我叫救護車。", jpText: "救急車を呼んでください。" }
+        { cn: "我不舒服，請幫幫我。", jp: "気分が悪いです。助けてください。" },
+        { cn: "我對食物/藥物過敏。", jp: "私はアレルギーがあります。" },
+        { cn: "請幫我叫救護車。", jp: "救急車を呼んでください。" }
       ],
       polite: [
-        { cn: "謝謝。", jp: "謝謝。", jpText: "ありがとうございます。" },
-        { cn: "不好意思。", jp: "不好意思。", jpText: "すみません。" },
-        { cn: "不用了，謝謝。", jp: "不用了，謝謝。", jpText: "結構です、ありがとう。" }
+        { cn: "謝謝。", jp: "ありがとうございます。" },
+        { cn: "不好意思。", jp: "すみません。" },
+        { cn: "不用了，謝謝。", jp: "結構です、ありがとう。" }
       ]
     };
 
     // 分頁切換
     function switchTab(tabId, el) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-      document.getElementById('tab-' + tabId).classList.add('active');
+      const target = document.getElementById('tab-' + tabId);
+      target.classList.add('active');
+      
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       el.classList.add('active');
+      
       if(tabId === 'help') filterHelp('shopping', document.querySelector('.cat-btn'));
     }
 
     // 行程天數切換
     function switchDay(dayNum, el) {
-      const panels = document.querySelectorAll('.day-panel');
-      panels.forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('day-panel-' + dayNum);
       
-      const targetPanel = document.getElementById('day-panel-' + dayNum);
-      targetPanel.classList.add('active');
+      // 點擊後重新觸發動畫
+      target.style.animation = 'none';
+      target.offsetHeight; /* 觸發重繪 */
+      target.style.animation = null;
       
+      target.classList.add('active');
       document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
       el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
-    // 求助分類切換
+    // 求助分類切換（修正：加入慢速彈出動畫）
     function filterHelp(cat, btn) {
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const list = document.getElementById('help-list');
       
-      // 重新生成內容以觸發動畫
-      const items = helpData[cat].map(item => `
-        <div class="card-v2 help-item flex justify-between items-center">
-          <div><p class="font-bold">${item.jpText}</p><p class="text-xs text-pink-500 mt-1">${item.cn}</p></div>
-          <button class="speak-btn" onclick="playJP('${item.jpText}')"><i class="fas fa-volume-up"></i></button>
-        </div>
-      `).join('');
-      list.innerHTML = items;
+      const list = document.getElementById('help-list');
+      list.innerHTML = ''; // 先清空，確保每次點擊分類都會有新動畫效果
+
+      // 使用 setTimeout 讓瀏覽器感知到內容更新，從而觸發 CSS 動畫
+      setTimeout(() => {
+        list.innerHTML = helpData[cat].map(item => `
+          <div class="card-v2 help-card-anim flex justify-between items-center">
+            <div><p class="font-bold">${item.jp}</p><p class="text-xs text-pink-500 mt-1">${item.cn}</p></div>
+            <button class="speak-btn" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button>
+          </div>
+        `).join('');
+      }, 10);
     }
 
     function playJP(text) {
       window.speechSynthesis.cancel();
       const msg = new SpeechSynthesisUtterance(text);
       msg.lang = 'ja-JP';
-      msg.rate = 0.85;
+      msg.rate = 0.8;
       window.speechSynthesis.speak(msg);
     }
 
