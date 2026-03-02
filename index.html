@@ -8,113 +8,69 @@
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;500;700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zhi+Mang_Xing&display=swap" rel="stylesheet">
 
   <style>
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
-    body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); color: #4a4a4a; padding-bottom: 110px; overflow-x: hidden; }
+    body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 120px; overflow-x: hidden; }
     
-    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 40px 20px 30px; position: relative; }
-    .custom-sakura-img { width: 80px; height: 80px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4); object-fit: contain; }
+    /* 頂部 Header */
+    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 40px 20px 25px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .header-logo { width: 70px; height: 70px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
 
     /* 分頁顯示控制 */
     .tab-content { display: none; animation: fadeIn 0.4s ease; }
     .tab-content.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 膠囊天數選擇器 */
-    .day-selector { display: flex; overflow-x: auto; gap: 12px; padding: 10px 20px; scrollbar-width: none; }
-    .day-btn { flex: 0 0 auto; width: 75px; height: 55px; border-radius: 25px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(255,117,140,0.1); }
-    .day-btn.active { background: var(--deep-pink); color: white; transform: scale(1.05); }
+    /* 語音按鈕分類標籤 */
+    .category-scroll { display: flex; overflow-x: auto; gap: 10px; padding: 15px 20px; scrollbar-width: none; }
+    .cat-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; background: white; border: 1px solid var(--sakura-pink); color: var(--deep-pink); font-weight: bold; font-size: 14px; }
+    .cat-btn.active { background: var(--deep-pink); color: white; border: none; box-shadow: 0 4px 10px rgba(255,117,140,0.3); }
 
     /* 卡片樣式 */
-    .card-v2 { background: white; border-radius: 25px; box-shadow: 0 10px 25px rgba(255, 182, 193, 0.1); margin: 15px 20px; padding: 20px; border: 1px solid rgba(255, 117, 140, 0.05); }
-    .time-pill { background: #fdf2f4; color: var(--deep-pink); padding: 2px 10px; border-radius: 10px; font-weight: 700; font-size: 0.8rem; }
-
-    /* 語音按鈕 */
-    .speak-btn { background: var(--sakura-pink); color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: 0.2s; }
+    .card-v2 { background: white; border-radius: 20px; box-shadow: 0 5px 15px rgba(255,182,193,0.1); margin: 0 20px 12px; padding: 18px; border: 1px solid rgba(255,117,140,0.05); }
+    .speak-btn { background: var(--sakura-pink); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.2s; }
     .speak-btn:active { background: var(--deep-pink); transform: scale(0.9); }
 
-    .nav-bar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-top: 1px solid rgba(255, 182, 193, 0.2); }
+    /* 導覽列 */
+    .nav-bar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid rgba(255,182,193,0.2); }
     .nav-item { color: #ccc; transition: 0.3s; }
     .nav-item.active { color: var(--deep-pink); }
   </style>
 </head>
 <body>
 
-  <div class="hero-header text-center">
-    <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" class="custom-sakura-img">
+  <div class="hero-header">
+    <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" class="header-logo">
     <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026 東京櫻花探險</h1>
   </div>
 
   <div id="tab-schedule" class="tab-content active">
-    <div class="day-selector mt-4">
-      <button class="day-btn active" onclick="showDay(1, this)"><span class="text-[10px]">（六）</span><span class="text-lg font-bold">4/4</span></button>
-      <button class="day-btn" onclick="showDay(2, this)"><span class="text-[10px]">（日）</span><span class="text-lg font-bold">4/5</span></button>
-      <button class="day-btn" onclick="showDay(3, this)"><span class="text-[10px]">（一）</span><span class="text-lg font-bold">4/6</span></button>
-      <button class="day-btn" onclick="showDay(4, this)"><span class="text-[10px]">（二）</span><span class="text-lg font-bold">4/7</span></button>
-    </div>
-
-    <div id="day-contents" class="mt-4">
-      <div id="day1" class="day-detail active">
-        <div class="card-v2">
-          <h3 class="text-lg font-bold text-pink-600 mb-4 border-b pb-2">🌸 第一天：抵達</h3>
-          <div class="space-y-4 text-sm">
-            <div class="flex items-center"><span class="time-pill mr-3">10:40</span><span>桃園起飛 (JX802)</span></div>
-            <div class="flex items-center"><span class="time-pill mr-3">15:05</span><span>抵達成田二航廈</span></div>
-            <div class="flex items-center"><span class="time-pill mr-3">17:30</span><span class="font-bold">入住：市川 R9 飯店</span></div>
-          </div>
-        </div>
-      </div>
-      <div id="day2" class="day-detail hidden">
-        <div class="card-v2"><h3 class="text-lg font-bold text-pink-600">🌸 第二天：目黑川賞櫻</h3><p class="mt-4 text-sm">10:30 中目黑櫻花隧道</p></div>
-      </div>
+    <div class="p-6 text-center text-gray-400">
+      <p>點擊下方「日文求助」使用分類對話功能</p>
+      <p class="mt-4">行程內容可依 Day 1 - Day 6 填寫在此...</p>
     </div>
   </div>
 
   <div id="tab-help" class="tab-content">
-    <div class="p-6">
-      <h2 class="text-xl font-bold text-red-500 mb-4"><i class="fas fa-bullhorn mr-2"></i>語音求助卡</h2>
-      <p class="text-xs text-gray-400 mb-6">點擊喇叭圖示可播放日文聲音</p>
-      
-      <div class="space-y-4">
-        <div class="card-v2 !m-0 flex justify-between items-center">
-          <div>
-            <p class="text-lg font-bold">すみません、道に迷いました。</p>
-            <p class="text-xs text-gray-500 mt-1">不好意思，我迷路了。</p>
-          </div>
-          <button class="speak-btn" onclick="playJP('すみません、道に迷いました。助けてください。')">
-            <i class="fas fa-volume-up"></i>
-          </button>
-        </div>
-
-        <div class="card-v2 !m-0 flex justify-between items-center">
-          <div>
-            <p class="text-lg font-bold">市川のホテルに行きたいです。</p>
-            <p class="text-xs text-gray-500 mt-1">我想去位於「市川」的飯店。</p>
-          </div>
-          <button class="speak-btn" onclick="playJP('市川のホテルに行きたいです。')">
-            <i class="fas fa-volume-up"></i>
-          </button>
-        </div>
-
-        <div class="card-v2 !m-0 flex justify-between items-center">
-          <div>
-            <p class="text-lg font-bold">駅はどこですか？</p>
-            <p class="text-xs text-gray-500 mt-1">請問火車站在哪裡？</p>
-          </div>
-          <button class="speak-btn" onclick="playJP('駅はどこですか？')">
-            <i class="fas fa-volume-up"></i>
-          </button>
-        </div>
-      </div>
+    <div class="category-scroll">
+      <button class="cat-btn active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
+      <button class="cat-btn" onclick="filterHelp('tax', this)">💰 退稅</button>
+      <button class="cat-btn" onclick="filterHelp('food', this)">🍜 點餐</button>
+      <button class="cat-btn" onclick="filterHelp('find', this)">🚻 設施</button>
+      <button class="cat-btn" onclick="filterHelp('sos', this)">🚑 緊急</button>
+      <button class="cat-btn" onclick="filterHelp('polite', this)">🤝 禮貌</button>
     </div>
+
+    <div id="help-list" class="mt-2">
+      </div>
   </div>
 
   <div id="tab-exchange" class="tab-content">
     <div class="card-v2 mt-10 text-center">
-      <h3 class="text-lg font-bold mb-4">💴 快速換算 (0.21)</h3>
-      <input type="number" id="jpy-input" placeholder="輸入日幣金額" class="w-full p-4 border rounded-2xl text-center text-xl mb-4">
+      <h3 class="text-lg font-bold mb-4">💴 匯率換算 (0.21)</h3>
+      <input type="number" id="jpy-input" placeholder="輸入日幣" class="w-full p-4 border rounded-2xl text-center text-xl mb-4 shadow-inner">
       <div id="tw-result" class="text-2xl font-black text-pink-600">約 NT$ 0 元</div>
     </div>
   </div>
@@ -135,38 +91,90 @@
   </nav>
 
   <script>
-    // 分頁切換邏輯
+    // 所有翻譯數據
+    const helpData = {
+      shopping: [
+        { cn: "這個多少錢？", jp: "これはいくらですか？" },
+        { cn: "我要買這個。", jp: "これをください。" },
+        { cn: "可以刷卡嗎？", jp: "クレジットカードは使えますか？" },
+        { cn: "請給我收據。", jp: "領収書をお願いします。" },
+        { cn: "請給我袋子。", jp: "袋をお願いします。" }
+      ],
+      tax: [
+        { cn: "請問可以退稅嗎？", jp: "免税はできますか？" },
+        { cn: "要在哪裡辦理退稅？", jp: "免税の手続きはどこですか？" },
+        { cn: "請幫我辦理退稅。", jp: "免税の手続きをお願いします。" },
+        { cn: "可以用這張優惠券嗎？", jp: "このクーポンは使えますか？" },
+        { cn: "請給我新的（不要展示品）。", jp: "新しいものはありますか？" }
+      ],
+      food: [
+        { cn: "請問有中文菜單嗎？", jp: "中国語のメニューはありますか？" },
+        { cn: "推薦的菜色是什麼？", jp: "おすすめは何ですか？" },
+        { cn: "請給我熱水。", jp: "お湯をいただけますか？" },
+        { cn: "結帳。", jp: "お会計をお願いします。" }
+      ],
+      find: [
+        { cn: "請問洗手間在哪裡？", jp: "お手洗いはどこですか？" },
+        { cn: "請問電梯在哪裡？", jp: "エレベーターはどこですか？" },
+        { cn: "請問這裡有免費 Wi-Fi 嗎？", jp: "無料Wi-Fiはありますか？" }
+      ],
+      sos: [
+        { cn: "我不舒服，請幫幫我。", jp: "気分が悪いです。助けてください。" },
+        { cn: "我對食物/藥物過敏。", jp: "私はアレルギーがあります。" },
+        { cn: "請幫我叫救護車。", jp: "救急車を呼んでください。" }
+      ],
+      polite: [
+        { cn: "謝謝。", jp: "ありがとうございます。" },
+        { cn: "不好意思 (借過/打擾)。", jp: "すみません。" },
+        { cn: "不用了，謝謝。", jp: "結構です、ありがとう。" }
+      ]
+    };
+
+    // 分頁切換
     function switchTab(tabId, el) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       el.classList.add('active');
-      window.scrollTo(0,0);
+      if(tabId === 'help') filterHelp('shopping', document.querySelector('.cat-btn'));
     }
 
-    // 行程表天數切換
-    function showDay(n, btn) {
-      document.querySelectorAll('.day-detail').forEach(d => d.classList.add('hidden'));
-      document.getElementById('day' + n).classList.remove('hidden');
-      document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+    // 渲染求助列表
+    function filterHelp(cat, btn) {
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      
+      const container = document.getElementById('help-list');
+      container.innerHTML = helpData[cat].map(item => `
+        <div class="card-v2 flex justify-between items-center">
+          <div class="pr-4">
+            <p class="text-base font-bold text-gray-800">${item.jp}</p>
+            <p class="text-sm text-pink-500 mt-1 font-medium">${item.cn}</p>
+          </div>
+          <button class="speak-btn flex-shrink-0" onclick="playJP('${item.jp}')">
+            <i class="fas fa-volume-up"></i>
+          </button>
+        </div>
+      `).join('');
     }
 
-    // 播放日文語音 (Text-to-Speech)
+    // 播放語音 (TTS)
     function playJP(text) {
-      // 停止目前正在播放的聲音
       window.speechSynthesis.cancel();
       const msg = new SpeechSynthesisUtterance(text);
       msg.lang = 'ja-JP';
-      msg.rate = 0.9; // 語速稍慢一點，讓日本人聽得更清楚
+      msg.rate = 0.85; // 語速慢一點
       window.speechSynthesis.speak(msg);
     }
 
-    // 匯率即時換算
+    // 匯率計算
     document.getElementById('jpy-input')?.addEventListener('input', function(e) {
       const val = e.target.value;
       document.getElementById('tw-result').innerText = val ? `約 NT$ ${Math.round(val * 0.21)} 元` : `約 NT$ 0 元`;
     });
+
+    // 初始化顯示
+    window.onload = () => filterHelp('shopping', document.querySelector('.cat-btn'));
   </script>
 </body>
 </html>
