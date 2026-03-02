@@ -26,43 +26,42 @@
     .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(255, 117, 140, 0.3); }
 
     /* 翻譯彈窗 */
-    #translate-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; backdrop-filter: blur(5px); }
-    .translate-card { position: absolute; bottom: 0; width: 100%; background: white; border-top-left-radius: 30px; border-top-right-radius: 30px; padding: 30px 20px 50px; animation: slideUp 0.3s ease-out; }
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    #translate-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; backdrop-filter: blur(8px); }
+    .translate-card { position: absolute; bottom: 0; width: 100%; background: white; border-top-left-radius: 35px; border-top-right-radius: 35px; padding: 30px 25px 60px; }
+    
+    .mic-btn { width: 90px; height: 90px; border-radius: 50%; background: var(--deep-pink); color: white; display: flex; justify-content: center; align-items: center; margin: 20px auto; font-size: 35px; border: 5px solid #fff; box-shadow: 0 0 0 5px var(--sakura-pink); transition: transform 0.2s; }
+    .mic-btn:active { transform: scale(0.9); }
+    .mic-btn.listening { animation: pulse-red 1.2s infinite; background: #ff0000; }
+    
+    @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(255, 0, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); } }
 
-    .mic-btn { width: 80px; height: 80px; border-radius: 50%; background: var(--deep-pink); color: white; display: flex; justify-content: center; align-items: center; margin: 20px auto; font-size: 30px; box-shadow: 0 10px 20px rgba(255, 117, 140, 0.4); }
-    .mic-btn.listening { animation: pulse-red 1.5s infinite; background: #ef4444; }
-    @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); } }
-
-    /* 通用樣式 */
     .schedule-content { display: none; }
-    .schedule-content.active { display: block; animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .schedule-content.active { display: block; }
     .card-v2 { background: white; border-radius: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); padding: 25px; margin-bottom: 20px; }
     .nav-bar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-top: 1px solid #eee; }
   </style>
 </head>
 <body>
 
-  <div id="translate-overlay" onclick="closeTranslate(event)">
-    <div class="translate-card" onclick="event.stopPropagation()">
+  <div id="translate-overlay">
+    <div class="translate-card">
       <div class="text-center mb-6">
-        <h3 class="text-xl font-bold text-gray-800">AI 即時翻譯</h3>
-        <p class="text-sm text-gray-400 mt-1">請按住麥克風說話</p>
+        <h3 class="text-xl font-bold text-gray-800">AI 語音對話翻譯</h3>
+        <p id="mic-status" class="text-sm text-pink-500 mt-2 font-bold">點擊下方麥克風開始說話</p>
       </div>
       
-      <div id="trans-result" class="bg-gray-50 p-4 rounded-2xl min-h-[100px] mb-6 text-lg text-center flex flex-col justify-center">
-        <span class="text-gray-400">翻譯結果會顯示在這裡...</span>
+      <div id="trans-result" class="bg-gray-50 p-6 rounded-3xl min-h-[120px] mb-8 text-lg text-center flex flex-col justify-center border-2 border-dashed border-gray-200">
+        <span class="text-gray-400">您的說話內容與翻譯<br>會顯示在這裡</span>
       </div>
 
-      <div class="flex justify-center gap-10">
-        <div class="flex flex-col items-center">
-          <button id="mic-cn" class="mic-btn" onpointerdown="startListen('zh-TW')" onpointerup="stopListen()"><i class="fas fa-microphone"></i></button>
-          <span class="font-bold text-pink-600">我講中文</span>
-        </div>
+      <div class="flex flex-col items-center">
+        <button id="mic-main" class="mic-btn" onclick="toggleListen()">
+          <i class="fas fa-microphone"></i>
+        </button>
+        <span class="font-bold text-gray-600 mt-3">點我講話 (中文 ➔ 日文)</span>
       </div>
       
-      <button onclick="document.getElementById('translate-overlay').style.display='none'" class="w-full mt-8 py-3 text-gray-400 font-bold">關閉翻譯</button>
+      <button onclick="closeTranslate()" class="w-full mt-10 py-3 text-gray-400 font-bold border-t border-gray-100">離開翻譯介面</button>
     </div>
   </div>
 
@@ -88,7 +87,7 @@
             <p class="text-gray-500 italic">行程準備中...</p>
         </div>
     </div>
-    </div>
+  </div>
 
   <nav class="nav-bar fixed bottom-0 w-full flex justify-around py-4 pb-8 z-50">
     <div onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center text-pink-500">
@@ -112,7 +111,63 @@
   </nav>
 
   <script>
-    // 基礎功能
+    // 語音辨識邏輯優化
+    let isListening = false;
+    let recognition;
+
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechConstructor = window.webkitSpeechRecognition || window.SpeechRecognition;
+      recognition = new SpeechConstructor();
+      recognition.lang = 'zh-TW';
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        isListening = true;
+        document.getElementById('mic-main').classList.add('listening');
+        document.getElementById('mic-status').innerText = "🔴 正在聽您說話...";
+      };
+
+      recognition.onend = () => {
+        isListening = false;
+        document.getElementById('mic-main').classList.remove('listening');
+        document.getElementById('mic-status').innerText = "點擊麥克風重新開始";
+      };
+
+      recognition.onresult = (event) => {
+        const result = event.results[0][0].transcript;
+        document.getElementById('trans-result').innerHTML = `
+          <div class="text-sm text-gray-400 mb-1">您說：${result}</div>
+          <div class="text-pink-600 font-bold">日語翻譯：請幫幫我 (測試)</div>
+        `;
+        // 這裡可以播放一段罐頭語音作為測試
+        speak("すみません", "ja-JP");
+      };
+
+      recognition.onerror = (e) => {
+        console.error(e);
+        document.getElementById('mic-status').innerText = "辨識失敗，請再試一次";
+      };
+    }
+
+    function toggleListen() {
+      if (!recognition) return alert("您的手機不支援此功能，建議使用 Chrome 或 Safari。");
+      if (isListening) {
+        recognition.stop();
+      } else {
+        recognition.start();
+      }
+    }
+
+    function openTranslate() { document.getElementById('translate-overlay').style.display = 'block'; }
+    function closeTranslate() { document.getElementById('translate-overlay').style.display = 'none'; }
+    
+    function speak(text, lang) {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = lang;
+      window.speechSynthesis.speak(u);
+    }
+
     function showDay(n, b) {
       document.querySelectorAll('.schedule-content').forEach(c => c.classList.remove('active'));
       if(document.getElementById('day'+n)) document.getElementById('day'+n).classList.add('active');
@@ -121,62 +176,10 @@
       b.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
-    // AI 翻譯相關邏輯
-    let recognition;
-    if ('webkitSpeechRecognition' in window) {
-      recognition = new webkitSpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      
-      recognition.onresult = function(event) {
-        const text = event.results[0][0].transcript;
-        document.getElementById('trans-result').innerHTML = `<p class="text-sm text-gray-400">辨識：${text}</p><div class="text-pink-600 font-bold mt-2 italic">日文翻譯功能需串接 API，此處展示模擬播報...</div>`;
-        // 模擬翻譯後自動播放日文 (實際應用需串接翻譯 API)
-        speak("こんにちは", "ja-JP"); 
-      };
-    }
-
-    function openTranslate() { document.getElementById('translate-overlay').style.display = 'block'; }
-    
-    function startListen(lang) {
-      if (!recognition) return alert("您的裝置不支援語音辨識");
-      recognition.lang = lang;
-      recognition.start();
-      document.getElementById('mic-cn').classList.add('listening');
-    }
-
-    function stopListen() {
-      recognition.stop();
-      document.getElementById('mic-cn').classList.remove('listening');
-    }
-
-    function speak(text, lang) {
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = lang;
-      window.speechSynthesis.speak(u);
-    }
-
     function openExchange() {
       let j = prompt("💴 日幣金額：", "1000");
       if(j) alert(`約台幣 ${Math.round(j * 0.21)} 元`);
     }
-
-    // 倒數計時與櫻花
-    setInterval(() => {
-        const p = document.createElement('div');
-        p.innerHTML = '🌸';
-        p.className = 'fixed top-[-5%] pointer-events-none text-pink-200 animate-fall';
-        p.style.left = Math.random() * 100 + 'vw';
-        p.style.fontSize = Math.random() * 10 + 10 + 'px';
-        const d = Math.random() * 5 + 5;
-        p.style.animation = `fall ${d}s linear forwards`;
-        document.body.appendChild(p);
-        setTimeout(() => p.remove(), d * 1000);
-    }, 2000);
-
-    const style = document.createElement('style');
-    style.innerHTML = `@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } } .animate-fall { animation: fall linear forwards; }`;
-    document.head.appendChild(style);
 
     function initCountdown() {
       const target = new Date('2026-04-04T00:00:00').getTime();
