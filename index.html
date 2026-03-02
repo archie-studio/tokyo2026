@@ -14,38 +14,38 @@
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
     body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 120px; overflow-x: hidden; }
     
-    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 40px 20px 25px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-    .header-logo { width: 70px; height: 70px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
+    /* 頂部 Header */
+    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 45px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    .header-logo { width: 75px; height: 75px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
 
-    /* 分頁顯示控制 */
-    .tab-content { display: none; animation: fadeIn 0.4s ease; }
-    .tab-content.active { display: block; }
+    /* 分頁控制 */
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.4s ease forwards; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* 膠囊天數選擇器 */
-    .day-selector { display: flex; overflow-x: auto; gap: 12px; padding: 15px 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    /* 天數選擇器（膠囊型） */
+    .day-selector { display: flex; overflow-x: auto; gap: 12px; padding: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .day-selector::-webkit-scrollbar { display: none; }
-    .day-btn { flex: 0 0 auto; width: 75px; height: 55px; border-radius: 25px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(255,117,140,0.1); }
-    .day-btn.active { background: var(--deep-pink); color: white; transform: scale(1.05); box-shadow: 0 8px 15px rgba(255,117,140,0.3); border: none; }
+    .day-btn { flex: 0 0 auto; width: 75px; height: 55px; border-radius: 25px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid rgba(255,117,140,0.1); transition: 0.3s; }
+    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-3px); box-shadow: 0 8px 15px rgba(255,117,140,0.3); border: none; }
 
-    /* 語音按鈕分類標籤 */
+    /* 行程細節 */
+    .day-panel { display: none; }
+    .day-panel.active { display: block; animation: fadeIn 0.3s ease; }
+    .card-v2 { background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 15px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); }
+    .time-pill { background: #fdf2f4; color: var(--deep-pink); padding: 2px 12px; border-radius: 12px; font-weight: 700; font-size: 0.8rem; margin-right: 12px; }
+
+    /* 語音分類標籤 */
     .category-scroll { display: flex; overflow-x: auto; gap: 10px; padding: 15px 20px; scrollbar-width: none; }
     .cat-btn { flex: 0 0 auto; padding: 8px 18px; border-radius: 20px; background: white; border: 1px solid var(--sakura-pink); color: var(--deep-pink); font-weight: bold; font-size: 14px; }
-    .cat-btn.active { background: var(--deep-pink); color: white; border: none; box-shadow: 0 4px 10px rgba(255,117,140,0.3); }
-
-    /* 卡片與時間軸樣式 */
-    .card-v2 { background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.1); margin: 0 20px 15px; padding: 20px; border: 1px solid rgba(255,117,140,0.05); }
-    .time-pill { background: #fdf2f4; color: var(--deep-pink); padding: 2px 12px; border-radius: 12px; font-weight: 700; font-size: 0.8rem; margin-right: 12px; display: inline-block; }
-    
-    .day-detail { display: none; }
-    .day-detail.active { display: block; animation: fadeIn 0.4s ease; }
+    .cat-btn.active { background: var(--deep-pink); color: white; border: none; }
 
     /* 語音按鈕 */
-    .speak-btn { background: var(--sakura-pink); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.2s; }
+    .speak-btn { background: var(--sakura-pink); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
     .speak-btn:active { background: var(--deep-pink); transform: scale(0.9); }
 
     /* 導覽列 */
-    .nav-bar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid rgba(255,182,193,0.2); }
+    .nav-bar { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid rgba(255,182,193,0.2); }
     .nav-item { color: #ccc; transition: 0.3s; }
     .nav-item.active { color: var(--deep-pink); }
   </style>
@@ -53,53 +53,53 @@
 <body>
 
   <div class="hero-header">
-    <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/70 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
+    <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
     <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" class="header-logo">
     <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026 東京櫻花探險</h1>
   </div>
 
   <div id="tab-schedule" class="tab-content active">
     <div class="day-selector">
-      <button class="day-btn active" onclick="showDay(1, this)"><span class="text-[10px]">（六）</span><span class="text-lg font-bold">4/4</span></button>
-      <button class="day-btn" onclick="showDay(2, this)"><span class="text-[10px]">（日）</span><span class="text-lg font-bold">4/5</span></button>
-      <button class="day-btn" onclick="showDay(3, this)"><span class="text-[10px]">（一）</span><span class="text-lg font-bold">4/6</span></button>
-      <button class="day-btn" onclick="showDay(4, this)"><span class="text-[10px]">（二）</span><span class="text-lg font-bold">4/7</span></button>
-      <button class="day-btn" onclick="showDay(5, this)"><span class="text-[10px]">（三）</span><span class="text-lg font-bold">4/8</span></button>
-      <button class="day-btn" onclick="showDay(6, this)"><span class="text-[10px]">（四）</span><span class="text-lg font-bold">4/9</span></button>
+      <button class="day-btn active" onclick="switchDay(1, this)"><span class="text-[10px]">（六）</span><span class="text-lg font-bold">4/4</span></button>
+      <button class="day-btn" onclick="switchDay(2, this)"><span class="text-[10px]">（日）</span><span class="text-lg font-bold">4/5</span></button>
+      <button class="day-btn" onclick="switchDay(3, this)"><span class="text-[10px]">（一）</span><span class="text-lg font-bold">4/6</span></button>
+      <button class="day-btn" onclick="switchDay(4, this)"><span class="text-[10px]">（二）</span><span class="text-lg font-bold">4/7</span></button>
+      <button class="day-btn" onclick="switchDay(5, this)"><span class="text-[10px]">（三）</span><span class="text-lg font-bold">4/8</span></button>
+      <button class="day-btn" onclick="switchDay(6, this)"><span class="text-[10px]">（四）</span><span class="text-lg font-bold">4/9</span></button>
     </div>
 
-    <div id="day-contents">
-      <div id="day1" class="day-detail active">
+    <div id="schedule-panels">
+      <div id="day-panel-1" class="day-panel active">
         <div class="card-v2">
-          <h3 class="text-xl font-bold text-pink-600 mb-6 font-['Zhi_Mang_Xing'] border-b border-pink-50 pb-2">🌸 第一天：啟程東京</h3>
+          <h3 class="text-lg font-bold text-pink-600 mb-6 border-b border-pink-50 pb-2">🌸 Day 1：啟程</h3>
           <div class="space-y-6 text-sm">
             <div class="flex items-start"><span class="time-pill">10:40</span><div><p class="font-bold">桃園機場起飛</p><p class="text-xs text-gray-400">星宇航空 JX802</p></div></div>
             <div class="flex items-start"><span class="time-pill">15:05</span><div><p class="font-bold">抵達成田二航廈</p></div></div>
-            <div class="flex items-start"><span class="time-pill">17:30</span><div><p class="font-bold text-pink-600">入住：市川 R9 飯店</p><p class="text-xs text-gray-400">HOTEL R9 Premium Ichikawa</p></div></div>
+            <div class="flex items-start"><span class="time-pill">17:30</span><div><p class="font-bold text-pink-600">入住：市川 R9 飯店</p></div></div>
           </div>
         </div>
       </div>
-      <div id="day2" class="day-detail">
+      <div id="day-panel-2" class="day-panel">
         <div class="card-v2">
-          <h3 class="text-xl font-bold text-pink-600 mb-6 font-['Zhi_Mang_Xing'] border-b border-pink-50 pb-2">🌸 第二天：櫻花與夜櫻</h3>
+          <h3 class="text-lg font-bold text-pink-600 mb-6 border-b border-pink-50 pb-2">🌸 Day 2：賞櫻</h3>
           <div class="space-y-6 text-sm">
-            <div class="flex items-start"><span class="time-pill">10:30</span><div><p class="font-bold">中目黑：目黑川賞櫻隧道</p></div></div>
-            <div class="flex items-start"><span class="time-pill">18:30</span><div><p class="font-bold">淺草寺參拜、雷門夜色</p></div></div>
+            <div class="flex items-start"><span class="time-pill">10:30</span><p class="font-bold">中目黑：目黑川賞櫻隧道</p></div>
+            <div class="flex items-start"><span class="time-pill">18:30</span><p class="font-bold">淺草寺參拜與雷門夜櫻</p></div>
           </div>
         </div>
       </div>
-      <div id="day3" class="day-detail">
+      <div id="day-panel-3" class="day-panel">
         <div class="card-v2">
-          <h3 class="text-xl font-bold text-pink-600 mb-6 font-['Zhi_Mang_Xing'] border-b border-pink-50 pb-2">🌸 第三天：城市散策</h3>
+          <h3 class="text-lg font-bold text-pink-600 mb-6 border-b border-pink-50 pb-2">🌸 Day 3：散策</h3>
           <div class="space-y-6 text-sm">
-            <div class="flex items-start"><span class="time-pill">11:00</span><div><p class="font-bold">明治神宮散策</p></div></div>
-            <div class="flex items-start"><span class="time-pill">16:00</span><div><p class="font-bold">澀谷十字路口看忠犬小八</p></div></div>
+            <div class="flex items-start"><span class="time-pill">11:00</span><p class="font-bold">明治神宮與原宿散步</p></div>
+            <div class="flex items-start"><span class="time-pill">16:00</span><p class="font-bold">澀谷十字路口、忠犬小八</p></div>
           </div>
         </div>
       </div>
-      <div id="day4" class="day-detail"><div class="card-v2 text-center py-10 text-gray-400">Day 4 行程規劃中...</div></div>
-      <div id="day5" class="day-detail"><div class="card-v2 text-center py-10 text-gray-400">Day 5 行程規劃中...</div></div>
-      <div id="day6" class="day-detail"><div class="card-v2 text-center py-10 text-gray-400">Day 6 準備返台</div></div>
+      <div id="day-panel-4" class="day-panel"><div class="card-v2 text-center py-10 text-gray-400">Day 4 行程內容規劃中</div></div>
+      <div id="day-panel-5" class="day-panel"><div class="card-v2 text-center py-10 text-gray-400">Day 5 行程內容規劃中</div></div>
+      <div id="day-panel-6" class="day-panel"><div class="card-v2 text-center py-10 text-gray-400">Day 6 準備返台</div></div>
     </div>
   </div>
 
@@ -139,7 +139,6 @@
   </nav>
 
   <script>
-    // 語音數據
     const helpData = {
       shopping: [
         { cn: "這個多少錢？", jp: "これはいくらですか？" },
@@ -178,6 +177,7 @@
       ]
     };
 
+    // 分頁切換
     function switchTab(tabId, el) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
@@ -186,59 +186,53 @@
       if(tabId === 'help') filterHelp('shopping', document.querySelector('.cat-btn'));
     }
 
-    function showDay(n, btn) {
-      document.querySelectorAll('.day-detail').forEach(d => d.classList.remove('active'));
-      document.getElementById('day' + n).classList.add('active');
+    // 行程天數切換
+    function switchDay(dayNum, el) {
+      document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('day-panel-' + dayNum).classList.add('active');
       document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      btn.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+      el.classList.add('active');
+      el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
+    // 求助分類切換
     function filterHelp(cat, btn) {
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const container = document.getElementById('help-list');
-      container.innerHTML = helpData[cat].map(item => `
+      const list = document.getElementById('help-list');
+      list.innerHTML = helpData[cat].map(item => `
         <div class="card-v2 flex justify-between items-center">
-          <div class="pr-4">
-            <p class="text-base font-bold text-gray-800">${item.jp}</p>
-            <p class="text-sm text-pink-500 mt-1">${item.cn}</p>
-          </div>
-          <button class="speak-btn flex-shrink-0" onclick="playJP('${item.jp}')">
-            <i class="fas fa-volume-up"></i>
-          </button>
+          <div><p class="font-bold">${item.jp}</p><p class="text-xs text-pink-500 mt-1">${item.cn}</p></div>
+          <button class="speak-btn" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button>
         </div>
       `).join('');
     }
 
     function playJP(text) {
       window.speechSynthesis.cancel();
-      const msg = new SynthesisUtterance(text);
+      const msg = new SpeechSynthesisUtterance(text);
       msg.lang = 'ja-JP';
       msg.rate = 0.85;
       window.speechSynthesis.speak(msg);
     }
 
-    // 補上遺漏的 TTS 建構子修正
-    const SynthesisUtterance = window.SpeechSynthesisUtterance || window.webkitSpeechSynthesisUtterance;
-
     function initCountdown() {
       const target = new Date('2026-04-04T00:00:00').getTime();
       const el = document.getElementById('countdown');
-      function update() {
+      setInterval(() => {
         const diff = target - new Date().getTime();
-        el.innerText = diff < 0 ? "旅程開始！" : `出發倒數 ${Math.floor(diff / (1000 * 60 * 60 * 24))} 天`;
-      }
-      update(); setInterval(update, 60000);
+        el.innerText = diff < 0 ? "旅行中" : `出發倒數 ${Math.floor(diff / (1000*60*60*24))} 天`;
+      }, 1000);
     }
 
-    document.getElementById('jpy-input')?.addEventListener('input', function(e) {
-      const val = e.target.value;
-      document.getElementById('tw-result').innerText = val ? `約 NT$ ${Math.round(val * 0.21)} 元` : `約 NT$ 0 元`;
+    document.getElementById('jpy-input')?.addEventListener('input', (e) => {
+      document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * 0.21)} 元`;
     });
 
-    initCountdown();
-    window.onload = () => filterHelp('shopping', document.querySelector('.cat-btn'));
+    window.onload = () => {
+      initCountdown();
+      filterHelp('shopping', document.querySelector('.cat-btn'));
+    };
   </script>
 </body>
 </html>
