@@ -14,7 +14,7 @@
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
     body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 140px; overflow-x: hidden; }
     
-    /* 慢速 App 轉場動畫 */
+    /* 慢速 App 轉場動畫 (0.9秒絲滑感) */
     @keyframes slowAppEntrance {
       0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
       100% { opacity: 1; transform: translateY(0); filter: blur(0); }
@@ -44,20 +44,20 @@
 
     .card-v2 { background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 15px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); }
     
-    /* 記帳專用樣式 */
-    .cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 15px; }
-    .cat-item { background: #fff; border: 2px solid transparent; border-radius: 15px; padding: 10px 5px; text-align: center; font-size: 12px; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-    .cat-item.active { border-color: var(--deep-pink); background: #fff0f3; transform: scale(1.05); }
-    .cat-icon { font-size: 24px; display: block; margin-bottom: 4px; }
+    /* 記帳分類矩陣 */
+    .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
+    .cat-item { background: #fff; border: 2px solid #fdf2f4; border-radius: 18px; padding: 10px 2px; text-align: center; font-size: 11px; transition: 0.3s; }
+    .cat-item.active { border-color: var(--deep-pink); background: #fff0f3; transform: scale(1.05); box-shadow: 0 4px 10px rgba(255,117,140,0.2); font-weight: bold; }
+    .cat-icon { font-size: 20px; display: block; margin-bottom: 2px; }
 
-    .input-field { width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 10px; font-size: 16px; outline: none; }
-    .btn-main { background: var(--deep-pink); color: white; width: 100%; padding: 15px; border-radius: 20px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(255,117,140,0.4); }
+    .input-field { width: 100%; padding: 14px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 12px; font-size: 16px; outline: none; background: #fafafa; }
+    .input-field:focus { border-color: var(--sakura-pink); background: #fff; }
+    
+    .btn-main { background: var(--deep-pink); color: white; width: 100%; padding: 16px; border-radius: 22px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(255,117,140,0.4); active: transform: scale(0.98); }
     
     .nav-bar { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,182,193,0.2); }
     .nav-item { color: #ccc; }
     .nav-item.active { color: var(--deep-pink); }
-
-    .speak-btn { background: var(--sakura-pink); color: white; width: 44px; height: 44px; border-radius: 50%; display: flex; justify-content: center; align-items: center; }
   </style>
 </head>
 <body>
@@ -82,34 +82,34 @@
             <div class="card-v2">
                 <h3 class="text-lg font-bold text-pink-600 mb-6 border-b border-pink-50 pb-2">🌸 Day 1：啟程</h3>
                 <div class="space-y-6 text-sm">
-                    <div class="flex items-start"><span class="bg-pink-50 text-pink-500 px-3 py-1 rounded-full font-bold mr-3">10:40</span><div><p class="font-bold">桃園機場起飛</p></div></div>
-                    <div class="flex items-start"><span class="bg-pink-50 text-pink-500 px-3 py-1 rounded-full font-bold mr-3">15:05</span><div><p class="font-bold">抵達成田二航廈</p></div></div>
-                    <div class="flex items-start"><span class="bg-pink-50 text-pink-500 px-3 py-1 rounded-full font-bold mr-3">17:30</span><div><p class="font-bold text-pink-600">入住：市川 R9 飯店</p></div></div>
+                    <div class="flex items-start"><span class="bg-pink-50 text-pink-500 px-3 py-1 rounded-full font-bold mr-3">10:40</span><div><p class="font-bold text-base">桃園機場起飛</p><p class="text-gray-400">星宇 JX802</p></div></div>
+                    <div class="flex items-start"><span class="bg-pink-50 text-pink-500 px-3 py-1 rounded-full font-bold mr-3">15:05</span><div><p class="font-bold text-base">抵達成田二航廈</p></div></div>
+                    <div class="flex items-start"><span class="bg-pink-50 text-pink-500 px-3 py-1 rounded-full font-bold mr-3">17:30</span><div><p class="font-bold text-pink-600 text-base">入住：市川 R9 飯店</p></div></div>
                 </div>
             </div>
         </div>
-        <div id="day-panel-2" class="day-panel"><div class="card-v2">🌸 Day 2 行程內容</div></div>
-        <div id="day-panel-3" class="day-panel"><div class="card-v2">🌸 Day 3 行程內容</div></div>
-        <div id="day-panel-4" class="day-panel"><div class="card-v2 text-center py-10 text-gray-400">Day 4 行程內容規劃中</div></div>
-        <div id="day-panel-5" class="day-panel"><div class="card-v2 text-center py-10 text-gray-400">Day 5 行程內容規劃中</div></div>
+        <div id="day-panel-2" class="day-panel"><div class="card-v2 text-center py-10">🌸 精彩行程規劃中...</div></div>
+        <div id="day-panel-3" class="day-panel"><div class="card-v2 text-center py-10">🌸 精彩行程規劃中...</div></div>
+        <div id="day-panel-4" class="day-panel"><div class="card-v2 text-center py-10">🌸 精彩行程規劃中...</div></div>
+        <div id="day-panel-5" class="day-panel"><div class="card-v2 text-center py-10">🌸 精彩行程規劃中...</div></div>
         <div id="day-panel-6" class="day-panel"><div class="card-v2 text-center py-10 text-gray-400">Day 6 準備返台</div></div>
     </div>
   </div>
 
   <div id="tab-help" class="tab-content">
     <div class="flex overflow-x-auto gap-2 px-5 py-4 scrollbar-none">
-        <button class="cat-btn bg-white border border-pink-200 px-4 py-2 rounded-full font-bold text-pink-500 active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
-        <button class="cat-btn bg-white border border-pink-200 px-4 py-2 rounded-full font-bold text-pink-500" onclick="filterHelp('tax', this)">💰 退稅</button>
-        <button class="cat-btn bg-white border border-pink-200 px-4 py-2 rounded-full font-bold text-pink-500" onclick="filterHelp('food', this)">🍜 點餐</button>
+        <button class="bg-white border border-pink-200 px-6 py-2 rounded-full font-bold text-pink-500 active:bg-pink-500 active:text-white" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
+        <button class="bg-white border border-pink-200 px-6 py-2 rounded-full font-bold text-pink-500 active:bg-pink-500 active:text-white" onclick="filterHelp('food', this)">🍜 點餐</button>
+        <button class="bg-white border border-pink-200 px-6 py-2 rounded-full font-bold text-pink-500 active:bg-pink-500 active:text-white" onclick="filterHelp('find', this)">🚻 設施</button>
     </div>
-    <div id="help-list" class="mt-2"></div>
+    <div id="help-list" class="mt-2 px-1"></div>
   </div>
 
   <div id="tab-exchange" class="tab-content">
-    <div class="card-v2 mt-4 text-center">
-      <h3 class="text-lg font-bold mb-4 text-gray-700">💴 即時換算 (0.21)</h3>
-      <input type="number" id="jpy-input" placeholder="輸入日幣 ¥" class="w-full p-4 border rounded-2xl text-center text-2xl mb-4 bg-gray-50">
-      <div id="tw-result" class="text-3xl font-black text-pink-600">NT$ 0</div>
+    <div class="card-v2 mt-4">
+      <h3 class="text-lg font-bold mb-3 text-gray-700">💴 匯率換算 (0.21)</h3>
+      <input type="number" id="jpy-input" placeholder="輸入日幣 ¥" class="w-full p-4 border rounded-2xl text-center text-3xl font-bold bg-pink-50/30 text-pink-600 outline-none">
+      <div id="tw-result" class="text-xl text-center mt-3 text-gray-500 font-bold">約 NT$ 0 元</div>
     </div>
 
     <div class="card-v2">
@@ -117,28 +117,32 @@
         
         <div class="cat-grid">
             <div class="cat-item active" onclick="selectRecordCat('💊', '藥妝', this)"><span class="cat-icon">💊</span>藥妝</div>
-            <div class="cat-item" onclick="selectRecordCat('👕', '衣服', this)"><span class="cat-icon">👕</span>衣服</div>
-            <div class="cat-item" onclick="selectRecordCat('🍱', '食物', this)"><span class="cat-icon">🍱</span>食物</div>
+            <div class="cat-item" onclick="selectRecordCat('👕', '服飾', this)"><span class="cat-icon">👕</span>服飾</div>
+            <div class="cat-item" onclick="selectRecordCat('🍱', '美食', this)"><span class="cat-icon">🍱</span>美食</div>
+            <div class="cat-item" onclick="selectRecordCat('🍡', '零食', this)"><span class="cat-icon">🍡</span>零食</div>
+            <div class="cat-item" onclick="selectRecordCat('🎁', '紀念品', this)"><span class="cat-icon">🎁</span>紀念品</div>
+            <div class="cat-item" onclick="selectRecordCat('⛩️', '門票', this)"><span class="cat-icon">⛩️</span>門票</div>
+            <div class="cat-item" onclick="selectRecordCat('🚌', '交通', this)"><span class="cat-icon">🚌</span>交通</div>
+            <div class="cat-item" onclick="selectRecordCat('🏪', '超市', this)"><span class="cat-icon">🏪</span>超市</div>
+            <div class="cat-item" onclick="selectRecordCat('🏠', '住宿', this)"><span class="cat-icon">🏠</span>住宿</div>
             <div class="cat-item" onclick="selectRecordCat('➕', '其他', this)"><span class="cat-icon">➕</span>其他</div>
         </div>
 
-        <input type="text" id="rec-name" placeholder="買了什麼？(例: 合利他命)" class="input-field">
-        
+        <input type="text" id="rec-name" placeholder="商品名稱 (例: 合利他命)" class="input-field">
         <div class="flex gap-2 mb-4">
             <input type="number" id="rec-price" placeholder="金額" class="input-field mb-0 flex-1">
-            <select id="rec-currency" class="bg-gray-50 border rounded-xl px-2 font-bold text-gray-600">
+            <select id="rec-currency" class="bg-gray-100 border-none rounded-xl px-3 font-bold text-gray-600 outline-none">
                 <option value="JPY">日幣 ¥</option>
                 <option value="TWD">台幣 $</option>
             </select>
         </div>
-
-        <button onclick="addRecord()" class="btn-main">記一筆 🌸</button>
+        <button onclick="addRecord()" class="btn-main">加入清單 🌸</button>
     </div>
 
     <div id="record-list-container" class="mb-10">
-        <div class="px-6 flex justify-between items-end mb-2">
-            <span class="font-bold text-gray-500">購物清單</span>
-            <span id="total-sum" class="text-pink-600 font-black text-xl">總計: NT$ 0</span>
+        <div class="px-6 flex justify-between items-end mb-3">
+            <span class="font-bold text-gray-400">我的清單</span>
+            <span id="total-sum" class="text-pink-600 font-black text-2xl">NT$ 0</span>
         </div>
         <div id="record-list"></div>
     </div>
@@ -154,24 +158,25 @@
     <div onclick="switchTab('exchange', this)" class="nav-item flex flex-col items-center">
       <i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span>
     </div>
+    <div onclick="alert('聯絡功能開發中...')" class="nav-item flex flex-col items-center">
+      <i class="fab fa-line text-2xl"></i><span class="text-[10px] font-bold mt-1">找領隊</span>
+    </div>
   </nav>
 
   <script>
     const EXCHANGE_RATE = 0.21;
-    let records = JSON.parse(localStorage.getItem('travel_records')) || [];
+    let records = JSON.parse(localStorage.getItem('tokyo_2026_records')) || [];
     let selectedCat = { icon: '💊', name: '藥妝' };
 
-    // 分頁切換
     function switchTab(tabId, el) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       el.classList.add('active');
-      if(tabId === 'help') filterHelp('shopping', document.querySelector('.cat-btn'));
+      if(tabId === 'help') filterHelp('shopping', null);
       if(tabId === 'exchange') renderRecords();
     }
 
-    // 行程切換
     function switchDay(dayNum, el) {
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
       const target = document.getElementById('day-panel-' + dayNum);
@@ -182,54 +187,44 @@
       el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
-    // 匯率換算
     document.getElementById('jpy-input').addEventListener('input', (e) => {
-      const val = e.target.value;
-      document.getElementById('tw-result').innerText = `NT$ ${Math.round(val * EXCHANGE_RATE).toLocaleString()}`;
+      document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`;
     });
 
-    // 選擇分類
     function selectRecordCat(icon, name, el) {
         selectedCat = { icon, name };
         document.querySelectorAll('.cat-item').forEach(item => item.classList.remove('active'));
         el.classList.add('active');
     }
 
-    // 新增紀錄
     function addRecord() {
-        const name = document.getElementById('rec-name').value || '未命名項目';
-        const price = parseFloat(document.getElementById('rec-price').value);
+        const nameInput = document.getElementById('rec-name');
+        const priceInput = document.getElementById('rec-price');
+        const name = nameInput.value || '未命名項目';
+        const price = parseFloat(priceInput.value);
         const curr = document.getElementById('rec-currency').value;
 
-        if (!price) { alert('請輸入金額！'); return; }
+        if (!price) { alert('請輸入正確金額'); return; }
 
         const twPrice = curr === 'JPY' ? Math.round(price * EXCHANGE_RATE) : price;
-        const record = {
+        records.unshift({
             id: Date.now(),
-            catIcon: selectedCat.icon,
-            catName: selectedCat.name,
+            icon: selectedCat.icon,
+            cat: selectedCat.name,
             name: name,
             price: price,
             curr: curr,
-            twPrice: twPrice
-        };
+            tw: twPrice
+        });
 
-        records.unshift(record); // 加到最前面
-        saveAndRender();
-        
-        // 清空輸入
-        document.getElementById('rec-name').value = '';
-        document.getElementById('rec-price').value = '';
+        localStorage.setItem('tokyo_2026_records', JSON.stringify(records));
+        renderRecords();
+        nameInput.value = ''; priceInput.value = '';
     }
 
-    // 刪除紀錄
     function deleteRecord(id) {
         records = records.filter(r => r.id !== id);
-        saveAndRender();
-    }
-
-    function saveAndRender() {
-        localStorage.setItem('travel_records', JSON.stringify(records));
+        localStorage.setItem('tokyo_2026_records', JSON.stringify(records));
         renderRecords();
     }
 
@@ -239,45 +234,43 @@
         let total = 0;
 
         list.innerHTML = records.map(r => {
-            total += r.twPrice;
+            total += r.tw;
             return `
                 <div class="card-v2 anim-item flex justify-between items-center py-4 mb-3">
                     <div class="flex items-center">
-                        <span class="text-3xl mr-4">${r.catIcon}</span>
+                        <span class="text-3xl mr-4">${r.icon}</span>
                         <div>
-                            <p class="font-bold text-gray-700">${r.name}</p>
-                            <p class="text-xs text-gray-400">${r.catName} | ${r.curr === 'JPY' ? '¥'+r.price : '$'+r.price}</p>
+                            <p class="font-bold text-gray-700 text-base">${r.name}</p>
+                            <p class="text-xs text-gray-400">${r.cat} | ${r.curr === 'JPY' ? '¥'+r.price : '$'+r.price}</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <p class="text-pink-600 font-black">NT$ ${r.twPrice}</p>
-                        <button onclick="deleteRecord(${r.id})" class="text-gray-300 text-xs mt-1">刪除</button>
+                        <p class="text-pink-600 font-black text-lg">NT$ ${r.tw}</p>
+                        <button onclick="deleteRecord(${r.id})" class="text-gray-300 text-xs mt-1 underline">刪除</button>
                     </div>
                 </div>
             `;
         }).join('');
-
-        totalSumEl.innerText = `總計: NT$ ${total.toLocaleString()}`;
+        totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
     }
 
-    // 初始求助資料
     const helpData = {
-      shopping: [{ cn: "這個多少錢？", jp: "これはいくらですか？" }, { cn: "我要買這個。", jp: "これをください。" }],
-      tax: [{ cn: "請問可以退稅嗎？", jp: "免税はできますか？" }],
-      food: [{ cn: "結帳。", jp: "お会計をお願いします。" }]
+      shopping: [{ cn: "這個多少錢？", jp: "これはいくらですか？" }, { cn: "可以刷卡嗎？", jp: "カードは使えますか？" }],
+      food: [{ cn: "請給我菜單。", jp: "メニューをください。" }, { cn: "結帳。", jp: "お会計をお願いします。" }],
+      find: [{ cn: "洗手間在哪？", jp: "トイレはどこですか？" }]
     };
 
-    function filterHelp(cat, btn) {
+    function filterHelp(cat) {
         const list = document.getElementById('help-list');
         list.innerHTML = '';
         setTimeout(() => {
-            list.innerHTML = (helpData[cat] || []).map(item => `
+            list.innerHTML = helpData[cat].map(item => `
                 <div class="card-v2 anim-item flex justify-between items-center">
-                    <div><p class="font-bold">${item.jp}</p><p class="text-xs text-pink-500 mt-1">${item.cn}</p></div>
-                    <button class="speak-btn" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button>
+                    <div><p class="font-bold text-lg">${item.jp}</p><p class="text-sm text-pink-500 mt-1">${item.cn}</p></div>
+                    <button class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-xl active:bg-pink-500 active:text-white" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button>
                 </div>
             `).join('');
-        }, 10);
+        }, 50);
     }
 
     function playJP(text) {
@@ -297,10 +290,7 @@
       }, 1000);
     }
 
-    window.onload = () => {
-      initCountdown();
-      renderRecords();
-    };
+    window.onload = () => { initCountdown(); renderRecords(); };
   </script>
 </body>
 </html>
