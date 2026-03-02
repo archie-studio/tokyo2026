@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>🌸 2026 東京櫻花探險 - 完整行程版</title>
+  <title>🌸 2026 東京櫻花探險 - 完整App版</title>
   
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -11,9 +11,9 @@
 
   <style>
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
-    body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 120px; }
+    body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 120px; overflow-x: hidden; }
     
-    /* 核心絲滑動畫 */
+    /* 核心絲滑動畫 (0.9秒緩慢進入) */
     @keyframes slowAppEntrance {
       0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
       100% { opacity: 1; transform: translateY(0); filter: blur(0); }
@@ -24,31 +24,36 @@
     /* 行程點點連結線 */
     .timeline-dot-line { width: 2px; border-left: 2px dotted var(--sakura-pink); margin-left: 28px; height: 20px; opacity: 0.8; }
 
-    /* 置中彈窗設計 */
+    /* 置中彈窗設計 (Modal) */
     #detail-modal { 
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-      background: rgba(0,0,0,0.6); z-index: 1000; backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.65); z-index: 1000; backdrop-filter: blur(5px);
       align-items: center; justify-content: center; padding: 20px;
     }
     .modal-box { 
-      background: white; border-radius: 30px; width: 100%; max-width: 340px; 
-      padding: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      background: white; border-radius: 35px; width: 100%; max-width: 350px; 
+      padding: 25px; box-shadow: 0 25px 50px rgba(0,0,0,0.25);
       animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      max-height: 80vh; overflow-y: auto;
+      max-height: 85vh; overflow-y: auto; scrollbar-width: none;
     }
+    .modal-box::-webkit-scrollbar { display: none; }
     @keyframes popIn {
-      from { opacity: 0; transform: scale(0.85); }
-      to { opacity: 1; transform: scale(1); }
+      from { opacity: 0; transform: scale(0.8); blur(10px); }
+      to { opacity: 1; transform: scale(1); blur(0); }
     }
 
     /* UI 元素 */
     .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 45px 20px 25px; text-align: center; }
-    .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
-    .day-btn { flex: 0 0 auto; width: 75px; height: 65px; border-radius: 22px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.4s; }
-    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-5px); }
+    .day-selector { display: flex; overflow-x: auto; gap: 12px; padding: 20px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .day-selector::-webkit-scrollbar { display: none; }
+    .day-btn { flex: 0 0 auto; width: 75px; height: 65px; border-radius: 22px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.03); transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid #fff; }
+    .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-5px); border-color: var(--sakura-pink); box-shadow: 0 8px 20px rgba(255,117,140,0.3); }
     
-    .timeline-card { background: white; border-radius: 22px; padding: 16px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(255,182,193,0.1); border: 1px solid rgba(255,117,140,0.05); }
+    .timeline-card { background: white; border-radius: 25px; padding: 18px; display: flex; align-items: center; box-shadow: 0 6px 15px rgba(255,182,193,0.1); border: 1px solid rgba(255,117,140,0.05); transition: 0.3s; }
+    .timeline-card:active { transform: scale(0.97); background: #fffcfd; }
     .time-badge { background: #fff0f3; color: var(--deep-pink); padding: 5px 10px; border-radius: 12px; font-weight: 800; font-size: 13px; min-width: 65px; text-align: center; }
+    
+    .nav-bar { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,182,193,0.1); }
   </style>
 </head>
 <body>
@@ -67,130 +72,127 @@
   </div>
 
   <div id="schedule-container" class="px-5">
+    
     <div id="day-panel-1" class="day-panel active">
-      <div class="text-pink-600 font-bold mb-4 ml-1">🌸 目黑川 夜櫻初見</div>
-      <div class="timeline-card" onclick="openDetail('15:05', '🛬 抵達成田機場', '領好行李，深吸一口日本的空氣！準備搭乘火車。', 'narita')">
-        <span class="time-badge">15:05</span><div class="ml-4 font-bold text-gray-700">抵達東京成田機場</div>
+      <div class="text-pink-600 font-bold mb-4 ml-1 flex items-center"><i class="fas fa-plane-arrival mr-2"></i> 抵達與目黑川夜櫻</div>
+      <div class="timeline-card" onclick="openDetail('15:05', '🛬 抵達成田機場', '領好行李，深吸一口日本的空氣！準備搭乘火車。', '成田國際機場', 'https://images.unsplash.com/photo-1571738221873-16298647565d?w=600')">
+        <span class="time-badge">15:05</span><div class="ml-4 font-bold text-gray-700 text-base">抵達東京成田機場</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('16:00', '🚅 前往市川', '搭乘 JR 總武線快速，不用轉車，一班車直達市川站。', 'ichikawa-station')">
-        <span class="time-badge">16:00</span><div class="ml-4 font-bold text-gray-700">搭乘 JR 前往市川</div>
+      <div class="timeline-card" onclick="openDetail('16:00', '🚅 前往市川', '搭乘 JR 總武線快速，不用轉車，一班車直達市川站。', '市川駅', 'https://images.unsplash.com/photo-1549488344-cbb6c34cf08b?w=600')">
+        <span class="time-badge">16:00</span><div class="ml-4 font-bold text-gray-700 text-base">前往市川飯店</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('17:15', '🏨 飯店 Check-in', '抵達 HOTEL R9 Premium。卸下大行李，稍微洗把臉，換上輕便的鞋子，準備出門賞花！', 'hotel-r9')">
-        <span class="time-badge">17:15</span><div class="ml-4 font-bold text-gray-700">HOTEL R9 入住</div>
+      <div class="timeline-card" onclick="openDetail('17:15', '🏨 飯店 Check-in', '抵達 HOTEL R9 Premium Ichikawa。卸下大行李，稍微洗把臉，換上輕便的鞋子，準備出門賞花！', 'HOTEL R9 Premium Ichikawa', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600')">
+        <span class="time-badge">17:15</span><div class="ml-4 font-bold text-gray-700 text-base">HOTEL R9 入住</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('18:45', '🌸 抵達目黑川', '迎接我們的是夢幻的夜櫻隧道。', 'meguro-river')">
-        <span class="time-badge">18:45</span><div class="ml-4 font-bold text-gray-700">目黑川賞夜櫻</div>
+      <div class="timeline-card" onclick="openDetail('18:45', '🌸 抵達目黑川', '迎接我們的是夢幻的夜櫻隧道。', '目黑川櫻花並木道', 'https://images.unsplash.com/photo-1536100570649-f00e629b3135?w=600')">
+        <span class="time-badge">18:45</span><div class="ml-4 font-bold text-gray-700 text-base">目黑川賞夜櫻</div>
       </div>
     </div>
 
     <div id="day-panel-2" class="day-panel">
-      <div class="text-pink-600 font-bold mb-4 ml-1">🏮 淺草 - 上野 下町風情</div>
-      <div class="timeline-card" onclick="openDetail('09:00', '☀️ 飯店出發', '在附近吃完早餐，避開最擠的時段出發。', 'ichikawa-morning')">
-        <span class="time-badge">09:00</span><div class="ml-4 font-bold text-gray-700">飯店出發</div>
+      <div class="text-pink-600 font-bold mb-4 ml-1 flex items-center"><i class="fas fa-torii-gate mr-2"></i> 下町風情與公園賞櫻</div>
+      <div class="timeline-card" onclick="openDetail('09:40', '🚕 抵達淺草', '從錦糸町轉搭計程車，直接停在雷門門口！淺草寺參拜。', '淺草寺雷門', 'https://images.unsplash.com/photo-1566213757827-e4352125f469?w=600')">
+        <span class="time-badge">09:40</span><div class="ml-4 font-bold text-gray-700 text-base">淺草雷門寺參拜</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('09:40', '🚕 直達淺草', '為了省體力，我們從錦糸町轉搭計程車，直接停在雷門門口！', 'asakusa')">
-        <span class="time-badge">09:40</span><div class="ml-4 font-bold text-gray-700">抵達淺草雷門</div>
+      <div class="timeline-card" onclick="openDetail('14:00', '🌸 上野公園', '欣賞粉色櫻花海與不忍池美景。', '上野公園', 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=600')">
+        <span class="time-badge">14:00</span><div class="ml-4 font-bold text-gray-700 text-base">上野公園賞櫻</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('14:00', '🌸 上野公園', '下午轉戰上野，欣賞粉色櫻花海。', 'ueno-park')">
-        <span class="time-badge">14:00</span><div class="ml-4 font-bold text-gray-700">上野公園賞櫻</div>
-      </div>
-      <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('18:00', '🛍️ 阿美橫町', '在熱鬧的商店街大採購，感受日本市場的活力。', 'ameyoko')">
-        <span class="time-badge">18:00</span><div class="ml-4 font-bold text-gray-700">阿美橫町採購</div>
+      <div class="timeline-card" onclick="openDetail('18:00', '🛍️ 阿美橫町', '在熱鬧的商店街大採購，感受日本市場活力。', '阿美橫町', 'https://images.unsplash.com/photo-1621213303893-6a56f642674e?w=600')">
+        <span class="time-badge">18:00</span><div class="ml-4 font-bold text-gray-700 text-base">阿美橫町採購</div>
       </div>
     </div>
 
     <div id="day-panel-3" class="day-panel">
-      <div class="text-pink-600 font-bold mb-4 ml-1">🌊 鎌倉 - 江之島 (全日包車)</div>
-      <div class="timeline-card" onclick="openDetail('11:00', '⛩️ 鶴岡八幡宮', '參觀古都神社，午餐在小町通商店街自由享用美食。(停留兩小時，13:00 離開)', 'kamakura-shrine')">
-        <span class="time-badge">11:00</span><div class="ml-4 font-bold text-gray-700">鶴岡八幡宮</div>
+      <div class="text-pink-600 font-bold mb-4 ml-1 flex items-center"><i class="fas fa-bus mr-2"></i> 鎌倉江之島包車一日遊</div>
+      <div class="timeline-card" onclick="openDetail('11:00', '⛩️ 鶴岡八幡宮', '參觀古都神社，午餐在小町通自由享用。(停留120分)', '鶴岡八幡宮', 'https://images.unsplash.com/photo-1626210034637-299f18b3ff51?w=600')">
+        <span class="time-badge">11:00</span><div class="ml-4 font-bold text-gray-700 text-base">鶴岡八幡宮</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('13:10', '🙏 鎌倉大佛', '參拜莊嚴的露天大佛。(停留 20 分鐘，13:30 離開)', 'daibutsu')">
-        <span class="time-badge">13:10</span><div class="ml-4 font-bold text-gray-700">高德院大佛</div>
+      <div class="timeline-card" onclick="openDetail('13:10', '🙏 高德院大佛', '參拜莊嚴的露天大佛。(停留20分)', '鎌倉大佛', 'https://images.unsplash.com/photo-1625902139626-d6682704eb08?w=600')">
+        <span class="time-badge">13:10</span><div class="ml-4 font-bold text-gray-700 text-base">鎌倉大佛參拜</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('13:51', '🚃 體驗江之電', '步行前往車站，搭乘充滿復古風情的江之電前往鎌倉高校前站。(搭乘 13:51 班次) ▲ 讓包車司機在下一站等候，全家一起體驗一段經典的海線鐵道！', 'enoden')">
-        <span class="time-badge">13:51</span><div class="ml-4 font-bold text-gray-700">江之電體驗</div>
+      <div class="timeline-card" onclick="openDetail('13:51', '🚃 體驗江之電', '搭乘充滿復古風情的江之電電車。▲ 包車司機在下一站等候。', '鎌倉車站江之電', 'https://images.unsplash.com/photo-1577717903333-e8869c3a3793?w=600')">
+        <span class="time-badge">13:51</span><div class="ml-4 font-bold text-gray-700 text-base">江之電體驗</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('14:06', '📸 鎌倉高校前', '抵達鎌倉高校，在經典的灌籃高手平交道拍照打卡。(停留 20 分鐘，14:30 離開)', 'slamdunk')">
-        <span class="time-badge">14:06</span><div class="ml-4 font-bold text-gray-700">高校前平交道</div>
+      <div class="timeline-card" onclick="openDetail('14:06', '📸 高校前平交道', '灌籃高手經典平交道拍照打卡。(停留20分)', '鎌倉高校前平交道', 'https://images.unsplash.com/photo-1594917631388-b2ac7488f28d?w=600')">
+        <span class="time-badge">14:06</span><div class="ml-4 font-bold text-gray-700 text-base">鎌倉高校前</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('14:45', '🌊 江之島', '感受海洋能量，散步江之島參道。(停留 90 分鐘，16:15 離開)', 'enoshima')">
-        <span class="time-badge">14:45</span><div class="ml-4 font-bold text-gray-700">江之島散步</div>
+      <div class="timeline-card" onclick="openDetail('14:45', '🌊 江之島', '散步參道，感受海洋能量。(停留90分)', '江之島', 'https://images.unsplash.com/photo-1601662580749-0d12e6167664?w=600')">
+        <span class="time-badge">14:45</span><div class="ml-4 font-bold text-gray-700 text-base">江之島散步</div>
       </div>
     </div>
 
     <div id="day-panel-4" class="day-panel">
-      <div class="text-pink-600 font-bold mb-4 ml-1">🗻 河口湖 - 富士山下 (全日包車)</div>
-      <div class="timeline-card" onclick="openDetail('10:00', '🌷 大石公園', '抵達大石公園，欣賞河口湖與富士山的絕美同框景色。（停留 75 分鐘，11:15 離開）', 'oishi-park')">
-        <span class="time-badge">10:00</span><div class="ml-4 font-bold text-gray-700">大石公園賞景</div>
+      <div class="text-pink-600 font-bold mb-4 ml-1 flex items-center"><i class="fas fa-mountain mr-2"></i> 河口湖富士山包車一日遊</div>
+      <div class="timeline-card" onclick="openDetail('10:00', '🌷 大石公園', '欣賞河口湖與富士山的絕美同框景色。(停留75分)', '大石公園', 'https://images.unsplash.com/photo-1624206112911-80164c39c8c9?w=600')">
+        <span class="time-badge">10:00</span><div class="ml-4 font-bold text-gray-700 text-base">大石公園賞富士山</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('11:25', '🦞 ほうとう研究所', '午餐享用特製海鮮餺飥鍋。（用餐 100 分鐘，12:50 離開）', 'houtou')">
-        <span class="time-badge">11:25</span><div class="ml-4 font-bold text-gray-700">海鮮餺飥鍋午餐</div>
+      <div class="timeline-card" onclick="openDetail('11:25', '🦞 ほうとう研究所', '午餐享用特製海鮮餺飥鍋。(用餐100分)', '河口湖ほうとう研究所', 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600')">
+        <span class="time-badge">11:25</span><div class="ml-4 font-bold text-gray-700 text-base">餺飥鍋午餐</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('13:20', '🦛 KABA 水陸巴士', '體驗直接衝入湖中的快感，從湖面仰望富士山。（停留 80 分鐘，14:30 離開） ▲ 山中湖特色體驗：KABA 陸上與水上雙棲巴士', 'kaba-bus')">
-        <span class="time-badge">13:20</span><div class="ml-4 font-bold text-gray-700">水陸兩用巴士</div>
+      <div class="timeline-card" onclick="openDetail('13:20', '🦛 KABA 水陸巴士', '從湖面仰望富士山，體驗衝入湖中快感。(停留80分)', '山中湖カババス', 'https://images.unsplash.com/photo-1563297604-e219371891af?w=600')">
+        <span class="time-badge">13:20</span><div class="ml-4 font-bold text-gray-700 text-base">水陸兩用巴士</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('14:45', '💧 忍野八海', '抵達忍野八海，欣賞富士山雪水濾出的清澈湧泉。（停留 45 分鐘，15:30 離開）', 'oshino-hakkai')">
-        <span class="time-badge">14:45</span><div class="ml-4 font-bold text-gray-700">忍野八海</div>
+      <div class="timeline-card" onclick="openDetail('14:45', '💧 忍野八海', '富士山雪水濾出的清澈湧泉。(停留45分)', '忍野八海', 'https://images.unsplash.com/photo-1588661803738-f952f4422e5a?w=600')">
+        <span class="time-badge">14:45</span><div class="ml-4 font-bold text-gray-700 text-base">忍野八海秘境</div>
       </div>
     </div>
 
     <div id="day-panel-5" class="day-panel">
-      <div class="text-pink-600 font-bold mb-4 ml-1">👑 明治神宮 - 皇居 皇家散策</div>
-      <div class="timeline-card" onclick="openDetail('10:40', '🌲 明治神宮', '森林巡禮，午餐在園區內的「FOREST TERRACE」餐廳享用。', 'meiji-shrine')">
-        <span class="time-badge">10:40</span><div class="ml-4 font-bold text-gray-700">明治神宮巡禮</div>
+      <div class="text-pink-600 font-bold mb-4 ml-1 flex items-center"><i class="fas fa-landmark mr-2"></i> 皇家散策與觀光巴士</div>
+      <div class="timeline-card" onclick="openDetail('10:40', '🌲 明治神宮', '森林巡禮，享受綠意。午餐在園區「FOREST TERRACE」享用。', '明治神宮', 'https://images.unsplash.com/photo-1620022441999-923f03b44b8a?w=600')">
+        <span class="time-badge">10:40</span><div class="ml-4 font-bold text-gray-700 text-base">明治神宮巡禮</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('13:30', '🚌 敞篷觀光巴士', '盡情遊覽東京鐵塔和明治神宮外苑等熱門景點。', 'skybus')">
-        <span class="time-badge">13:30</span><div class="ml-4 font-bold text-gray-700">敞篷巴士遊覽</div>
+      <div class="timeline-card" onclick="openDetail('13:30', '🚌 敞篷觀光巴士', '遊覽東京鐵塔和明治神宮外苑等熱門景點。', '東京觀光巴士', 'https://images.unsplash.com/photo-1542362567-b07e54358753?w=600')">
+        <span class="time-badge">13:30</span><div class="ml-4 font-bold text-gray-700 text-base">敞篷巴士遊覽</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('15:00', '🏯 皇居 & 東京車站', '下午搭 JR 至皇居參觀。接著步行至東京車站逛街 (KITTE 看風景、大丸百貨買伴手禮)。預計 20:00 之後搭車返回飯店，避開下班尖峰。', 'tokyo-station')">
-        <span class="time-badge">15:00</span><div class="ml-4 font-bold text-gray-700">皇居/東京車站</div>
+      <div class="timeline-card" onclick="openDetail('15:00', '🏯 皇居 & 東京車站', '散步皇居。接著至東京車站KITTE看風景、大丸百貨買伴手禮。', '東京車站', 'https://images.unsplash.com/photo-1582260272049-74d7580b271b?w=600')">
+        <span class="time-badge">15:00</span><div class="ml-4 font-bold text-gray-700 text-base">皇居/東京車站逛街</div>
       </div>
     </div>
 
     <div id="day-panel-6" class="day-panel">
-      <div class="text-pink-600 font-bold mb-4 ml-1">🍣 築地市場 - 滿載而歸</div>
-      <div class="timeline-card" onclick="openDetail('08:30', '🧳 退房寄行李', '將大行李全部寄放在 HOTEL R9 櫃台，輕裝出門。', 'checkout')">
-        <span class="time-badge">08:30</span><div class="ml-4 font-bold text-gray-700">退房寄放行李</div>
+      <div class="text-pink-600 font-bold mb-4 ml-1 flex items-center"><i class="fas fa-plane-departure mr-2"></i> 築地市場與滿載而歸</div>
+      <div class="timeline-card" onclick="openDetail('08:30', '🧳 退房寄行李', '行李寄放在 HOTEL R9 櫃台，輕裝出門。', 'checkout', 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600')">
+        <span class="time-badge">08:30</span><div class="ml-4 font-bold text-gray-700 text-base">退房寄放行李</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('09:40', '🍣 前往築地', '避開尖峰搭車去築地市場吃早午餐。', 'tsukiji')">
-        <span class="time-badge">09:40</span><div class="ml-4 font-bold text-gray-700">築地吃早午餐</div>
+      <div class="timeline-card" onclick="openDetail('09:40', '🍣 前往築地', '至築地市場吃早午餐，享受鮮魚美味。', '築地市場', 'https://images.unsplash.com/photo-1557002620-c284fe68b9a7?w=600')">
+        <span class="time-badge">09:40</span><div class="ml-4 font-bold text-gray-700 text-base">築地海鮮早午餐</div>
       </div>
       <div class="timeline-dot-line"></div>
-      <div class="timeline-card" onclick="openDetail('13:00', '🚐 機場接送', '專車直接在飯店門口接我們去成田機場。', 'airport-transfer')">
-        <span class="time-badge">13:00</span><div class="ml-4 font-bold text-gray-700">專車接機前往機場</div>
+      <div class="timeline-card" onclick="openDetail('13:00', '🚐 機場接送', '專車在飯店門口接送前往機場。', 'airport-shuttle', 'https://images.unsplash.com/photo-1517036667958-b1187425e791?w=600')">
+        <span class="time-badge">13:00</span><div class="ml-4 font-bold text-gray-700 text-base">專車接機前往機場</div>
       </div>
     </div>
   </div>
 
   <div id="detail-modal" class="flex" onclick="closeDetail()">
-    <div class="modal-box" onclick="event.stopPropagation()">
-      <img id="m-img" src="" class="w-full h-40 object-cover rounded-2xl mb-4 bg-gray-100">
+    <div class="modal-box anim-pop" onclick="event.stopPropagation()">
+      <img id="m-img" src="" class="w-full h-44 object-cover rounded-3xl mb-4 shadow-md bg-gray-100">
       <div class="flex items-center justify-between mb-2">
         <h2 id="m-title" class="text-xl font-bold text-gray-800 leading-tight"></h2>
-        <span id="m-time" class="bg-pink-100 text-pink-500 px-2 py-1 rounded-lg text-xs font-bold whitespace-nowrap"></span>
+        <span id="m-time" class="bg-pink-100 text-pink-500 px-3 py-1 rounded-lg text-xs font-bold whitespace-nowrap"></span>
       </div>
-      <p id="m-desc" class="text-gray-500 text-sm leading-relaxed mb-6"></p>
+      <p id="m-desc" class="text-gray-500 text-base leading-relaxed mb-8 px-1"></p>
       
-      <a id="m-map" href="" target="_blank" class="flex items-center justify-center w-full bg-blue-500 text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition-all mb-2">
-        <i class="fas fa-map-marker-alt mr-2"></i> Google 導航
+      <a id="m-map" href="" target="_blank" class="flex items-center justify-center w-full bg-blue-500 text-white py-4 rounded-2xl font-bold text-lg shadow-lg active:scale-95 transition-all mb-2">
+        <i class="fas fa-location-dot mr-2"></i> 打開 Google 地圖
       </a>
-      <button onclick="closeDetail()" class="w-full py-2 text-gray-400 text-sm font-medium">關閉視窗</button>
+      <button onclick="closeDetail()" class="w-full mt-3 py-2 text-gray-400 font-bold">返回行程</button>
     </div>
   </div>
 
@@ -210,11 +212,11 @@
       el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
-    function openDetail(time, title, desc, mapSearch) {
+    function openDetail(time, title, desc, mapSearch, imgUrl) {
       document.getElementById('m-time').innerText = time;
       document.getElementById('m-title').innerText = title;
       document.getElementById('m-desc').innerText = desc;
-      document.getElementById('m-img').src = `https://source.unsplash.com/600x400/?tokyo,${mapSearch}`;
+      document.getElementById('m-img').src = imgUrl || 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=600';
       document.getElementById('m-map').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapSearch)}`;
       document.getElementById('detail-modal').style.display = 'flex';
     }
