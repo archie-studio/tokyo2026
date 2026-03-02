@@ -16,30 +16,25 @@
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; }
     body { font-family: 'Noto Sans TC', sans-serif; background: #fff5f7; color: #4a4a4a; padding-bottom: 110px; overflow-x: hidden; }
     
-    /* 頁首專屬櫻花圖標樣式 */
-    .custom-sakura-img {
-      width: 100px;
-      height: 100px;
-      background: white;
-      border-radius: 50%;
-      margin: 0 auto 15px;
-      padding: 10px;
-      box-shadow: 0 8px 20px rgba(255, 182, 193, 0.4);
-      object-fit: contain;
-    }
+    .custom-sakura-img { width: 80px; height: 80px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 8px; box-shadow: 0 5px 15px rgba(255, 182, 193, 0.4); object-fit: contain; }
+    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 30px 30px; position: relative; padding: 30px 20px 20px; }
 
-    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; position: relative; }
+    /* 天數按鈕列 */
+    .day-selector { display: flex; overflow-x: auto; gap: 12px; padding: 10px 20px; scrollbar-width: none; }
+    .day-selector::-webkit-scrollbar { display: none; }
+    .day-btn { flex: 0 0 auto; width: 65px; height: 65px; border-radius: 18px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(255,182,193,0.2); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid transparent; }
+    .day-btn.active { background: var(--deep-pink); color: white; transform: scale(1.1); box-shadow: 0 8px 20px rgba(255, 117, 140, 0.4); border-color: #fff; }
+    
+    /* 行程卡片動畫 */
+    .schedule-content { display: none; animation: slideUp 0.5s ease-out forwards; }
+    .schedule-content.active { display: block; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
     .card-v2 { background: white; border-radius: 24px; box-shadow: 0 10px 25px rgba(255, 182, 193, 0.15); border: 1px solid rgba(255, 117, 140, 0.1); margin-bottom: 20px; overflow: hidden; }
     .time-pill { background: #fdf2f4; color: var(--deep-pink); padding: 2px 10px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
     .sakura-fall { position: fixed; top: -10%; pointer-events: none; z-index: 10; animation: fall linear forwards; }
     
-    @keyframes fall { 
-      0% { transform: translateY(0) rotate(0deg); opacity: 0; } 
-      10% { opacity: 1; } 
-      90% { opacity: 1; } 
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } 
-    }
-    
+    @keyframes fall { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
     .nav-bar { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-top: 1px solid rgba(255, 182, 193, 0.2); }
     .sos-btn { position: fixed; right: 20px; bottom: 120px; width: 60px; height: 60px; background: #ff4d6d; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; box-shadow: 0 8px 20px rgba(255, 77, 109, 0.3); z-index: 100; animation: pulse 2s infinite; }
     @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
@@ -51,45 +46,67 @@
     <i class="fas fa-bullhorn text-2xl"></i>
   </div>
 
-  <div class="hero-header p-10 text-center shadow-sm relative">
-    <div id="countdown" class="absolute top-4 right-4 text-[10px] bg-white/60 px-2 py-1 rounded-full text-pink-500 font-bold tracking-tighter"></div>
-    
-    <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" 
-         alt="Sakura Icon" 
-         class="custom-sakura-img animate-bounce">
-    
-    <h1 class="text-3xl font-bold text-pink-700">2026 東京櫻花季</h1>
-    <p class="text-pink-400 font-light text-sm tracking-widest mt-1 italic">Family Trip | 04.04 - 04.09</p>
+  <div class="hero-header text-center">
+    <div id="countdown" class="absolute top-4 right-4 text-[10px] bg-white/60 px-2 py-1 rounded-full text-pink-500 font-bold"></div>
+    <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" class="custom-sakura-img">
+    <h1 class="text-2xl font-bold text-pink-700">2026 東京櫻花季</h1>
+  </div>
+
+  <div class="day-selector mt-4">
+    <button class="day-btn active" onclick="showDay(1, this)">
+      <span class="text-[10px] opacity-70">SAT</span>
+      <span class="text-lg font-bold">4/4</span>
+    </button>
+    <button class="day-btn" onclick="showDay(2, this)">
+      <span class="text-[10px] opacity-70">SUN</span>
+      <span class="text-lg font-bold">4/5</span>
+    </button>
+    <button class="day-btn" onclick="showDay(3, this)">
+      <span class="text-[10px] opacity-70">MON</span>
+      <span class="text-lg font-bold">4/6</span>
+    </button>
+    <button class="day-btn" onclick="showDay(4, this)">
+      <span class="text-[10px] opacity-70">TUE</span>
+      <span class="text-lg font-bold">4/7</span>
+    </button>
+    <button class="day-btn" onclick="showDay(5, this)">
+      <span class="text-[10px] opacity-70">WED</span>
+      <span class="text-lg font-bold">4/8</span>
+    </button>
+    <button class="day-btn" onclick="showDay(6, this)">
+      <span class="text-[10px] opacity-70">THU</span>
+      <span class="text-lg font-bold">4/9</span>
+    </button>
   </div>
 
   <div class="p-5">
-    <div class="card-v2 p-6">
-      <div class="flex justify-between items-center mb-4">
-        <span class="bg-pink-500 text-white text-xs px-3 py-1 rounded-full font-bold">DAY 1 (4/4 六)</span>
-        <span class="font-['Zhi_Mang_Xing'] text-pink-300 text-xl tracking-widest">啟程</span>
-      </div>
-      <h3 class="text-lg font-bold text-gray-700 mb-4"><i class="fas fa-plane-departure mr-2 text-pink-400"></i>星宇 JX802 ➔ 市川飯店</h3>
-      <div class="space-y-4 border-l-2 border-pink-100 ml-2 pl-4">
-        <div class="flex items-center"><span class="time-pill mr-3">10:40</span><span class="text-sm">桃園機場起飛</span></div>
-        <div class="flex items-center"><span class="time-pill mr-3">15:05</span><span class="text-sm">抵達成田二航廈</span></div>
-        <div class="flex items-center"><span class="time-pill mr-3">17:30</span><span class="text-sm font-bold text-pink-600">HOTEL R9 Premium 市川</span></div>
-      </div>
-      <button onclick="speak('到日本囉！飯店附近有超市，晚上去買草莓！')" class="w-full mt-5 py-3 bg-pink-50 text-pink-500 rounded-xl font-bold text-sm"><i class="fas fa-bullhorn mr-2"></i>領隊廣播</button>
-    </div>
-
-    <div class="card-v2 p-6">
-      <div class="flex justify-between items-center mb-4">
-        <span class="bg-pink-400 text-white text-xs px-3 py-1 rounded-full font-bold">DAY 2 (4/5 日)</span>
-        <span class="font-['Zhi_Mang_Xing'] text-pink-300 text-xl tracking-widest">賞櫻</span>
-      </div>
-      <h3 class="text-lg font-bold text-gray-700 mb-4"><i class="fas fa-camera-retro mr-2 text-pink-400"></i>中目黑賞櫻 ➔ 淺草寺夜櫻</h3>
-      <div class="space-y-5 border-l-2 border-pink-100 ml-2 pl-4">
-        <div class="flex flex-col"><div class="flex items-center"><span class="time-pill mr-3">10:30</span><span class="text-sm font-medium">目黑川櫻花隧道</span></div><span class="text-[11px] text-gray-400 ml-16">800株櫻花交織的粉紅隧道</span></div>
-        <div class="flex flex-col"><div class="flex items-center"><span class="time-pill mr-3">18:30</span><span class="text-sm font-medium">淺草寺 & 雷門</span></div><span class="text-[11px] text-gray-400 ml-16">江戶風情與夢幻夜櫻</span></div>
+    
+    <div id="day1" class="schedule-content active">
+      <div class="card-v2 p-6">
+        <h3 class="text-lg font-bold text-gray-700 mb-4 font-['Zhi_Mang_Xing'] text-2xl">Day 1 啟程</h3>
+        <div class="space-y-4 border-l-2 border-pink-100 ml-2 pl-4">
+          <div class="flex items-center"><span class="time-pill mr-3">10:40</span><span class="text-sm">桃園機場起飛 (JX802)</span></div>
+          <div class="flex items-center"><span class="time-pill mr-3">15:05</span><span class="text-sm">抵達成田二航廈</span></div>
+          <div class="flex items-center"><span class="time-pill mr-3">17:30</span><span class="text-sm font-bold text-pink-600">HOTEL R9 Premium 市川</span></div>
+        </div>
       </div>
     </div>
 
-    <div class="text-center text-pink-300 text-xs mt-10 italic">向下滾動查看更多...</div>
+    <div id="day2" class="schedule-content">
+      <div class="card-v2 p-6">
+        <h3 class="text-lg font-bold text-gray-700 mb-4 font-['Zhi_Mang_Xing'] text-2xl">Day 2 賞櫻</h3>
+        <div class="space-y-4 border-l-2 border-pink-100 ml-2 pl-4">
+          <div class="flex items-center"><span class="time-pill mr-3">10:30</span><span class="text-sm">目黑川櫻花隧道</span></div>
+          <div class="flex items-center"><span class="time-pill mr-3">18:30</span><span class="text-sm">淺草寺夜櫻參拜</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="day3" class="schedule-content"><div class="card-v2 p-6 text-center text-gray-400">Day 3 行程準備中...</div></div>
+    <div id="day4" class="schedule-content"><div class="card-v2 p-6 text-center text-gray-400">Day 4 行程準備中...</div></div>
+    <div id="day5" class="schedule-content"><div class="card-v2 p-6 text-center text-gray-400">Day 5 行程準備中...</div></div>
+    <div id="day6" class="schedule-content"><div class="card-v2 p-6 text-center text-gray-400">Day 6 行程準備中...</div></div>
+
   </div>
 
   <nav class="nav-bar fixed bottom-0 w-full flex justify-around py-4 pb-6 z-50 shadow-lg">
@@ -101,13 +118,26 @@
       <i class="fas fa-calculator text-xl"></i>
       <span class="text-[10px] font-bold mt-1">換台幣</span>
     </div>
-    <div onclick="window.open('https://line.me/')" class="flex flex-col items-center text-gray-400">
-      <i class="fab fa-line text-2xl"></i>
-      <span class="text-[10px] font-bold">連繫隊長</span>
-    </div>
   </nav>
 
   <script>
+    // 切換天數功能
+    function showDay(dayNum, btn) {
+      // 隱藏所有行程
+      document.querySelectorAll('.schedule-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      // 顯示選中行程
+      document.getElementById('day' + dayNum).classList.add('active');
+      
+      // 更新按鈕樣式
+      document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // 自動捲動按鈕到中間 (優化手機體驗)
+      btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+
     function initCountdown() {
       const target = new Date('2026-04-04T00:00:00').getTime();
       function update() {
@@ -115,20 +145,15 @@
         const diff = target - now;
         if (diff < 0) { document.getElementById('countdown').innerText = "旅途進行中！"; return; }
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        document.getElementById('countdown').innerText = `倒數 ${days} 天出發`;
+        document.getElementById('countdown').innerText = `倒數 ${days} 天`;
       }
       update(); setInterval(update, 60000);
     }
 
-    function speak(text) {
-      window.speechSynthesis.cancel();
-      const msg = new SpeechSynthesisUtterance(text);
+    function triggerSOS() {
+      const msg = new SpeechSynthesisUtterance('請幫幫我，我迷路了。');
       msg.lang = 'zh-TW';
       window.speechSynthesis.speak(msg);
-    }
-
-    function triggerSOS() {
-      speak('請幫幫我，我迷路了，請聯繫我的家人。');
       alert('🚨 SOS 已啟動！');
     }
 
@@ -142,7 +167,6 @@
       petal.innerHTML = '🌸';
       petal.className = 'sakura-fall text-pink-200';
       petal.style.left = Math.random() * 100 + 'vw';
-      petal.style.fontSize = (Math.random() * 10 + 10) + 'px';
       const duration = Math.random() * 5 + 7;
       petal.style.animationDuration = duration + 's';
       document.body.appendChild(petal);
