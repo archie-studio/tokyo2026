@@ -46,7 +46,7 @@
     .card-title { font-weight: bold; color: #333; font-size: 17px; }
     .card-desc { color: #666; font-size: 14px; margin-top: 8px; line-height: 1.6; border-top: 1px dotted #eee; padding-top: 8px; }
     
-    /* 彈窗 UI 樣式 */
+    /* 彈窗樣式 */
     #detail-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 1000; }
     #detail-modal { 
       position: fixed; top: 50%; left: 50%; width: 88%; max-width: 400px; 
@@ -82,7 +82,9 @@
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
     <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" class="header-logo">
     <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026 東京櫻花探險</h1>
-  </div><div id="tab-schedule" class="tab-content active">
+  </div>
+
+  <div id="tab-schedule" class="tab-content active">
     <div class="day-selector">
       <button class="day-btn active" onclick="switchDay(1, this)">4/4 (六)</button>
       <button class="day-btn" onclick="switchDay(2, this)">4/5 (日)</button>
@@ -94,71 +96,98 @@
     
     <div id="schedule-panels">
         <div id="day-panel-1" class="day-panel active">
-          <div class="card-v2" onclick="showDetail('成田機場', '抵達成田機場第二航廈，建議先在鐵道站辦理 Suica 或購票。', 'narita', 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?w=500')">
+          <div class="card-v2" onclick="showDetail('成田機場', '抵達成田機場第二航廈。建議先在 JR 東日本旅行服務中心辦理 Suica 或購票。', 'narita', 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?w=500')">
             <div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div>
             <p class="card-desc">抵達東京成田機場第二航廈，準備展開賞櫻之旅。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="showDetail('Hotel R9 Premium', '飯店鄰近市川站，生活機能便利，新穎舒適。', 'hotelr9', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500')">
+          <div class="card-v2" onclick="showDetail('Hotel R9 Premium', '飯店鄰近市川站，生活機能便利，提供新穎舒適的住宿環境。', 'hotelr9', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500')">
             <div><span class="time-tag">17:15</span><span class="card-title">飯店 Check-in</span></div>
             <p class="card-desc">入住 HOTEL R9 Premium Ichikawa，稍作休息後前往目黑川。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="showDetail('中目黑夜櫻', '中目黑川兩岸約800顆櫻花，夜間點燈後非常浪漫。', 'nakameguro', 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=500')">
+          <div class="card-v2" onclick="showDetail('中目黑夜櫻', '中目黑川是東京賞櫻名所，夜晚兩岸點燈後形成的粉紅隧道令人驚艷。', 'nakameguro', 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=500')">
             <div><span class="time-tag">18:45</span><span class="card-title">中目黑賞夜櫻</span></div>
-            <p class="card-desc">漫步目黑川，欣賞河岸兩側如粉色隧道般的夢幻夜櫻。</p>
+            <p class="card-desc">漫步目黑川，欣賞夢幻夜櫻。</p>
           </div>
         </div>
 
         <div id="day-panel-2" class="day-panel">
-          <div class="card-v2" onclick="showDetail('淺草雷門', '東京地標，仲見世通有許多美食小吃與特色紀念品。', 'asakusa', 'https://images.unsplash.com/photo-1542931237-323a1959446a?w=500')">
+          <div class="card-v2" onclick="showDetail('淺草雷門', '東京最古老寺院，雷門燈籠是必拍地標。仲見世通有各式傳統美食。', 'asakusa', 'https://images.unsplash.com/photo-1542931237-323a1959446a?w=500')">
             <div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div>
             <p class="card-desc">遊覽仲見世通、淺草寺。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="showDetail('上野恩賜公園', '東京賞櫻必訪，不僅有櫻花林，還有美術館與不忍池。', 'ueno', 'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=500')">
+          <div class="card-v2" onclick="showDetail('上野恩賜公園', '東京賞櫻百選地。園內有不忍池、動物園及多家美術館。', 'ueno', 'https://images.unsplash.com/photo-1504198453319-5ce911bafcde?w=500')">
             <div><span class="time-tag">14:00</span><span class="card-title">上野恩賜公園</span></div>
-            <p class="card-desc">漫步於上野公園，欣賞櫻花百選勝地。</p>
-          </div>
-        </div>
-
-        <div id="day-panel-3" class="day-panel">
-          <div class="card-v2" onclick="showDetail('鶴岡八幡宮', '鎌倉歷史核心，通往神社的段葛是絕美的櫻花隧道。', 'kamakura_hachimangu', 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=500')">
-            <div><span class="time-tag">11:00</span><span class="card-title">鶴岡八幡宮 (包車)</span></div>
-            <p class="card-desc">停留 120 分鐘。漫步若宮大路櫻花道。</p>
+            <p class="card-desc">漫步於上野公園，欣賞櫻花勝地。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="showDetail('江之電', '沿著海岸線行駛的復古電車，是鎌倉最具代表性的風景。', 'enoshima_electric_railway', 'https://images.unsplash.com/photo-1528114039593-4366cc28228d?w=500')">
+          <div class="card-v2" onclick="showDetail('阿美橫町', '熱鬧的露天商店街，適合採買藥妝、零食並享用在地海鮮丼。', 'ameya', 'https://images.unsplash.com/photo-1582234032544-77292211925b?w=500')">
+            <div><span class="time-tag">18:00</span><span class="card-title">阿美橫町購物</span></div>
+            <p class="card-desc">熱鬧商店街採買與美食。</p>
+          </div>
+        </div><div id="day-panel-3" class="day-panel">
+          <div class="card-v2" onclick="showDetail('鶴岡八幡宮', '鎌倉武家文化的代表。通往神社的段葛櫻花步道非常優雅。', 'kamakura_hachimangu', 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=500')">
+            <div><span class="time-tag">11:00</span><span class="card-title">鶴岡八幡宮 (包車)</span></div>
+            <p class="card-desc">漫步若宮大路櫻花道。</p>
+          </div>
+          <div class="timeline-dots"></div>
+          <div class="card-v2" onclick="showDetail('鎌倉大佛', '高德院青銅阿彌陀如來坐像，是鎌倉唯一的國寶大佛。', 'daibutsu', 'https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?w=500')">
+            <div><span class="time-tag">13:10</span><span class="card-title">高德院鎌倉大佛</span></div>
+            <p class="card-desc">參拜莊嚴的露天青銅大佛。</p>
+          </div>
+          <div class="timeline-dots"></div>
+          <div class="card-v2" onclick="showDetail('江之電體驗', '在鎌倉高校前站下車，拍攝經典的《灌籃高手》平交道海景。', 'enoshima_electric_railway', 'https://images.unsplash.com/photo-1528114039593-4366cc28228d?w=500')">
             <div><span class="time-tag">13:51</span><span class="card-title">江之電體驗</span></div>
             <p class="card-desc">全家體驗經典海邊電車路線。</p>
           </div>
         </div>
 
         <div id="day-panel-4" class="day-panel">
-          <div class="card-v2" onclick="showDetail('大石公園', '河口湖北岸，富士山、湖水與花海一覽無遺。', 'oishi_park', 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=500')">
+          <div class="card-v2" onclick="showDetail('大石公園', '位於河口湖北岸。春天可拍到櫻花、富士山與湖泊三位一體的美景。', 'oishi_park', 'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=500')">
             <div><span class="time-tag">10:00</span><span class="card-title">大石公園 (包車)</span></div>
+            <p class="card-desc">河口湖畔拍下富士山與櫻花同框。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="showDetail('山中湖 KABA', '搭乘水陸兩用巴士，從陸地直接衝進湖裡的刺激體驗。', 'kaba_bus', 'https://images.unsplash.com/photo-1542998538-75d0281c3e53?w=500')">
+          <div class="card-v2" onclick="showDetail('山中湖 KABA', '搭乘水陸兩用巴士「卡巴號」，在森林奔馳後直接衝進湖中。', 'kaba_bus', 'https://images.unsplash.com/photo-1542998538-75d0281c3e53?w=500')">
             <div><span class="time-tag">13:20</span><span class="card-title">山中湖 KABA 水陸巴士</span></div>
+            <p class="card-desc">體驗驚險刺激的巴士入水衝刺。</p>
           </div>
-        </div>
-
-        <div id="day-panel-5" class="day-panel">
-          <div class="card-v2" onclick="showDetail('明治神宮', '東京市中心的人造森林，莊嚴壯觀的大鳥居必拍。', 'meiji_jingu', 'https://images.unsplash.com/photo-1589308454676-433068936994?w=500')">
+          <div class="timeline-dots"></div>
+          <div class="card-v2" onclick="showDetail('忍野八海', '富士山融雪後的清澈地下湧水，八個池塘各有傳說。', 'oshino', 'https://images.unsplash.com/photo-1578271887552-5ac3a72752bc?w=500')">
+            <div><span class="time-tag">14:45</span><span class="card-title">忍野八海</span></div>
+            <p class="card-desc">欣賞清澈湧泉奇景。</p>
+          </div>
+        </div><div id="day-panel-5" class="day-panel">
+          <div class="card-v2" onclick="showDetail('明治神宮', '東京市中心大片原始林。穿越壯觀鳥居，感受神聖氣息。', 'meiji_jingu', 'https://images.unsplash.com/photo-1589308454676-433068936994?w=500')">
             <div><span class="time-tag">10:40</span><span class="card-title">明治神宮森林之旅</span></div>
+            <p class="card-desc">東京都心最大的森林神社。</p>
+          </div>
+          <div class="timeline-dots"></div>
+          <div class="card-v2" onclick="showDetail('SKY BUS', '露天雙層巴士。從二樓俯瞰東京景觀，感受微風吹拂。', 'skybus', 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=500')">
+            <div><span class="time-tag">13:30</span><span class="card-title">SKY BUS 敞篷巴士</span></div>
+            <p class="card-desc">遊覽東京鐵塔、外苑等景點。</p>
           </div>
         </div>
 
         <div id="day-panel-6" class="day-panel">
-          <div class="card-v2" onclick="showDetail('築地市場', '品嚐新鮮海產、玉子燒與各式日本在地美味小吃。', 'tsukiji', 'https://images.unsplash.com/photo-1534604973900-c41ab4c5e638?w=500')">
+          <div class="card-v2" onclick="showDetail('築地市場', '即便批發遷址，場外市場依然是海鮮老店、玉子燒與乾貨的天堂。', 'tsukiji', 'https://images.unsplash.com/photo-1534604973900-c41ab4c5e638?w=500')">
             <div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div>
+            <p class="card-desc">品嚐厚蛋燒、海鮮丼。</p>
+          </div>
+          <div class="timeline-dots"></div>
+          <div class="card-v2" onclick="showDetail('成田機場', '行程結束，專車將載您前往機場報到回家。', 'narita', 'https://images.unsplash.com/photo-1570710891163-6d3b5c47248b?w=500')">
+            <div><span class="time-tag">13:00</span><span class="card-title">專車送機</span></div>
+            <p class="card-desc">準備返台。</p>
           </div>
         </div>
     </div>
-  </div><div id="tab-help" class="tab-content">
+  </div>
+
+  <div id="tab-help" class="tab-content">
     <div class="flex overflow-x-auto gap-2 px-5 py-4 scrollbar-none">
-        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
+        <button class="cat-btn bg-pink-500 text-white px-5 py-2 rounded-full font-bold whitespace-nowrap" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('tax', this)">💰 退稅</button>
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('food', this)">🍜 點餐</button>
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('find', this)">🚻 設施</button>
@@ -166,13 +195,36 @@
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('polite', this)">🤝 禮貌</button>
     </div>
     <div id="help-list" class="mt-2 px-1"></div>
-  </div>
-
-  <div id="tab-exchange" class="tab-content">
+  </div><div id="tab-exchange" class="tab-content">
     <div class="card-v2 mt-4 text-center">
       <h3 class="text-lg font-bold mb-3 text-gray-700">💴 匯率換算 (0.21)</h3>
       <input type="number" id="jpy-input" placeholder="輸入日幣 ¥" class="w-full p-4 border rounded-2xl text-center text-3xl font-bold bg-pink-50/30 text-pink-600 outline-none">
       <div id="tw-result" class="text-xl text-center mt-3 text-gray-500 font-bold">約 NT$ 0 元</div>
+    </div>
+
+    <div class="card-v2 mt-4">
+        <h3 class="text-lg font-bold mb-4 text-gray-700">✍️ 簡易記帳</h3>
+        <div class="cat-grid">
+            <div class="cat-item active" onclick="selectRecordCat('💊', '藥妝', this)"><span class="text-xl block">💊</span>藥妝</div>
+            <div class="cat-item" onclick="selectRecordCat('👕', '服飾', this)"><span class="text-xl block">👕</span>服飾</div>
+            <div class="cat-item" onclick="selectRecordCat('🍱', '美食', this)"><span class="text-xl block">🍱</span>美食</div>
+            <div class="cat-item" onclick="selectRecordCat('🍡', '零食', this)"><span class="text-xl block">🍡</span>零食</div>
+            <div class="cat-item" onclick="selectRecordCat('🎁', '紀念品', this)"><span class="text-xl block">🎁</span>紀念品</div>
+            <div class="cat-item" onclick="selectRecordCat('⛩️', '門票', this)"><span class="text-xl block">⛩️</span>門票</div>
+            <div class="cat-item" onclick="selectRecordCat('🚌', '交通', this)"><span class="text-xl block">🚌</span>交通</div>
+            <div class="cat-item" onclick="selectRecordCat('🏪', '超市', this)"><span class="text-xl block">🏪</span>超市</div>
+            <div class="cat-item" onclick="selectRecordCat('🏠', '住宿', this)"><span class="text-xl block">🏠</span>住宿</div>
+            <div class="cat-item" onclick="selectRecordCat('➕', '其他', this)"><span class="text-xl block">➕</span>其他</div>
+        </div>
+        <input type="text" id="rec-name" placeholder="商品名稱" class="w-full p-3 bg-gray-50 border rounded-xl mb-3">
+        <div class="flex gap-2 mb-4">
+            <input type="number" id="rec-price" placeholder="金額" class="flex-1 p-3 bg-gray-50 border rounded-xl">
+            <select id="rec-currency" class="bg-gray-100 rounded-xl px-2">
+                <option value="JPY">日幣 ¥</option>
+                <option value="TWD">台幣 $</option>
+            </select>
+        </div>
+        <button onclick="addRecord()" class="w-full bg-pink-500 text-white py-4 rounded-2xl font-bold shadow-lg">加入清單 🌸</button>
     </div>
     <div id="record-list-container" class="mb-10 px-6 mt-10">
         <div class="flex justify-between items-end mb-3"><span class="font-bold text-gray-400">我的清單</span><span id="total-sum" class="text-pink-600 font-black text-2xl">NT$ 0</span></div>
@@ -191,34 +243,37 @@
       <i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span>
     </div>
     <div onclick="window.open('https://line.me/')" class="nav-item flex flex-col items-center">
-      <i class="fab fa-line text-2xl"></i><span class="text-[10px] font-bold mt-1 text-green-500">找領隊</span>
+      <i class="fab fa-line text-2xl text-green-500"></i><span class="text-[10px] font-bold mt-1 text-green-500">找領隊</span>
     </div>
   </nav><script>
     const EXCHANGE_RATE = 0.21;
     let records = JSON.parse(localStorage.getItem('tokyo_records')) || [];
-    
-    // 導航座標庫
+    let selectedCat = { icon: '💊', name: '藥妝' };
+
     const LOCATIONS = {
-      narita: "Narita+Airport",
-      hotelr9: "HOTEL+R9+Premium+Ichikawa+Ekimae",
-      nakameguro: "Nakameguro+Park",
-      asakusa: "Senso-ji",
-      ueno: "Ueno+Park",
-      kamakura_hachimangu: "Tsurugaoka+Hachimangu",
-      enoshima_electric_railway: "Kamakura+High+School+Station",
-      oishi_park: "Oishi+Park",
-      kaba_bus: "Yamanakako+Asahi+no+Oka",
-      meiji_jingu: "Meiji+Jingu",
-      tsukiji: "Tsukiji+Outer+Market"
+      narita: "Narita+Airport", hotelr9: "HOTEL+R9+Premium+Ichikawa",
+      nakameguro: "Nakameguro+Park", asakusa: "Sensoji",
+      ueno: "Ueno+Park", ameya: "Ameyoko",
+      kamakura_hachimangu: "Tsurugaoka+Hachimangu", daibutsu: "Kamakura+Daibutsu",
+      enoshima_electric_railway: "Kamakurakoko-Mae+Station", oishi_park: "Oishi+Park",
+      kaba_bus: "Yamanakako+Kaba+Bus", oshino: "Oshino+Hakkai",
+      meiji_jingu: "Meiji+Jingu", skybus: "Marunouchi+Sky+Bus", tsukiji: "Tsukiji+Outer+Market"
     };
 
-    // 彈窗顯示與關閉
+    const helpData = {
+      shopping: [{ cn: "這多少錢？", jp: "いくらですか？" }, { cn: "我要買這個。", jp: "これをください。" }, { cn: "可以刷卡嗎？", jp: "カードは使えますか？" }],
+      tax: [{ cn: "可以退稅嗎？", jp: "免税はできますか？" }, { cn: "退稅櫃檯在哪？", jp: "免税カウンターはどこですか？" }],
+      food: [{ cn: "有中文菜單嗎？", jp: "中国語メニューはありますか？" }, { cn: "結帳。", jp: "お会計をお願いします。" }],
+      find: [{ cn: "洗手間在哪？", jp: "トイレはどこですか？" }, { cn: "車站在哪？", jp: "駅はどこですか？" }],
+      sos: [{ cn: "我不舒服。", jp: "気分が悪いです。" }, { cn: "請叫救護車。", jp: "救急車を呼んでください。" }],
+      polite: [{ cn: "謝謝。", jp: "ありがとうございます。" }, { cn: "不好意思。", jp: "すみません。" }, { cn: "沒關係。", jp: "大丈夫です。" }]
+    };
+
     function showDetail(title, desc, locKey, imgUrl) {
       document.getElementById('m-title').innerText = title;
       document.getElementById('m-desc').innerText = desc;
       document.getElementById('m-img').src = imgUrl;
       document.getElementById('m-nav').href = `https://www.google.com/maps/search/?api=1&query=${LOCATIONS[locKey]}`;
-      
       document.getElementById('detail-modal-overlay').style.display = 'block';
       document.getElementById('detail-modal').style.display = 'block';
     }
@@ -228,30 +283,68 @@
       document.getElementById('detail-modal').style.display = 'none';
     }
 
-    // --- 以下為 3.0 原有邏輯，完整保留 ---
     function switchTab(tabId, el) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       el.classList.add('active');
       if(tabId === 'help') filterHelp('shopping', document.querySelector('.cat-btn'));
+      if(tabId === 'exchange') renderRecords();
     }
 
     function switchDay(dayNum, el) {
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
-      const target = document.getElementById('day-panel-' + dayNum);
-      target.classList.add('active');
+      document.getElementById('day-panel-' + dayNum).classList.add('active');
       document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
       el.classList.add('active');
-      el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
-    // 匯率監聽
+    function filterHelp(cat, btn) {
+      if(btn) {
+        document.querySelectorAll('.cat-btn').forEach(b => { b.classList.remove('bg-pink-500', 'text-white'); b.classList.add('bg-white', 'text-pink-500', 'border'); });
+        btn.classList.remove('bg-white', 'text-pink-500', 'border'); btn.classList.add('bg-pink-500', 'text-white');
+      }
+      document.getElementById('help-list').innerHTML = helpData[cat].map(item => `
+        <div class="card-v2 flex justify-between items-center py-5 mb-3" style="margin: 0 10px 15px">
+          <div><p class="font-bold text-xl">${item.jp}</p><p class="text-sm text-pink-500 mt-1">${item.cn}</p></div>
+          <button class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-xl" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button>
+        </div>`).join('');
+    }
+
+    function playJP(t) { window.speechSynthesis.cancel(); const m = new SpeechSynthesisUtterance(t); m.lang='ja-JP'; window.speechSynthesis.speak(m); }
+    
+    function selectRecordCat(i, n, el) { selectedCat = { icon: i, name: n }; document.querySelectorAll('.cat-item').forEach(item => item.classList.remove('active')); el.classList.add('active'); }
+    
+    function addRecord() {
+      const p = parseFloat(document.getElementById('rec-price').value);
+      if(!p) return;
+      const tw = document.getElementById('rec-currency').value === 'JPY' ? Math.round(p * EXCHANGE_RATE) : p;
+      records.unshift({ id: Date.now(), icon: selectedCat.icon, cat: selectedCat.name, name: document.getElementById('rec-name').value || '項目', tw, orig: p, curr: document.getElementById('rec-currency').value });
+      localStorage.setItem('tokyo_records', JSON.stringify(records));
+      renderRecords();
+      document.getElementById('rec-price').value = '';
+    }
+
+    function deleteRecord(id) { records = records.filter(r => r.id !== id); localStorage.setItem('tokyo_records', JSON.stringify(records)); renderRecords(); }
+
+    function renderRecords() {
+      let total = 0;
+      const list = document.getElementById('record-list');
+      if(!list) return;
+      list.innerHTML = records.map(r => {
+        total += r.tw;
+        return `<div class="card-v2 flex justify-between items-center py-4 mb-3" style="margin: 0 0 15px 0;">
+          <div class="flex items-center"><span class="text-3xl mr-4">${r.icon}</span>
+          <div><p class="font-bold text-gray-700">${r.name}</p><p class="text-xs text-gray-400">${r.cat}</p></div></div>
+          <div class="text-right"><p class="text-pink-600 font-black text-lg">NT$ ${r.tw}</p><button onclick="deleteRecord(${r.id})" class="text-gray-300 text-xs">刪除</button></div></div>`;
+      }).join('');
+      document.getElementById('total-sum').innerText = `NT$ ${total.toLocaleString()}`;
+    }
+
     document.getElementById('jpy-input').addEventListener('input', (e) => {
       document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`;
     });
 
-    // 倒數計時
     function initCountdown() {
       const target = new Date('2026-04-04T00:00:00').getTime();
       const el = document.getElementById('countdown');
