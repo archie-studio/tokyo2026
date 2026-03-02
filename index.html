@@ -14,7 +14,6 @@
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
     body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 140px; overflow-x: hidden; }
     
-    /* 0.9秒極致絲滑動畫 */
     @keyframes slowAppEntrance {
       0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
       100% { opacity: 1; transform: translateY(0); filter: blur(0); }
@@ -34,7 +33,6 @@
 
     .anim-item { animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-    /* UI 元素設計 */
     .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 45px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     .header-logo { width: 75px; height: 75px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
     
@@ -42,7 +40,11 @@
     .day-btn { flex: 0 0 auto; width: 75px; height: 55px; border-radius: 25px; background: white; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
     .day-btn.active { background: var(--deep-pink); color: white; transform: translateY(-5px); box-shadow: 0 8px 15px rgba(255,117,140,0.3); }
 
+    /* 2.0 版本的行程卡片設計 */
     .card-v2 { background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 15px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); }
+    .time-tag { color: var(--deep-pink); font-weight: 800; font-size: 14px; margin-right: 10px; display: inline-block; background: #fff0f3; padding: 2px 8px; border-radius: 8px; }
+    .card-title { font-weight: bold; color: #333; font-size: 17px; }
+    .card-desc { color: #666; font-size: 14px; margin-top: 8px; line-height: 1.6; border-top: 1px dotted #eee; padding-top: 8px; }
     
     .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
     .cat-item { background: #fff; border: 2px solid #fdf2f4; border-radius: 18px; padding: 10px 2px; text-align: center; font-size: 11px; transition: 0.3s; }
@@ -74,13 +76,107 @@
       <button class="day-btn" onclick="switchDay(5, this)"><span class="text-[10px]">（三）</span><span class="text-lg font-bold">4/8</span></button>
       <button class="day-btn" onclick="switchDay(6, this)"><span class="text-[10px]">（四）</span><span class="text-lg font-bold">4/9</span></button>
     </div>
+    
     <div id="schedule-panels">
-        <div id="day-panel-1" class="day-panel active"><div class="card-v2">🌸 Day 1: 抵達東京，入住市川飯店。</div></div>
-        <div id="day-panel-2" class="day-panel"><div class="card-v2">🌸 Day 2: 中目黑賞櫻。</div></div>
-        <div id="day-panel-3" class="day-panel"><div class="card-v2">🌸 Day 3: 淺草與澀谷。</div></div>
-        <div id="day-panel-4" class="day-panel"><div class="card-v2 text-center py-10">🌸 規劃中</div></div>
-        <div id="day-panel-5" class="day-panel"><div class="card-v2 text-center py-10">🌸 規劃中</div></div>
-        <div id="day-panel-6" class="day-panel"><div class="card-v2 text-center py-10 text-gray-400">Day 6 準備返台</div></div>
+        <div id="day-panel-1" class="day-panel active">
+          <div class="card-v2">
+            <div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div>
+            <p class="card-desc">抵達東京成田機場第二航廈，準備展開賞櫻之旅。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">16:00</span><span class="card-title">搭乘 JR 前往市川</span></div>
+            <p class="card-desc">搭乘 JR 總武線快速（無需轉車），直達市川站。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">17:15</span><span class="card-title">飯店 Check-in</span></div>
+            <p class="card-desc">入住 HOTEL R9 Premium Ichikawa，稍作休息後前往目黑川。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">18:45</span><span class="card-title">中目黑賞夜櫻</span></div>
+            <p class="card-desc">漫步目黑川，欣賞河岸兩側如粉色隧道般的夢幻夜櫻。</p>
+          </div>
+        </div>
+
+        <div id="day-panel-2" class="day-panel">
+          <div class="card-v2">
+            <div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div>
+            <p class="card-desc">從錦糸町搭乘計程車直達雷門，節省體力。遊覽仲見世通、淺草寺。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">14:00</span><span class="card-title">上野恩賜公園</span></div>
+            <p class="card-desc">漫步於上野公園，欣賞櫻花百選勝地，並遊覽不忍池美景。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">18:00</span><span class="card-title">阿美橫町購物</span></div>
+            <p class="card-desc">在充滿活力的商店街採買藥妝、零食並享用在地美食。</p>
+          </div>
+        </div>
+
+        <div id="day-panel-3" class="day-panel">
+          <div class="card-v2">
+            <div><span class="time-tag">11:00</span><span class="card-title">鶴岡八幡宮 (包車)</span></div>
+            <p class="card-desc">停留 120 分鐘。漫步若宮大路櫻花道，午餐於小町通商店街自由享用。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">13:10</span><span class="card-title">高德院鎌倉大佛</span></div>
+            <p class="card-desc">停留 20 分鐘，13:30 離開。參拜莊嚴的露天青銅大佛。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">13:51</span><span class="card-title">江之電體驗</span></div>
+            <p class="card-desc">搭乘 13:51 班次。▲ 司機在下一站等候，全家體驗經典海邊電車路線。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">14:45</span><span class="card-title">江之島散策</span></div>
+            <p class="card-desc">停留 90 分鐘，16:15 離開。感受海風、參訪江島神社與商店街。</p>
+          </div>
+        </div><div id="day-panel-4" class="day-panel">
+          <div class="card-v2">
+            <div><span class="time-tag">10:00</span><span class="card-title">大石公園 (包車)</span></div>
+            <p class="card-desc">停留 75 分鐘，11:15 離開。河口湖畔拍下富士山與櫻花、花卉同框。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">11:25</span><span class="card-title">海鮮餺飥午餐</span></div>
+            <p class="card-desc">用餐 100 分鐘，12:50 離開。品嚐河口湖名產「ほうとう研究所」地鐵鍋。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">13:20</span><span class="card-title">山中湖 KABA 水陸巴士</span></div>
+            <p class="card-desc">停留 80 分鐘，14:30 離開。體驗驚險刺激的巴士入水衝刺，從湖心仰望富士山。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">14:45</span><span class="card-title">忍野八海</span></div>
+            <p class="card-desc">停留 45 分鐘，15:30 離開。欣賞富士山雪水濾出的清澈湧泉奇景。</p>
+          </div>
+        </div>
+
+        <div id="day-panel-5" class="day-panel">
+          <div class="card-v2">
+            <div><span class="time-tag">10:40</span><span class="card-title">明治神宮森林之旅</span></div>
+            <p class="card-desc">參觀東京都心最大的森林神社，午餐於園區內 FOREST TERRACE 享用。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">13:30</span><span class="card-title">SKY BUS 敞篷巴士</span></div>
+            <p class="card-desc">乘坐雙層開棚巴士，一次遊覽東京鐵塔、明治神宮外苑等景點，視野極佳。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">15:00</span><span class="card-title">皇居與東京車站</span></div>
+            <p class="card-desc">下午遊覽皇居二重橋，隨後漫步至東京車站 KITTE 大樓欣賞美景，買齊伴手禮。</p>
+          </div>
+        </div>
+
+        <div id="day-panel-6" class="day-panel">
+          <div class="card-v2">
+            <div><span class="time-tag">08:30</span><span class="card-title">退房寄放行李</span></div>
+            <p class="card-desc">辦理退房，行李寄放於 HOTEL R9 櫃台，輕鬆前往最後行程。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div>
+            <p class="card-desc">品嚐最後的日本海味：厚蛋燒、海鮮丼，享受東京的清晨熱鬧氣氛。</p>
+          </div>
+          <div class="card-v2">
+            <div><span class="time-tag">13:00</span><span class="card-title">專車接送機</span></div>
+            <p class="card-desc">專車抵達飯店門口，接全家人前往成田機場，帶著滿滿回憶返台。</p>
+          </div>
+        </div>
     </div>
   </div>
 
@@ -235,7 +331,6 @@
       window.speechSynthesis.speak(msg);
     }
 
-    // 記帳與計數邏輯
     function selectRecordCat(icon, name, el) {
         selectedCat = { icon, name };
         document.querySelectorAll('.cat-item').forEach(item => item.classList.remove('active'));
