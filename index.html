@@ -4,8 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <title>🌸 2026 東京櫻花探險</title>
+  <meta name="apple-mobile-web-app-title" content="東京賞櫻sec.">
+  <title>東京賞櫻sec.</title>
   
+  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png">
+  <link rel="icon" href="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" type="image/png">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
@@ -31,15 +35,25 @@
       animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
     }
 
+    /* 1. 將連貫點點線移至正中間，並加高以拉開卡片間距 */
     .timeline-dots {
-      margin-left: 55px;
-      height: 30px;
+      margin: 8px auto; /* 左右 auto 讓它置中，上下 8px 增加呼吸空間 */
+      width: 6px; /* 固定寬度確保置中 */
+      height: 45px; /* 加長高度，讓行程距離拉開 */
       border-left: 6px dotted #ffccd5;
-      margin-top: -5px;
-      margin-bottom: 5px;
     }
 
-    .hero-header { background: linear-gradient(135deg, #ffdeed 0%, #fff1eb 100%); border-radius: 0 0 40px 40px; padding: 45px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+    /* 2. 補上背景圖，加入極淡的漸層確保原本粉紅文字不被背景吃掉 */
+    .hero-header { 
+      background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 241, 235, 0.85)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
+      background-size: cover;
+      background-position: center;
+      border-radius: 0 0 40px 40px; 
+      padding: 45px 20px 25px; 
+      text-align: center; 
+      position: relative; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    }
     .header-logo { width: 75px; height: 75px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
     
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
@@ -94,7 +108,7 @@
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
     <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
-    <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026 東京櫻花探險</h1>
+    <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026東京賞櫻旅行助手</h1>
   </div>
 
   <div id="tab-home" class="tab-content active">
@@ -435,15 +449,14 @@
       el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
 
-    // --- 修正 Bug：確保切換時，未選中的按鈕能恢復原有的粉色文字與白底 ---
     function filterHelp(cat, btn) {
         if(btn) {
             document.querySelectorAll('.cat-btn').forEach(b => {
                 b.classList.remove('bg-pink-500', 'text-white');
-                b.classList.add('bg-white', 'text-pink-500'); // 恢復預設樣式
+                b.classList.add('bg-white', 'text-pink-500'); 
             });
-            btn.classList.remove('bg-white', 'text-pink-500'); // 移除預設樣式
-            btn.classList.add('bg-pink-500', 'text-white'); // 加上選中樣式
+            btn.classList.remove('bg-white', 'text-pink-500'); 
+            btn.classList.add('bg-pink-500', 'text-white'); 
         }
         const list = document.getElementById('help-list');
         list.innerHTML = helpData[cat].map(item => `
