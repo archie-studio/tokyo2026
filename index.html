@@ -11,6 +11,7 @@
   <link rel="icon" href="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" type="image/png">
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
 
@@ -35,15 +36,13 @@
       animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
     }
 
-    /* 1. 將連貫點點線移至正中間，並加高以拉開卡片間距 */
     .timeline-dots {
-      margin: 8px auto; /* 左右 auto 讓它置中，上下 8px 增加呼吸空間 */
-      width: 6px; /* 固定寬度確保置中 */
-      height: 45px; /* 加長高度，讓行程距離拉開 */
+      margin: 8px auto; 
+      width: 6px; 
+      height: 45px; 
       border-left: 6px dotted #ffccd5;
     }
 
-    /* 2. 補上背景圖，加入極淡的漸層確保原本粉紅文字不被背景吃掉 */
     .hero-header { 
       background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 241, 235, 0.85)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
       background-size: cover;
@@ -102,6 +101,10 @@
     #spot-modal-content { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     #spot-modal.show { opacity: 1; }
     #spot-modal.show #spot-modal-content { transform: scale(1); }
+
+    /* 報表彈出視窗動畫 */
+    #receipt-modal { transition: opacity 0.4s ease-out; }
+    #receipt-modal.show { opacity: 1; }
   </style>
 </head>
 <body>
@@ -375,12 +378,17 @@
         </div>
         <button onclick="addRecord()" class="btn-main">加入清單 🌸</button>
     </div>
-    <div id="record-list-container" class="mb-10 px-6">
+    
+    <div id="record-list-container" class="mt-6 mb-4 px-6">
         <div class="flex justify-between items-end mb-3">
             <span class="font-bold text-gray-400">我的清單</span>
             <span id="total-sum" class="text-pink-600 font-black text-2xl">NT$ 0</span>
         </div>
         <div id="record-list"></div>
+        
+        <button onclick="generateReceipt()" class="w-full bg-white border-2 border-pink-300 text-pink-500 py-4 rounded-2xl font-bold mt-6 shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+            <i class="fas fa-camera-retro text-xl"></i> 結算並產生精美報表
+        </button>
     </div>
   </div><div id="spot-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm opacity-0">
     <div class="bg-white w-[85%] max-w-md rounded-3xl overflow-hidden shadow-2xl transform scale-95" id="spot-modal-content">
@@ -396,6 +404,18 @@
         </a>
       </div>
     </div>
+  </div>
+
+  <div id="receipt-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex-col items-center justify-start overflow-y-auto backdrop-blur-sm opacity-0 pb-20 pt-10 px-4">
+    <button onclick="closeReceipt()" class="absolute top-4 right-4 bg-white/20 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl backdrop-blur-md z-50">✕</button>
+    <p class="text-white text-sm font-bold mb-4 tracking-widest animate-pulse">👇 請長按下方圖片儲存至相簿 👇</p>
+    
+    <div id="receipt-capture-area" class="bg-[#fff5f7] w-full max-w-[340px] rounded-[24px] p-5 shadow-2xl relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-br from-pink-300 to-pink-200 opacity-20 rounded-t-[24px]"></div>
+        <div id="receipt-render-content" class="relative z-10"></div>
+    </div>
+    
+    <img id="receipt-result-img" class="hidden w-full max-w-[340px] rounded-[24px] shadow-2xl shadow-pink-500/20 mt-2 mb-10" />
   </div>
 
   <nav class="nav-bar fixed bottom-0 w-full flex justify-around py-4 pb-8 z-50">
@@ -467,14 +487,11 @@
         `).join('');
     }
 
-    // --- 語音發音重大修正區塊開始 ---
     let jpVoice = null;
-
     function loadVoices() {
       const voices = window.speechSynthesis.getVoices();
       jpVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
     }
-
     if (speechSynthesis.onvoiceschanged !== undefined) {
       speechSynthesis.onvoiceschanged = loadVoices;
     }
@@ -482,9 +499,7 @@
     function playJP(text) {
       window.speechSynthesis.cancel();
       const msg = new SpeechSynthesisUtterance(text);
-      msg.lang = 'ja-JP';
-      msg.rate = 0.8;
-
+      msg.lang = 'ja-JP'; msg.rate = 0.8;
       if (jpVoice) {
         msg.voice = jpVoice;
       } else {
@@ -496,10 +511,8 @@
             alert("💡 小提醒：您的手機似乎未安裝「日文語音包」，系統可能會用中文硬唸喔！\n\n蘋果請至：設定 > 輔助使用 > 語音內容 > 聲音 > 下載日文。\n安卓請至：設定 > 系統 > 語言與輸入 > 文字轉語音 > 下載日語。");
         }
       }
-
       window.speechSynthesis.speak(msg);
     }
-    // --- 語音發音重大修正區塊結束 ---
 
     function selectRecordCat(icon, name, el) {
         selectedCat = { icon, name };
@@ -543,6 +556,107 @@
         totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
     }
 
+    // --- 新增：產生報表截圖的強大邏輯 ---
+    function generateReceipt() {
+        if (records.length === 0) {
+            alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
+            return;
+        }
+
+        let totalTWD = 0;
+        const catTotals = {};
+        const dateGroups = {};
+
+        // 1. 整理數據 (分類總和 & 日期群組)
+        records.forEach(r => {
+            totalTWD += r.tw;
+            if (!catTotals[r.cat]) catTotals[r.cat] = { icon: r.icon, sum: 0 };
+            catTotals[r.cat].sum += r.tw;
+
+            const d = new Date(r.id);
+            const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
+            if (!dateGroups[dateStr]) dateGroups[dateStr] = [];
+            dateGroups[dateStr].push(r);
+        });
+
+        // 2. 構建排版優美的 HTML
+        let html = `
+            <div class="text-center mb-5">
+                <h2 class="text-2xl font-bold text-pink-600 font-['Zhi_Mang_Xing'] tracking-widest mb-1">🌸 2026 東京賞櫻記帳本 🌸</h2>
+                <p class="text-[10px] text-gray-400 font-bold">Generated by 東京賞櫻sec.</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-4 shadow-sm border border-pink-100 mb-5 text-center">
+                <p class="text-xs font-bold text-gray-400 mb-1">💰 旅程總結算</p>
+                <p class="text-4xl font-black text-pink-500 mb-4 tracking-tighter">NT$ ${totalTWD.toLocaleString()}</p>
+                <div class="grid grid-cols-2 gap-2 text-left">
+        `;
+
+        for (let cat in catTotals) {
+            html += `<div class="bg-pink-50/70 p-2 rounded-xl flex items-center justify-between">
+                        <span class="text-xs text-gray-600 font-bold">${catTotals[cat].icon} ${cat}</span>
+                        <span class="text-xs font-black text-pink-600">$${catTotals[cat].sum.toLocaleString()}</span>
+                     </div>`;
+        }
+
+        html += `</div></div><div class="mb-4"><h3 class="text-sm font-bold text-gray-700 mb-3 border-l-4 border-pink-400 pl-2">📅 每日明細</h3>`;
+
+        // 將日期排序後印出
+        const sortedDates = Object.keys(dateGroups).sort((a, b) => {
+            const [m1, d1] = a.split('/');
+            const [m2, d2] = b.split('/');
+            if (m1 !== m2) return parseInt(m1) - parseInt(m2);
+            return parseInt(d1) - parseInt(d2);
+        });
+
+        sortedDates.forEach(date => {
+            html += `<div class="mb-4 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
+                        <div class="text-xs font-bold text-white bg-pink-400 inline-block px-3 py-1 rounded-lg mb-2 shadow-sm">📍 ${date}</div>`;
+            dateGroups[date].forEach(item => {
+                html += `<div class="flex justify-between items-center py-2 border-b border-dashed border-gray-100 last:border-0">
+                            <div class="flex items-center text-sm"><span class="mr-2">${item.icon}</span><span class="font-bold text-gray-700 truncate w-32">${item.name}</span></div>
+                            <div class="text-right flex flex-col">
+                                <span class="text-sm font-black text-pink-600">NT$ ${item.tw.toLocaleString()}</span>
+                                <span class="text-[10px] text-gray-400 font-bold">${item.curr === 'JPY' ? '¥'+item.orig : '$'+item.orig}</span>
+                            </div>
+                         </div>`;
+            });
+            html += `</div>`;
+        });
+
+        html += `<div class="text-center mt-6 pt-4 border-t-2 border-dashed border-pink-200"><p class="text-xs font-bold text-pink-400 tracking-widest">🌸 Have a nice trip! 🌸</p></div>`;
+
+        // 3. 將 HTML 塞入準備拍照的區塊
+        document.getElementById('receipt-render-content').innerHTML = html;
+
+        // 4. 打開 Modal，隱藏舊圖片，顯示 HTML 準備拍照
+        const modal = document.getElementById('receipt-modal');
+        const captureArea = document.getElementById('receipt-capture-area');
+        const resultImg = document.getElementById('receipt-result-img');
+
+        captureArea.style.display = 'block';
+        resultImg.classList.add('hidden');
+        modal.classList.remove('hidden');
+
+        // 5. 等待 CSS 動畫跑完後，執行 html2canvas 拍照
+        setTimeout(() => {
+            modal.classList.add('show');
+            html2canvas(captureArea, { backgroundColor: '#fff5f7', scale: 2 }).then(canvas => {
+                const imgData = canvas.toDataURL("image/png");
+                resultImg.src = imgData; // 把拍好的照片貼給 img 標籤
+                resultImg.classList.remove('hidden'); // 秀出照片
+                captureArea.style.display = 'none'; // 隱藏原始 HTML
+            });
+        }, 100);
+    }
+
+    function closeReceipt() {
+        const modal = document.getElementById('receipt-modal');
+        modal.classList.remove('show');
+        setTimeout(() => { modal.classList.add('hidden'); }, 400); 
+    }
+    // ----------------------------------------
+
     document.getElementById('jpy-input').addEventListener('input', (e) => {
       document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`;
     });
@@ -585,9 +699,7 @@
 
     function copyText(text, btnElement) {
         if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(text).then(() => {
-                showCopySuccess(btnElement);
-            });
+            navigator.clipboard.writeText(text).then(() => { showCopySuccess(btnElement); });
         } else {
             const textArea = document.createElement("textarea");
             textArea.value = text;
@@ -597,12 +709,7 @@
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
-            try {
-                document.execCommand('copy');
-                showCopySuccess(btnElement);
-            } catch (err) {
-                alert('複製失敗，請手動複製！');
-            }
+            try { document.execCommand('copy'); showCopySuccess(btnElement); } catch (err) { alert('複製失敗，請手動複製！'); }
             textArea.remove();
         }
     }
@@ -619,11 +726,7 @@
         }, 2000);
     }
 
-    window.onload = () => { 
-        initCountdown(); 
-        renderRecords(); 
-        loadVoices(); 
-    };
+    window.onload = () => { initCountdown(); renderRecords(); loadVoices(); };
   </script>
 </body>
 </html>
