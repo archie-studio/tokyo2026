@@ -330,7 +330,9 @@
           </div>
         </div>
     </div>
-  </div><div id="tab-help" class="tab-content">
+  </div>
+
+  <div id="tab-help" class="tab-content">
     <div class="flex overflow-x-auto gap-2 px-5 py-4 scrollbar-none">
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('tax', this)">💰 退稅</button>
@@ -380,9 +382,7 @@
         </div>
         <div id="record-list"></div>
     </div>
-  </div>
-
-  <div id="spot-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm opacity-0">
+  </div><div id="spot-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm opacity-0">
     <div class="bg-white w-[85%] max-w-md rounded-3xl overflow-hidden shadow-2xl transform scale-95" id="spot-modal-content">
       <div class="relative h-56 bg-gray-100">
         <img id="modal-img" src="" class="w-full h-full object-cover" alt="景點圖片">
@@ -467,12 +467,39 @@
         `).join('');
     }
 
+    // --- 語音發音重大修正區塊開始 ---
+    let jpVoice = null;
+
+    function loadVoices() {
+      const voices = window.speechSynthesis.getVoices();
+      jpVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
+    }
+
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
     function playJP(text) {
       window.speechSynthesis.cancel();
       const msg = new SpeechSynthesisUtterance(text);
-      msg.lang = 'ja-JP'; msg.rate = 0.8;
+      msg.lang = 'ja-JP';
+      msg.rate = 0.8;
+
+      if (jpVoice) {
+        msg.voice = jpVoice;
+      } else {
+        const voices = window.speechSynthesis.getVoices();
+        const backupVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
+        if (backupVoice) {
+            msg.voice = backupVoice;
+        } else if (voices.length > 0) {
+            alert("💡 小提醒：您的手機似乎未安裝「日文語音包」，系統可能會用中文硬唸喔！\n\n蘋果請至：設定 > 輔助使用 > 語音內容 > 聲音 > 下載日文。\n安卓請至：設定 > 系統 > 語言與輸入 > 文字轉語音 > 下載日語。");
+        }
+      }
+
       window.speechSynthesis.speak(msg);
     }
+    // --- 語音發音重大修正區塊結束 ---
 
     function selectRecordCat(icon, name, el) {
         selectedCat = { icon, name };
@@ -592,7 +619,11 @@
         }, 2000);
     }
 
-    window.onload = () => { initCountdown(); renderRecords(); };
+    window.onload = () => { 
+        initCountdown(); 
+        renderRecords(); 
+        loadVoices(); 
+    };
   </script>
 </body>
 </html>
