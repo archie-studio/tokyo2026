@@ -43,28 +43,26 @@
       border-left: 6px dotted #ffccd5;
     }
 
-    /* 修正放大的標頭樣式：增加內部邊距以適應更大的 Logo */
     .hero-header { 
       background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
       background-size: cover;
       background-position: center;
       border-radius: 0 0 40px 40px; 
-      padding: 65px 20px 25px; /* 增加頂部 padding 65px */
+      padding: 65px 20px 25px; 
       text-align: center; 
       position: relative; 
       box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
     }
     
-    /* 修正放大的 Logo 樣式：大幅放大容器 size 至 120px */
     .header-logo { 
-      width: 120px; /* 大幅放大容器 size */
-      height: 120px; /* 大幅放大容器 size */
+      width: 120px; 
+      height: 120px; 
       background: white; 
       border-radius: 50%; 
       margin: 0 auto 10px; 
-      padding: 10px; /* 降為 10px，讓圖片本身變大 */
+      padding: 10px; 
       box-shadow: 0 8px 15px rgba(255,182,193,0.3); 
-      object-fit: contain; /* 確保圖片保持比例 fit 在容器中 */
+      object-fit: contain; 
     }
     
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
@@ -216,7 +214,9 @@
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
     <img src="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
     <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026東京賞櫻旅行助手</h1>
-  </div><div id="tab-home" class="tab-content active">
+  </div>
+
+  <div id="tab-home" class="tab-content active">
     <div class="card-v2 mt-4 text-center !cursor-default">
         <h3 class="text-lg font-bold mb-1 text-gray-700">⏳ 距離出發還有</h3>
         <div id="home-countdown" class="text-5xl font-black text-pink-500 my-3 tracking-wide">-- 天</div>
@@ -253,12 +253,24 @@
 
     <div class="card-v2 mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-3 text-gray-700">📱 VJW 入境資訊</h3>
-        <p class="text-sm text-gray-600 mb-4 leading-relaxed bg-gray-50 p-3 rounded-xl">入境日本必備！請於出發前填寫 Visit Japan Web 取得 QR Code。<br><strong class="text-pink-600 mt-1 inline-block">💡 若操作有困難，也可請領隊於旅行當天幫忙填寫喔！</strong></p>
+        <div class="text-sm text-gray-600 mb-4 leading-relaxed bg-gray-50 p-3 rounded-xl">
+            入境日本必備！請於出發前填寫 Visit Japan Web 取得 QR Code。<br>
+            <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/guide/#usage-flow" target="_blank" class="text-blue-500 underline font-bold mt-2 inline-block"><i class="fas fa-link mr-1"></i>VJW登入教學</a><br>
+            <strong class="text-pink-600 mt-2 inline-block">💡 若操作有困難，也可請領隊於旅行當天幫忙填寫喔！</strong>
+        </div>
         
         <div class="space-y-3">
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
                 <div>
-                    <p class="text-xs font-bold text-gray-400 mb-1">飯店名稱</p>
+                    <p class="text-xs font-bold text-gray-400 mb-1">航班號</p>
+                    <p class="text-sm font-bold text-gray-800">JX802</p>
+                </div>
+                <button onclick="copyText('JX802', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
+                <div>
+                    <p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p>
                     <p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p>
                 </div>
                 <button onclick="copyText('HOTEL R9 Premium 市川站前', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
@@ -266,10 +278,34 @@
             
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
                 <div class="pr-2">
-                    <p class="text-xs font-bold text-gray-400 mb-1">飯店地址</p>
-                    <p class="text-sm font-bold text-gray-800 leading-tight">日本〒272-0034 Chiba, Ichikawa, 1 Chome−8−6 プレミア R9</p>
+                    <p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p>
+                    <p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p>
                 </div>
-                <button onclick="copyText('日本〒272-0034 Chiba, Ichikawa, 1 Chome−8−6 プレミア R9', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
+                <button onclick="copyText('272-0034', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
+                <div class="pr-2">
+                    <p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p>
+                    <p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p>
+                </div>
+                <button onclick="copyText('CHIBA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
+                <div class="pr-2">
+                    <p class="text-xs font-bold text-gray-400 mb-1">市區町村</p>
+                    <p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p>
+                </div>
+                <button onclick="copyText('ICHIKAWA-SHI', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
+            </div>
+
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
+                <div class="pr-2">
+                    <p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p>
+                    <p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p>
+                </div>
+                <button onclick="copyText('1-8-6, ICHIKAWA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
 
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
@@ -303,7 +339,11 @@
             </li>
             <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
                 <i class="fas fa-plug text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
-                <span><strong class="text-gray-800 block mb-1">電壓與插頭</strong>日本電壓100V，插頭與台灣同為雙平腳，手機相機可直接插.</span>
+                <span><strong class="text-gray-800 block mb-1">電壓與插頭</strong>日本電壓100V，插頭與台灣同為雙平腳，手機相機可直接插。</span>
+            </li>
+            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
+                <i class="fas fa-cloud-sun text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
+                <span><strong class="text-gray-800 block mb-1">天氣與穿搭</strong>春季日夜溫差大，建議採用「洋蔥式穿法」，方便隨時穿脫保暖。</span>
             </li>
         </ul>
     </div>
@@ -365,7 +405,7 @@
           <div class="timeline-dots"></div>
           <div class="card-v2" onclick="openModal(this)" data-img="https://res.cloudinary.com/jnto/image/upload/w_750,h_503,fl_lossy,f_auto/v1648115810/kanagawa/H_00586-2_004" data-nav="高德院鎌倉大佛">
             <div><span class="time-tag">13:10</span><span class="card-title">高德院鎌倉大佛</span></div>
-            <p class="card-desc">停留 20 分鐘，13:30 離開.參拜莊嚴的露天青銅大佛。</p>
+            <p class="card-desc">停留 20 分鐘，13:30 離開。參拜莊嚴的露天青銅大佛。</p>
           </div>
           <div class="timeline-dots"></div>
           <div class="card-v2" onclick="openModal(this)" data-img="https://imgzh.tabiiro.travel/kankou.tabiiro.jp/articles/sections/1751006301-1746098828-pixta_74415181_M.webp" data-nav="江之電">
@@ -424,13 +464,13 @@
             <p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://www. tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
+          <div class="card-v2" onclick="openModal(this)" data-img="https://www.tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
             <div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div>
             <p class="card-desc">品嚐厚蛋燒、海鮮丼，享受最後的東京美味。</p>
           </div>
           <div class="timeline-dots"></div>
           <div class="card-v2" onclick="openModal(this)" data-img="https://image.kkday.com/v2/image/get/c_fit%2Cq_55%2Ct_webp%2Cw_960/s1.kkday.com/product_161696/20240131092250_idXXH/jpg" data-nav="成田機場">
-            <div><span class="time-tag">13:00</span><span class="card-title">专车接送機</span></div>
+            <div><span class="time-tag">13:00</span><span class="card-title">專車接送機</span></div>
             <p class="card-desc">專車抵達飯店門口接送前往機場，準備返台。</p>
           </div>
         </div>
@@ -490,7 +530,9 @@
             <i class="fas fa-camera-retro text-xl"></i> 結算並產生精美報表
         </button>
     </div>
-  </div><div id="spot-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm opacity-0">
+  </div>
+
+  <div id="spot-modal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm opacity-0">
     <div class="bg-white w-[85%] max-w-md rounded-3xl overflow-hidden shadow-2xl transform scale-95" id="spot-modal-content">
       <div class="relative h-56 bg-gray-100">
         <img id="modal-img" src="" class="w-full h-full object-cover" alt="景點圖片">
@@ -776,7 +818,7 @@
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
-      document.getElementById('modal-nav').href = `http://googlehttp://googlehttp://googleusercontent.com/maps.google.com/4{encodeURIComponent(navQuery)}`;
+      document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(navQuery)}`;
 
       const modal = document.getElementById('spot-modal');
       modal.classList.remove('hidden');
@@ -861,7 +903,6 @@
         }
       }, 100);
 
-      /* 修正：將 Loading 時間從 3.5 秒增加到 5.5 秒 (5500 毫秒) */
       setTimeout(() => {
         clearInterval(terminalInterval);
         clearInterval(progressInterval);
@@ -872,10 +913,9 @@
         }, 500); 
       }, 5500);
     }
-    /* ----------------------------------------------------- */
 
     window.onload = () => { 
-      initSplashScreen(); // 啟動開頭動畫
+      initSplashScreen(); 
       initCountdown(); 
       renderRecords(); 
       loadVoices(); 
