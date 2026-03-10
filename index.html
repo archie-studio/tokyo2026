@@ -90,6 +90,21 @@
       border-color: #d15d5d;
     }
 
+    /* --- 新增：每日行程的大標題樣式 --- */
+    .day-title-badge {
+      background: linear-gradient(135deg, #fff0f3 0%, #ffe4e8 100%);
+      color: var(--deep-pink);
+      font-weight: 900;
+      text-align: center;
+      padding: 14px 10px;
+      border-radius: 20px;
+      margin: 0 20px 20px;
+      box-shadow: 0 4px 10px rgba(255,182,193,0.2);
+      border: 1.5px dashed #ffb7c5;
+      letter-spacing: 1px;
+      font-size: 16px;
+    }
+
     .card-v2 { cursor: pointer; background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 0px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); }
     .time-tag { color: var(--deep-pink); font-weight: 800; font-size: 14px; margin-right: 10px; display: inline-block; background: #fff0f3; padding: 2px 8px; border-radius: 8px; }
     .card-title { font-weight: bold; color: #333; font-size: 17px; }
@@ -359,6 +374,8 @@
     
     <div id="schedule-panels">
         <div id="day-panel-1" class="day-panel active">
+          <div class="day-title-badge">Day 1：初抵東京 🌸 目黑川夢幻夜櫻</div>
+          
           <div class="card-v2" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2022/02/14-122578.webp" data-nav="成田機場第二航廈">
             <div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div>
             <p class="card-desc">抵達東京成田機場第二航廈，準備展開賞櫻之旅。</p>
@@ -381,6 +398,8 @@
         </div>
 
         <div id="day-panel-2" class="day-panel">
+          <div class="day-title-badge">Day 2：經典下町 ⛩️ 淺草祈福與上野櫻花雨</div>
+
           <div class="card-v2" onclick="openModal(this)" data-img="https://cdn.zekkei-japan.jp/images/spots/0b6079b6bb893a525c39c88eb5d95077.jpg" data-nav="淺草雷門">
             <div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div>
             <p class="card-desc">從錦糸町搭乘計程車直達雷門，節省體力。遊覽仲見世通、淺草寺。</p>
@@ -398,6 +417,8 @@
         </div>
 
         <div id="day-panel-3" class="day-panel">
+          <div class="day-title-badge">Day 3：海濱古都 🌊 鎌倉大佛與江之電看海</div>
+
           <div class="card-v2" onclick="openModal(this)" data-img="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/64/11/08/caption.jpg?w=900&h=500&s=1" data-nav="鶴岡八幡宮">
             <div><span class="time-tag">11:00</span><span class="card-title">鶴岡八幡宮 (包車)</span></div>
             <p class="card-desc">停留 120 分鐘。漫步若宮大路櫻花道，午餐於小町通商店街自由享用。</p>
@@ -420,6 +441,8 @@
         </div>
 
         <div id="day-panel-4" class="day-panel">
+          <div class="day-title-badge">Day 4：尋訪富士 🗻 河口湖絕景與水陸巴士</div>
+
           <div class="card-v2" onclick="openModal(this)" data-img="https://tw.wamazing.com/media/wp-content/uploads/sites/4/2025/03/ooishipark_pixta_90606576_M.jpg.webp" data-nav="河口湖大石公園">
             <div><span class="time-tag">10:00</span><span class="card-title">大石公園 (包車)</span></div>
             <p class="card-desc">停留 75 分鐘，11:15 離開。河口湖畔拍下富士山與櫻花同框。</p>
@@ -442,6 +465,8 @@
         </div>
 
         <div id="day-panel-5" class="day-panel">
+          <div class="day-title-badge">Day 5：城市漫遊 🚌 明治神宮與雙層敞篷巴士</div>
+
           <div class="card-v2" onclick="openModal(this)" data-img="https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/batch_shutterstock_1510366601.jpg" data-nav="明治神宮">
             <div><span class="time-tag">10:40</span><span class="card-title">明治神宮森林之旅</span></div>
             <p class="card-desc">東京都心最大的森林神社。午餐於園區內享用。</p>
@@ -459,12 +484,14 @@
         </div>
 
         <div id="day-panel-6" class="day-panel">
+          <div class="day-title-badge">Day 6：滿載而歸 🍣 築地嚐鮮與平安返家</div>
+
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide03.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">08:30</span><span class="card-title">退房寄放行李</span></div>
             <p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://www.tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
+          <div class="card-v2" onclick="openModal(this)" data-img="https://www. tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
             <div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div>
             <p class="card-desc">品嚐厚蛋燒、海鮮丼，享受最後的東京美味。</p>
           </div>
@@ -818,7 +845,7 @@
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
-      document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(navQuery)}`;
+      document.getElementById('modal-nav').href = `http://googleusercontent.com/maps.google.com/5{encodeURIComponent(navQuery)}`;
 
       const modal = document.getElementById('spot-modal');
       modal.classList.remove('hidden');
