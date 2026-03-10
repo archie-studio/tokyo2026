@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-title" content="東京賞櫻sec.">
   <title>東京賞櫻sec.</title>
   
-  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png">
-  <link rel="icon" href="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/shiba-logo-cleaned.png">
+  <link rel="icon" href="https://image2url.com/r2/default/images/shiba-logo-cleaned.png" type="image/png">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -105,16 +105,107 @@
     /* 報表彈出視窗動畫 */
     #receipt-modal { transition: opacity 0.4s ease-out; }
     #receipt-modal.show { opacity: 1; }
+
+    /* --- 新增：開頭動畫 (Splash Screen) 樣式 --- */
+    @keyframes logoBreath {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.9; }
+    }
+
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease-out;
+    }
+
+    #splash-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .splash-logo-container {
+      position: relative;
+      margin-bottom: 20px;
+      animation: logoBreath 2s infinite ease-in-out;
+    }
+
+    .splash-logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      box-shadow: 0 10px 25px rgba(255,182,193,0.3);
+    }
+
+    .splash-tour-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: #777;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+
+    #splash-terminal {
+      font-family: 'Noto Sans TC', monospace;
+      font-size: 12px;
+      color: #aaa;
+      width: 80%;
+      max-width: 280px;
+      height: 60px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    #splash-progress {
+      width: 70%;
+      height: 4px;
+      background: #eee;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 100px;
+    }
+
+    #splash-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: var(--deep-pink);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    .splash-version {
+      position: absolute;
+      bottom: 30px;
+      font-size: 10px;
+      color: #ddd;
+      font-weight: 700;
+    }
+    /* ------------------------------------------ */
   </style>
 </head>
 <body>
+  <div id="splash-screen">
+    <div class="splash-logo-container">
+      <img src="https://image2url.com/r2/default/images/shiba-logo-cleaned.png" class="splash-logo">
+    </div>
+    <div class="splash-tour-name">COOLCHI’S TOUR</div>
+    <div id="splash-terminal"></div>
+    <div id="splash-progress">
+      <div id="splash-progress-bar"></div>
+    </div>
+    <div class="splash-version">v1.0.2 (Build 20260404)</div>
+  </div>
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
-    <img src="https://image2url.com/r2/default/images/1772407854647-3d653eed-adf6-4e35-8c39-0fea89d1df0c.png" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
+    <img src="https://image2url.com/r2/default/images/shiba-logo-cleaned.png" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
     <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026東京賞櫻旅行助手</h1>
-  </div>
-
-  <div id="tab-home" class="tab-content active">
+  </div><div id="tab-home" class="tab-content active">
     <div class="card-v2 mt-4 text-center !cursor-default">
         <h3 class="text-lg font-bold mb-1 text-gray-700">⏳ 距離出發還有</h3>
         <div id="home-countdown" class="text-5xl font-black text-pink-500 my-3 tracking-wide">-- 天</div>
@@ -201,7 +292,7 @@
             </li>
             <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
                 <i class="fas fa-plug text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
-                <span><strong class="text-gray-800 block mb-1">電壓與插頭</strong>日本電壓100V，插頭與台灣同為雙平腳，手機相機可直接插。</span>
+                <span><strong class="text-gray-800 block mb-1">電壓與插頭</strong>日本電壓100V，插頭與台灣同為雙平腳，手機相機可直接插.</span>
             </li>
         </ul>
     </div>
@@ -328,14 +419,12 @@
           </div>
           <div class="timeline-dots"></div>
           <div class="card-v2" onclick="openModal(this)" data-img="https://image.kkday.com/v2/image/get/c_fit%2Cq_55%2Ct_webp%2Cw_960/s1.kkday.com/product_161696/20240131092250_idXXH/jpg" data-nav="成田機場">
-            <div><span class="time-tag">13:00</span><span class="card-title">專車接送機</span></div>
+            <div><span class="time-tag">13:00</span><span class="card-title">专车接送機</span></div>
             <p class="card-desc">專車抵達飯店門口接送前往機場，準備返台。</p>
           </div>
         </div>
     </div>
-  </div>
-
-  <div id="tab-help" class="tab-content">
+  </div><div id="tab-help" class="tab-content">
     <div class="flex overflow-x-auto gap-2 px-5 py-4 scrollbar-none">
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('tax', this)">💰 退稅</button>
@@ -556,59 +645,46 @@
         totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
     }
 
-    // --- 新增：產生報表截圖的強大邏輯 ---
     function generateReceipt() {
         if (records.length === 0) {
             alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
             return;
         }
-
         let totalTWD = 0;
         const catTotals = {};
         const dateGroups = {};
-
-        // 1. 整理數據 (分類總和 & 日期群組)
         records.forEach(r => {
             totalTWD += r.tw;
             if (!catTotals[r.cat]) catTotals[r.cat] = { icon: r.icon, sum: 0 };
             catTotals[r.cat].sum += r.tw;
-
             const d = new Date(r.id);
             const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
             if (!dateGroups[dateStr]) dateGroups[dateStr] = [];
             dateGroups[dateStr].push(r);
         });
-
-        // 2. 構建排版優美的 HTML
         let html = `
             <div class="text-center mb-5">
                 <h2 class="text-2xl font-bold text-pink-600 font-['Zhi_Mang_Xing'] tracking-widest mb-1">🌸 2026 東京賞櫻記帳本 🌸</h2>
                 <p class="text-[10px] text-gray-400 font-bold">Generated by 東京賞櫻sec.</p>
             </div>
-            
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-pink-100 mb-5 text-center">
                 <p class="text-xs font-bold text-gray-400 mb-1">💰 旅程總結算</p>
                 <p class="text-4xl font-black text-pink-500 mb-4 tracking-tighter">NT$ ${totalTWD.toLocaleString()}</p>
                 <div class="grid grid-cols-2 gap-2 text-left">
         `;
-
         for (let cat in catTotals) {
             html += `<div class="bg-pink-50/70 p-2 rounded-xl flex items-center justify-between">
                         <span class="text-xs text-gray-600 font-bold">${catTotals[cat].icon} ${cat}</span>
                         <span class="text-xs font-black text-pink-600">$${catTotals[cat].sum.toLocaleString()}</span>
                      </div>`;
         }
-
         html += `</div></div><div class="mb-4"><h3 class="text-sm font-bold text-gray-700 mb-3 border-l-4 border-pink-400 pl-2">📅 每日明細</h3>`;
-
-        // 將日期排序後印出
         const sortedDates = Object.keys(dateGroups).sort((a, b) => {
             const [m1, d1] = a.split('/');
             const [m2, d2] = b.split('/');
             if (m1 !== m2) return parseInt(m1) - parseInt(m2);
             return parseInt(d1) - parseInt(d2);
         });
-
         sortedDates.forEach(date => {
             html += `<div class="mb-4 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
                         <div class="text-xs font-bold text-white bg-pink-400 inline-block px-3 py-1 rounded-lg mb-2 shadow-sm">📍 ${date}</div>`;
@@ -623,29 +699,21 @@
             });
             html += `</div>`;
         });
-
         html += `<div class="text-center mt-6 pt-4 border-t-2 border-dashed border-pink-200"><p class="text-xs font-bold text-pink-400 tracking-widest">🌸 Have a nice trip! 🌸</p></div>`;
-
-        // 3. 將 HTML 塞入準備拍照的區塊
         document.getElementById('receipt-render-content').innerHTML = html;
-
-        // 4. 打開 Modal，隱藏舊圖片，顯示 HTML 準備拍照
         const modal = document.getElementById('receipt-modal');
         const captureArea = document.getElementById('receipt-capture-area');
         const resultImg = document.getElementById('receipt-result-img');
-
         captureArea.style.display = 'block';
         resultImg.classList.add('hidden');
         modal.classList.remove('hidden');
-
-        // 5. 等待 CSS 動畫跑完後，執行 html2canvas 拍照
         setTimeout(() => {
             modal.classList.add('show');
             html2canvas(captureArea, { backgroundColor: '#fff5f7', scale: 2 }).then(canvas => {
                 const imgData = canvas.toDataURL("image/png");
-                resultImg.src = imgData; // 把拍好的照片貼給 img 標籤
-                resultImg.classList.remove('hidden'); // 秀出照片
-                captureArea.style.display = 'none'; // 隱藏原始 HTML
+                resultImg.src = imgData;
+                resultImg.classList.remove('hidden');
+                captureArea.style.display = 'none';
             });
         }, 100);
     }
@@ -655,7 +723,6 @@
         modal.classList.remove('show');
         setTimeout(() => { modal.classList.add('hidden'); }, 400); 
     }
-    // ----------------------------------------
 
     document.getElementById('jpy-input').addEventListener('input', (e) => {
       document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`;
@@ -665,11 +732,9 @@
       const target = new Date('2026-04-04T00:00:00').getTime();
       const topEl = document.getElementById('countdown');
       const homeEl = document.getElementById('home-countdown');
-      
       setInterval(() => {
         const diff = target - new Date().getTime();
         const days = Math.floor(diff / (1000*60*60*24));
-        
         if (topEl) topEl.innerText = diff < 0 ? "旅行中" : `出發倒數 ${days} 天`;
         if (homeEl) homeEl.innerText = diff < 0 ? "旅行中 🌸" : `${days} 天`;
       }, 1000);
@@ -680,12 +745,10 @@
       const desc = el.querySelector('.card-desc').innerText;
       const imgUrl = el.getAttribute('data-img');
       const navQuery = el.getAttribute('data-nav') || title;
-
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
       document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(navQuery)}`;
-
       const modal = document.getElementById('spot-modal');
       modal.classList.remove('hidden');
       setTimeout(() => { modal.classList.add('show'); }, 10);
@@ -726,7 +789,72 @@
         }, 2000);
     }
 
-    window.onload = () => { initCountdown(); renderRecords(); loadVoices(); };
+    // --- 新增：控制開頭動畫 (Splash Screen) 的 JavaScript ---
+    function initSplashScreen() {
+      const splash = document.getElementById('splash-screen');
+      const terminal = document.getElementById('splash-terminal');
+      const progressBar = document.getElementById('splash-progress-bar');
+      const fakeData = [
+        "COOLCHI’S TOUR System v1.0.2",
+        "Initializing core modules...",
+        "Loading local data: /assets/tokyo_map.dat",
+        "Syncing travel schedule: /2026/april/cherry_blossom",
+        "Checking weather API: /api/v1/tokyo/weather",
+        "Updating VJW guidelines: /rules/entry_requirements",
+        "Loading currency rates: /fin/jpy_twd",
+        "Checking group member info...",
+        "Preparing map navigation...",
+        "Finalizing setup...",
+        "Ready."
+      ];
+      let dataIndex = 0;
+      let progress = 0;
+
+      // 假數據滾動動畫
+      const terminalInterval = setInterval(() => {
+        if (dataIndex < fakeData.length) {
+          const line = document.createElement('p');
+          line.innerText = fakeData[dataIndex];
+          terminal.appendChild(line);
+          terminal.scrollTop = terminal.scrollHeight; // 自動捲動到底部
+          dataIndex++;
+        } else {
+          clearInterval(terminalInterval);
+        }
+      }, 300); // 每 0.3 秒跳一行字
+
+      // 進度條動畫
+      const progressInterval = setInterval(() => {
+        if (progress < 100) {
+          progress += Math.random() * 8 + 2; // 隨機增加 2%~10%
+          if (progress > 100) progress = 100;
+          progressBar.style.width = progress + '%';
+        } else {
+          clearInterval(progressInterval);
+        }
+      }, 100);
+
+      // 設定在 3.5 秒後淡出並隱藏
+      setTimeout(() => {
+        clearInterval(terminalInterval);
+        clearInterval(progressInterval);
+        splash.classList.add('fade-out'); // 觸發 CSS 淡出動畫
+        
+        // 等待淡出動畫結束後徹底隱藏 DOM，避免干擾原有 Log 點擊
+        setTimeout(() => {
+          splash.style.display = 'none';
+        }, 500); // 這裡要大於等於 CSS 中的淡出時間 (0.5s)
+      }, 3500);
+    }
+    // -----------------------------------------------------
+
+    // window.onload 中呼叫開頭動畫和原有函式
+    window.onload = () => { 
+      initSplashScreen(); // 啟動開頭動畫
+      initCountdown(); 
+      renderRecords(); 
+      loadVoices(); 
+    };
   </script>
 </body>
 </html>
