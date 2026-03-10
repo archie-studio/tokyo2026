@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-title" content="東京賞櫻sec.">
   <title>東京賞櫻sec.</title>
   
-  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/shiba-logo-cleaned-v2.png">
-  <link rel="icon" href="https://image2url.com/r2/default/images/shiba-logo-cleaned-v2.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg">
+  <link rel="icon" href="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg" type="image/jpeg">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -142,6 +142,7 @@
       height: 120px;
       border-radius: 50%;
       box-shadow: 0 10px 25px rgba(255,182,193,0.3);
+      object-fit: cover; /* 確保 JPG 圖片填滿圓圈 */
     }
 
     /* 修正：將文字顏色也改為粉櫻色系 (var(--deep-pink)) 確保清晰度 */
@@ -196,7 +197,7 @@
 <body>
   <div id="splash-screen">
     <div class="splash-logo-container">
-      <img src="https://image2url.com/r2/default/images/shiba-logo-cleaned-v2.png" class="splash-logo">
+      <img src="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg" class="splash-logo">
     </div>
     <div class="splash-tour-name">COOLCHI’S TOUR</div>
     <div id="splash-terminal"></div>
@@ -207,7 +208,7 @@
   </div>
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
-    <img src="https://image2url.com/r2/default/images/shiba-logo-cleaned-v2.png" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
+    <img src="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
     <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026東京賞櫻旅行助手</h1>
   </div><div id="tab-home" class="tab-content active">
     <div class="card-v2 mt-4 text-center !cursor-default">
@@ -358,7 +359,7 @@
           <div class="timeline-dots"></div>
           <div class="card-v2" onclick="openModal(this)" data-img="https://res.cloudinary.com/jnto/image/upload/w_750,h_503,fl_lossy,f_auto/v1648115810/kanagawa/H_00586-2_004" data-nav="高德院鎌倉大佛">
             <div><span class="time-tag">13:10</span><span class="card-title">高德院鎌倉大佛</span></div>
-            <p class="card-desc">停留 20 分鐘，13:30 離開。參拜莊嚴的露天青銅大佛。</p>
+            <p class="card-desc">停留 20 分鐘，13:30 離開.參拜莊嚴的露天青銅大佛。</p>
           </div>
           <div class="timeline-dots"></div>
           <div class="card-v2" onclick="openModal(this)" data-img="https://imgzh.tabiiro.travel/kankou.tabiiro.jp/articles/sections/1751006301-1746098828-pixta_74415181_M.webp" data-nav="江之電">
@@ -536,7 +537,7 @@
 
     const helpData = {
       shopping: [{ cn: "這多少錢？", jp: "いくらですか？" }, { cn: "我要買這個。", jp: "これをください。" }, { cn: "可以刷卡嗎？", jp: "カードは使えますか？" }, { cn: "請給我收據。", jp: "領収書をください。" }, { cn: "請給我袋子。", jp: "袋をお願いします。" }],
-      tax: [{ cn: "可以退稅嗎？", jp: "免税はできます開？" }, { cn: "退稅櫃檯在哪？", jp: "免税カウンターはどこですか？" }, { cn: "請幫我退稅。", jp: "免税をお願いします。" }],
+      tax: [{ cn: "可以退稅嗎？", jp: "免税はできますか？" }, { cn: "退稅櫃檯在哪？", jp: "免税カウンターはどこですか？" }, { cn: "請幫我退稅。", jp: "免税をお願いします。" }],
       food: [{ cn: "有中文菜單嗎？", jp: "中国語メニューはありますか？" }, { cn: "請給我熱水。", jp: "お湯をください。" }, { cn: "結帳。", jp: "お会計をお願いします。" }, { cn: "好吃！", jp: "おいしいです！" }],
       find: [{ cn: "洗手間在哪？", jp: "トイレはどこですか？" }, { cn: "電梯在哪？", jp: "エレベーターはどこですか？" }, { cn: "這附近有地鐵站嗎？", jp: "駅はどこですか？" }],
       sos: [{ cn: "我不舒服。", jp: "気分が悪いです。" }, { cn: "請幫幫我。", jp: "助けてください。" }, { cn: "請叫救護車。", jp: "救急車を呼んでください。" }],
@@ -769,7 +770,7 @@
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
-      document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(navQuery)}`;
+      document.getElementById('modal-nav').href = `http://http://googleusercontent.com/maps.google.com/3{encodeURIComponent(navQuery)}`;
 
       const modal = document.getElementById('spot-modal');
       modal.classList.remove('hidden');
@@ -854,6 +855,7 @@
         }
       }, 100);
 
+      /* 修正：將 Loading 時間從 3.5 秒增加到 5.5 秒 (5500 毫秒) */
       setTimeout(() => {
         clearInterval(terminalInterval);
         clearInterval(progressInterval);
@@ -862,7 +864,7 @@
         setTimeout(() => {
           splash.style.display = 'none';
         }, 500); 
-      }, 3500);
+      }, 5500);
     }
     /* ----------------------------------------------------- */
 
