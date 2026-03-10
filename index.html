@@ -43,17 +43,29 @@
       border-left: 6px dotted #ffccd5;
     }
 
+    /* 修正放大的標頭樣式：增加內部邊距以適應更大的 Logo */
     .hero-header { 
       background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
       background-size: cover;
       background-position: center;
       border-radius: 0 0 40px 40px; 
-      padding: 45px 20px 25px; 
+      padding: 65px 20px 25px; /* 增加頂部 padding 65px */
       text-align: center; 
       position: relative; 
       box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
     }
-    .header-logo { width: 75px; height: 75px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 10px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
+    
+    /* 修正放大的 Logo 樣式：大幅放大容器 size 至 120px */
+    .header-logo { 
+      width: 120px; /* 大幅放大容器 size */
+      height: 120px; /* 大幅放大容器 size */
+      background: white; 
+      border-radius: 50%; 
+      margin: 0 auto 10px; 
+      padding: 10px; /* 降為 10px，讓圖片本身變大 */
+      box-shadow: 0 8px 15px rgba(255,182,193,0.3); 
+      object-fit: contain; /* 確保圖片保持比例 fit 在容器中 */
+    }
     
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
     
@@ -530,7 +542,7 @@
     let selectedCat = { icon: '💊', name: '藥妝' };
 
     const helpData = {
-      shopping: [{ cn: "這多少錢？", jp: "いくらですか？" }, { cn: "我要買這個。", jp: "これをください。" }, { cn: "可以刷卡嗎？", jp: "カードは使えます做？" }, { cn: "請給我收據。", jp: "領収書をください。" }, { cn: "請給我袋子。", jp: "袋をお願いします。" }],
+      shopping: [{ cn: "這多少錢？", jp: "いくらですか？" }, { cn: "我要買這個。", jp: "これをください。" }, { cn: "可以刷卡嗎？", jp: "カードは使えますか？" }, { cn: "請給我收據。", jp: "領収書をください。" }, { cn: "請給我袋子。", jp: "袋をお願いします。" }],
       tax: [{ cn: "可以退稅嗎？", jp: "免税はできますか？" }, { cn: "退稅櫃檯在哪？", jp: "免税カウンターはどこですか？" }, { cn: "請幫我退稅。", jp: "免税をお願いします。" }],
       food: [{ cn: "有中文菜單嗎？", jp: "中国語メニューはありますか？" }, { cn: "請給我熱水。", jp: "お湯をください。" }, { cn: "結帳。", jp: "お会計をお願いします。" }, { cn: "好吃！", jp: "おいしいです！" }],
       find: [{ cn: "洗手間在哪？", jp: "トイレはどこですか？" }, { cn: "電梯在哪？", jp: "エレベーターはどこですか？" }, { cn: "這附近有地鐵站嗎？", jp: "駅はどこですか？" }],
@@ -764,7 +776,7 @@
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
-      document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(navQuery)}`;
+      document.getElementById('modal-nav').href = `http://googlehttp://googlehttp://googleusercontent.com/maps.google.com/4{encodeURIComponent(navQuery)}`;
 
       const modal = document.getElementById('spot-modal');
       modal.classList.remove('hidden');
