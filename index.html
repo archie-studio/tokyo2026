@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-title" content="東京賞櫻sec.">
   <title>東京賞櫻sec.</title>
   
-  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/shiba-logo-cleaned.png">
-  <link rel="icon" href="https://image2url.com/r2/default/images/shiba-logo-cleaned.png" type="image/png">
+  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/shiba-logo-cleaned-v2.png">
+  <link rel="icon" href="https://image2url.com/r2/default/images/shiba-logo-cleaned-v2.png" type="image/png">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -43,8 +43,9 @@
       border-left: 6px dotted #ffccd5;
     }
 
+    /* 頂部背景圖透明度調整 (修正：降低 alpha 值，讓圖片更清楚) */
     .hero-header { 
-      background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 241, 235, 0.85)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
+      background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
       background-size: cover;
       background-position: center;
       border-radius: 0 0 40px 40px; 
@@ -106,16 +107,17 @@
     #receipt-modal { transition: opacity 0.4s ease-out; }
     #receipt-modal.show { opacity: 1; }
 
-    /* --- 新增：開頭動畫 (Splash Screen) 樣式 --- */
+    /* --- 開頭動畫 (Splash Screen) 樣式修改 --- */
     @keyframes logoBreath {
       0%, 100% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.05); opacity: 0.9; }
     }
 
+    /* 修正：Loading 背景顏色改為粉櫻色 var(--sakura-pink) */
     #splash-screen {
       position: fixed;
       inset: 0;
-      background: #fff;
+      background: var(--sakura-pink);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -142,10 +144,11 @@
       box-shadow: 0 10px 25px rgba(255,182,193,0.3);
     }
 
+    /* 修正：將文字顏色也改為粉櫻色系 (var(--deep-pink)) 確保清晰度 */
     .splash-tour-name {
       font-size: 20px;
       font-weight: 700;
-      color: #777;
+      color: var(--deep-pink);
       letter-spacing: 2px;
       margin-bottom: 30px;
     }
@@ -153,7 +156,7 @@
     #splash-terminal {
       font-family: 'Noto Sans TC', monospace;
       font-size: 12px;
-      color: #aaa;
+      color: var(--deep-pink);
       width: 80%;
       max-width: 280px;
       height: 60px;
@@ -165,7 +168,7 @@
     #splash-progress {
       width: 70%;
       height: 4px;
-      background: #eee;
+      background: rgba(255, 255, 255, 0.4); /* 修改為半透明白背景 */
       border-radius: 2px;
       overflow: hidden;
       margin-bottom: 100px;
@@ -179,11 +182,12 @@
       transition: width 0.3s ease;
     }
 
+    /* 版本號文字顏色也修改 */
     .splash-version {
       position: absolute;
       bottom: 30px;
       font-size: 10px;
-      color: #ddd;
+      color: var(--deep-pink);
       font-weight: 700;
     }
     /* ------------------------------------------ */
@@ -192,7 +196,7 @@
 <body>
   <div id="splash-screen">
     <div class="splash-logo-container">
-      <img src="https://image2url.com/r2/default/images/shiba-logo-cleaned.png" class="splash-logo">
+      <img src="https://image2url.com/r2/default/images/shiba-logo-cleaned-v2.png" class="splash-logo">
     </div>
     <div class="splash-tour-name">COOLCHI’S TOUR</div>
     <div id="splash-terminal"></div>
@@ -203,7 +207,7 @@
   </div>
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
-    <img src="https://image2url.com/r2/default/images/shiba-logo-cleaned.png" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
+    <img src="https://image2url.com/r2/default/images/shiba-logo-cleaned-v2.png" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
     <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026東京賞櫻旅行助手</h1>
   </div><div id="tab-home" class="tab-content active">
     <div class="card-v2 mt-4 text-center !cursor-default">
@@ -413,7 +417,7 @@
             <p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://www.tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
+          <div class="card-v2" onclick="openModal(this)" data-img="https://www. tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
             <div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div>
             <p class="card-desc">品嚐厚蛋燒、海鮮丼，享受最後的東京美味。</p>
           </div>
@@ -532,7 +536,7 @@
 
     const helpData = {
       shopping: [{ cn: "這多少錢？", jp: "いくらですか？" }, { cn: "我要買這個。", jp: "これをください。" }, { cn: "可以刷卡嗎？", jp: "カードは使えますか？" }, { cn: "請給我收據。", jp: "領収書をください。" }, { cn: "請給我袋子。", jp: "袋をお願いします。" }],
-      tax: [{ cn: "可以退稅嗎？", jp: "免税はできますか？" }, { cn: "退稅櫃檯在哪？", jp: "免税カウンターはどこですか？" }, { cn: "請幫我退稅。", jp: "免税をお願いします。" }],
+      tax: [{ cn: "可以退稅嗎？", jp: "免税はできます開？" }, { cn: "退稅櫃檯在哪？", jp: "免税カウンターはどこですか？" }, { cn: "請幫我退稅。", jp: "免税をお願いします。" }],
       food: [{ cn: "有中文菜單嗎？", jp: "中国語メニューはありますか？" }, { cn: "請給我熱水。", jp: "お湯をください。" }, { cn: "結帳。", jp: "お会計をお願いします。" }, { cn: "好吃！", jp: "おいしいです！" }],
       find: [{ cn: "洗手間在哪？", jp: "トイレはどこですか？" }, { cn: "電梯在哪？", jp: "エレベーターはどこですか？" }, { cn: "這附近有地鐵站嗎？", jp: "駅はどこですか？" }],
       sos: [{ cn: "我不舒服。", jp: "気分が悪いです。" }, { cn: "請幫幫我。", jp: "助けてください。" }, { cn: "請叫救護車。", jp: "救急車を呼んでください。" }],
@@ -650,41 +654,50 @@
             alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
             return;
         }
+
         let totalTWD = 0;
         const catTotals = {};
         const dateGroups = {};
+
         records.forEach(r => {
             totalTWD += r.tw;
             if (!catTotals[r.cat]) catTotals[r.cat] = { icon: r.icon, sum: 0 };
             catTotals[r.cat].sum += r.tw;
+
             const d = new Date(r.id);
             const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
             if (!dateGroups[dateStr]) dateGroups[dateStr] = [];
             dateGroups[dateStr].push(r);
         });
+
         let html = `
             <div class="text-center mb-5">
                 <h2 class="text-2xl font-bold text-pink-600 font-['Zhi_Mang_Xing'] tracking-widest mb-1">🌸 2026 東京賞櫻記帳本 🌸</h2>
                 <p class="text-[10px] text-gray-400 font-bold">Generated by 東京賞櫻sec.</p>
             </div>
+            
             <div class="bg-white rounded-2xl p-4 shadow-sm border border-pink-100 mb-5 text-center">
                 <p class="text-xs font-bold text-gray-400 mb-1">💰 旅程總結算</p>
                 <p class="text-4xl font-black text-pink-500 mb-4 tracking-tighter">NT$ ${totalTWD.toLocaleString()}</p>
                 <div class="grid grid-cols-2 gap-2 text-left">
         `;
+
         for (let cat in catTotals) {
             html += `<div class="bg-pink-50/70 p-2 rounded-xl flex items-center justify-between">
                         <span class="text-xs text-gray-600 font-bold">${catTotals[cat].icon} ${cat}</span>
                         <span class="text-xs font-black text-pink-600">$${catTotals[cat].sum.toLocaleString()}</span>
                      </div>`;
         }
+
         html += `</div></div><div class="mb-4"><h3 class="text-sm font-bold text-gray-700 mb-3 border-l-4 border-pink-400 pl-2">📅 每日明細</h3>`;
+
         const sortedDates = Object.keys(dateGroups).sort((a, b) => {
             const [m1, d1] = a.split('/');
             const [m2, d2] = b.split('/');
             if (m1 !== m2) return parseInt(m1) - parseInt(m2);
             return parseInt(d1) - parseInt(d2);
         });
+
         sortedDates.forEach(date => {
             html += `<div class="mb-4 bg-white p-3 rounded-xl shadow-sm border border-gray-100">
                         <div class="text-xs font-bold text-white bg-pink-400 inline-block px-3 py-1 rounded-lg mb-2 shadow-sm">📍 ${date}</div>`;
@@ -699,14 +712,19 @@
             });
             html += `</div>`;
         });
+
         html += `<div class="text-center mt-6 pt-4 border-t-2 border-dashed border-pink-200"><p class="text-xs font-bold text-pink-400 tracking-widest">🌸 Have a nice trip! 🌸</p></div>`;
+
         document.getElementById('receipt-render-content').innerHTML = html;
+
         const modal = document.getElementById('receipt-modal');
         const captureArea = document.getElementById('receipt-capture-area');
         const resultImg = document.getElementById('receipt-result-img');
+
         captureArea.style.display = 'block';
         resultImg.classList.add('hidden');
         modal.classList.remove('hidden');
+
         setTimeout(() => {
             modal.classList.add('show');
             html2canvas(captureArea, { backgroundColor: '#fff5f7', scale: 2 }).then(canvas => {
@@ -732,9 +750,11 @@
       const target = new Date('2026-04-04T00:00:00').getTime();
       const topEl = document.getElementById('countdown');
       const homeEl = document.getElementById('home-countdown');
+      
       setInterval(() => {
         const diff = target - new Date().getTime();
         const days = Math.floor(diff / (1000*60*60*24));
+        
         if (topEl) topEl.innerText = diff < 0 ? "旅行中" : `出發倒數 ${days} 天`;
         if (homeEl) homeEl.innerText = diff < 0 ? "旅行中 🌸" : `${days} 天`;
       }, 1000);
@@ -745,10 +765,12 @@
       const desc = el.querySelector('.card-desc').innerText;
       const imgUrl = el.getAttribute('data-img');
       const navQuery = el.getAttribute('data-nav') || title;
+
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
       document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(navQuery)}`;
+
       const modal = document.getElementById('spot-modal');
       modal.classList.remove('hidden');
       setTimeout(() => { modal.classList.add('show'); }, 10);
@@ -789,7 +811,7 @@
         }, 2000);
     }
 
-    // --- 新增：控制開頭動畫 (Splash Screen) 的 JavaScript ---
+    /* --- 開頭動畫 (Splash Screen) 的 JavaScript --- */
     function initSplashScreen() {
       const splash = document.getElementById('splash-screen');
       const terminal = document.getElementById('splash-terminal');
@@ -810,23 +832,21 @@
       let dataIndex = 0;
       let progress = 0;
 
-      // 假數據滾動動畫
       const terminalInterval = setInterval(() => {
         if (dataIndex < fakeData.length) {
           const line = document.createElement('p');
           line.innerText = fakeData[dataIndex];
           terminal.appendChild(line);
-          terminal.scrollTop = terminal.scrollHeight; // 自動捲動到底部
+          terminal.scrollTop = terminal.scrollHeight;
           dataIndex++;
         } else {
           clearInterval(terminalInterval);
         }
-      }, 300); // 每 0.3 秒跳一行字
+      }, 300);
 
-      // 進度條動畫
       const progressInterval = setInterval(() => {
         if (progress < 100) {
-          progress += Math.random() * 8 + 2; // 隨機增加 2%~10%
+          progress += Math.random() * 8 + 2;
           if (progress > 100) progress = 100;
           progressBar.style.width = progress + '%';
         } else {
@@ -834,21 +854,18 @@
         }
       }, 100);
 
-      // 設定在 3.5 秒後淡出並隱藏
       setTimeout(() => {
         clearInterval(terminalInterval);
         clearInterval(progressInterval);
-        splash.classList.add('fade-out'); // 觸發 CSS 淡出動畫
+        splash.classList.add('fade-out');
         
-        // 等待淡出動畫結束後徹底隱藏 DOM，避免干擾原有 Log 點擊
         setTimeout(() => {
           splash.style.display = 'none';
-        }, 500); // 這裡要大於等於 CSS 中的淡出時間 (0.5s)
+        }, 500); 
       }, 3500);
     }
-    // -----------------------------------------------------
+    /* ----------------------------------------------------- */
 
-    // window.onload 中呼叫開頭動畫和原有函式
     window.onload = () => { 
       initSplashScreen(); // 啟動開頭動畫
       initCountdown(); 
