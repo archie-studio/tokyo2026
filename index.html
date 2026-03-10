@@ -43,7 +43,6 @@
       border-left: 6px dotted #ffccd5;
     }
 
-    /* 頂部背景圖透明度調整 (修正：降低 alpha 值，讓圖片更清楚) */
     .hero-header { 
       background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
       background-size: cover;
@@ -103,17 +102,14 @@
     #spot-modal.show { opacity: 1; }
     #spot-modal.show #spot-modal-content { transform: scale(1); }
 
-    /* 報表彈出視窗動畫 */
     #receipt-modal { transition: opacity 0.4s ease-out; }
     #receipt-modal.show { opacity: 1; }
 
-    /* --- 開頭動畫 (Splash Screen) 樣式修改 --- */
     @keyframes logoBreath {
       0%, 100% { transform: scale(1); opacity: 1; }
       50% { transform: scale(1.05); opacity: 0.9; }
     }
 
-    /* 修正：Loading 背景顏色改為粉櫻色 var(--sakura-pink) */
     #splash-screen {
       position: fixed;
       inset: 0;
@@ -142,10 +138,9 @@
       height: 120px;
       border-radius: 50%;
       box-shadow: 0 10px 25px rgba(255,182,193,0.3);
-      object-fit: cover; /* 確保 JPG 圖片填滿圓圈 */
+      object-fit: cover; 
     }
 
-    /* 修正：將文字顏色也改為粉櫻色系 (var(--deep-pink)) 確保清晰度 */
     .splash-tour-name {
       font-size: 20px;
       font-weight: 700;
@@ -169,7 +164,7 @@
     #splash-progress {
       width: 70%;
       height: 4px;
-      background: rgba(255, 255, 255, 0.4); /* 修改為半透明白背景 */
+      background: rgba(255, 255, 255, 0.4); 
       border-radius: 2px;
       overflow: hidden;
       margin-bottom: 100px;
@@ -183,7 +178,6 @@
       transition: width 0.3s ease;
     }
 
-    /* 版本號文字顏色也修改 */
     .splash-version {
       position: absolute;
       bottom: 30px;
@@ -191,7 +185,6 @@
       color: var(--deep-pink);
       font-weight: 700;
     }
-    /* ------------------------------------------ */
   </style>
 </head>
 <body>
@@ -206,9 +199,10 @@
     </div>
     <div class="splash-version">v1.0.2 (Build 20260404)</div>
   </div>
+
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider"></div>
-    <img src="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
+    <img src="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=" class="header-logo cursor-pointer" onclick="switchTab('home', document.querySelector('.nav-item'))">
     <h1 class="text-xl font-bold text-pink-700 font-['Zhi_Mang_Xing']">2026東京賞櫻旅行助手</h1>
   </div><div id="tab-home" class="tab-content active">
     <div class="card-v2 mt-4 text-center !cursor-default">
@@ -536,7 +530,7 @@
     let selectedCat = { icon: '💊', name: '藥妝' };
 
     const helpData = {
-      shopping: [{ cn: "這多少錢？", jp: "いくらですか？" }, { cn: "我要買這個。", jp: "これをください。" }, { cn: "可以刷卡嗎？", jp: "カードは使えますか？" }, { cn: "請給我收據。", jp: "領収書をください。" }, { cn: "請給我袋子。", jp: "袋をお願いします。" }],
+      shopping: [{ cn: "這多少錢？", jp: "いくらですか？" }, { cn: "我要買這個。", jp: "これをください。" }, { cn: "可以刷卡嗎？", jp: "カードは使えます做？" }, { cn: "請給我收據。", jp: "領収書をください。" }, { cn: "請給我袋子。", jp: "袋をお願いします。" }],
       tax: [{ cn: "可以退稅嗎？", jp: "免税はできますか？" }, { cn: "退稅櫃檯在哪？", jp: "免税カウンターはどこですか？" }, { cn: "請幫我退稅。", jp: "免税をお願いします。" }],
       food: [{ cn: "有中文菜單嗎？", jp: "中国語メニューはありますか？" }, { cn: "請給我熱水。", jp: "お湯をください。" }, { cn: "結帳。", jp: "お会計をお願いします。" }, { cn: "好吃！", jp: "おいしいです！" }],
       find: [{ cn: "洗手間在哪？", jp: "トイレはどこですか？" }, { cn: "電梯在哪？", jp: "エレベーターはどこですか？" }, { cn: "這附近有地鐵站嗎？", jp: "駅はどこですか？" }],
@@ -770,7 +764,7 @@
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
-      document.getElementById('modal-nav').href = `http://http://googleusercontent.com/maps.google.com/3{encodeURIComponent(navQuery)}`;
+      document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=$${encodeURIComponent(navQuery)}`;
 
       const modal = document.getElementById('spot-modal');
       modal.classList.remove('hidden');
