@@ -723,7 +723,7 @@
         totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
     }
 
-    /* --- 🚨 終極防跑版截圖邏輯：完全捨棄 flex，改用 Float 與 Inline-Block --- */
+    /* --- 🚨 終極修復：完全使用 Table (表格) 進行排版，保證截圖引擎不跑版不吃字 --- */
     function generateReceipt() {
         if (records.length === 0) {
             alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
@@ -745,10 +745,10 @@
             dateGroups[dateStr].push(r);
         });
 
-        // 最外層：強制設定寬度、字體，並給予粉色背景
-        let html = `<div style="width: 340px; box-sizing: border-box; background: #fff5f7; padding: 24px; border-radius: 24px; font-family: sans-serif;">`;
+        // 最外層容器，確保字體使用系統預設，防止特殊字體載入過慢導致跑版
+        let html = `<div style="width: 340px; box-sizing: border-box; background: #fff5f7; padding: 24px; border-radius: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">`;
         
-        // 標題區：捨棄毛筆字，用最單純的字體避免斷行
+        // 標題區
         html += `
             <div style="text-align: center; margin-bottom: 20px;">
                 <div style="font-size: 22px; font-weight: 900; color: #db2777; margin-bottom: 6px;">🌸 東京賞櫻記帳本 🌸</div>
@@ -758,19 +758,43 @@
             <div style="background: white; border-radius: 16px; padding: 20px 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #fce7f3; margin-bottom: 24px; text-align: center;">
                 <div style="font-size: 13px; font-weight: bold; color: #9ca3af; margin-bottom: 8px;">💰 旅程總結算</div>
                 <div style="font-size: 34px; font-weight: 900; color: #ec4899; margin-bottom: 20px;">NT$ ${totalTWD.toLocaleString()}</div>
-                <div style="text-align: left;">
         `;
 
-        // 分類統計：使用 float 排版，絕對不會歪掉
-        for (let cat in catTotals) {
-            html += `<div style="background: #fdf2f8; width: 48%; padding: 10px 12px; border-radius: 12px; box-sizing: border-box; display: inline-block; margin-bottom: 8px;">
-                        <div style="float: left; font-size: 13px; color: #4b5563; font-weight: bold;">${catTotals[cat].icon} ${cat}</div>
-                        <div style="float: right; font-size: 13px; font-weight: 900; color: #db2777;">$${catTotals[cat].sum.toLocaleString()}</div>
-                        <div style="clear: both;"></div>
-                     </div> `;
+        // 分類統計區：使用純 HTML <table> 保證絕對的垂直與水平對齊
+        html += `<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: separate; border-spacing: 0 8px;">`;
+        let cats = Object.keys(catTotals);
+        for (let i = 0; i < cats.length; i += 2) {
+            let cat1 = cats[i];
+            let cat2 = cats[i+1];
+            
+            html += `<tr>`;
+            // 左側方塊
+            html += `<td width="48%" style="background: #fdf2f8; border-radius: 10px; padding: 10px;">
+                        <table width="100%" cellpadding="0" cellspacing="0"><tr>
+                            <td align="left" style="font-size: 13px; color: #4b5563; font-weight: bold; vertical-align: middle;">${catTotals[cat1].icon} ${cat1}</td>
+                            <td align="right" style="font-size: 13px; font-weight: 900; color: #db2777; vertical-align: middle;">$${catTotals[cat1].sum.toLocaleString()}</td>
+                        </tr></table>
+                     </td>`;
+            
+            html += `<td width="4%"></td>`; // 中間間距
+            
+            // 右側方塊
+            if (cat2) {
+                html += `<td width="48%" style="background: #fdf2f8; border-radius: 10px; padding: 10px;">
+                            <table width="100%" cellpadding="0" cellspacing="0"><tr>
+                                <td align="left" style="font-size: 13px; color: #4b5563; font-weight: bold; vertical-align: middle;">${catTotals[cat2].icon} ${cat2}</td>
+                                <td align="right" style="font-size: 13px; font-weight: 900; color: #db2777; vertical-align: middle;">$${catTotals[cat2].sum.toLocaleString()}</td>
+                            </tr></table>
+                         </td>`;
+            } else {
+                html += `<td width="48%"></td>`; // 填補空白維持排版
+            }
+            html += `</tr>`;
         }
+        html += `</table></div>`;
 
-        html += `</div></div><div style="margin-bottom: 16px;"><div style="font-size: 15px; font-weight: bold; color: #374151; margin-bottom: 16px; border-left: 4px solid #f472b6; padding-left: 10px;">📅 每日明細</div>`;
+        // 每日明細標題
+        html += `<div style="margin-bottom: 16px;"><div style="font-size: 15px; font-weight: bold; color: #374151; margin-bottom: 16px; border-left: 4px solid #f472b6; padding-left: 10px;">📅 每日明細</div>`;
 
         const sortedDates = Object.keys(dateGroups).sort((a, b) => {
             const [m1, d1] = a.split('/');
@@ -779,31 +803,30 @@
             return parseInt(d1) - parseInt(d2);
         });
 
-        // 每日明細：使用單純的 padding 撐開日期標籤
+        // 每日明細列表：同樣使用 <table> 排版
         sortedDates.forEach(date => {
             html += `<div style="margin-bottom: 16px; background: white; padding: 16px; border-radius: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;">
-                        <div style="background: #f472b6; border-radius: 6px; margin-bottom: 16px; display: inline-block; padding: 6px 12px;">
+                        <div style="background: #f472b6; border-radius: 6px; margin-bottom: 12px; display: inline-block; padding: 6px 12px;">
                             <span style="font-size: 13px; font-weight: bold; color: white;">📍 ${date}</span>
-                        </div>`;
+                        </div>
+                        <table width="100%" cellpadding="0" cellspacing="0">`;
             dateGroups[date].forEach(item => {
-                // 項目列表：一樣使用 float 排版確保兩側完美對齊
-                html += `<div style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6;">
-                            <div style="float: left; font-size: 14px; font-weight: bold; color: #374151; padding-top: 4px;">
+                html += `<tr>
+                            <td align="left" style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6; font-size: 15px; font-weight: bold; color: #374151; vertical-align: middle;">
                                 ${item.icon} ${item.name}
-                            </div>
-                            <div style="float: right; text-align: right;">
-                                <div style="font-size: 15px; font-weight: 900; color: #db2777; margin-bottom: 2px;">NT$ ${item.tw.toLocaleString()}</div>
-                                <div style="font-size: 11px; color: #9ca3af; font-weight: bold;">${item.curr === 'JPY' ? '¥'+item.orig : '$'+item.orig}</div>
-                            </div>
-                            <div style="clear: both;"></div>
-                         </div>`;
+                            </td>
+                            <td align="right" style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6; vertical-align: middle;">
+                                <div style="font-size: 15px; font-weight: 900; color: #db2777;">NT$ ${item.tw.toLocaleString()}</div>
+                                <div style="font-size: 11px; color: #9ca3af; font-weight: bold; margin-top: 2px;">${item.curr === 'JPY' ? '¥'+item.orig : '$'+item.orig}</div>
+                            </td>
+                         </tr>`;
             });
-            html += `</div>`;
+            html += `</table></div>`;
         });
 
         html += `<div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px dashed #fbcfe8;"><div style="font-size: 13px; font-weight: bold; color: #f472b6; letter-spacing: 1px;">🌸 Have a nice trip! 🌸</div></div></div>`;
 
-        // 將這塊堅不可摧的 HTML 塞入拍照區塊
+        // 將代碼放入隱藏容器準備拍照
         document.getElementById('receipt-render-content').innerHTML = html;
 
         const modal = document.getElementById('receipt-modal');
@@ -814,6 +837,7 @@
         resultImg.classList.add('hidden');
         modal.classList.remove('hidden');
 
+        // 稍微延遲讓圖片與字體有充裕時間渲染
         setTimeout(() => {
             modal.classList.add('show');
             html2canvas(document.getElementById('receipt-render-content').firstElementChild, { 
@@ -826,7 +850,7 @@
                 resultImg.classList.remove('hidden');
                 captureArea.style.display = 'none';
             });
-        }, 150);
+        }, 200);
     }
     // -----------------------------------------------------
 
