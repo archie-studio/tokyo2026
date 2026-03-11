@@ -19,21 +19,31 @@
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
     body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 140px; overflow-x: hidden; }
     
-    @keyframes slowAppEntrance {
-      0% { opacity: 0; transform: translateY(30px); filter: blur(8px); }
-      100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    /* --- 升級 2：消除所有手機版網頁預設的點擊藍色/灰色閃爍，徹底消滅網頁感 --- */
+    * {
+      -webkit-tap-highlight-color: transparent;
     }
 
+    /* --- 升級 4：主選單切換時的「橫向滑動過場」原生 APP 體驗 --- */
+    @keyframes tabSlideIn {
+      0% { opacity: 0; transform: translateX(15px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
     .tab-content { display: none; }
     .tab-content.active { 
       display: block; 
-      animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+      animation: tabSlideIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
     }
 
+    /* --- 升級 4：行程表天數切換時的「微微向上浮現」效果 --- */
+    @keyframes panelFadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
     .day-panel { display: none; }
     .day-panel.active { 
       display: block; 
-      animation: slowAppEntrance 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+      animation: panelFadeIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
     }
 
     .timeline-dots {
@@ -63,8 +73,10 @@
       padding: 10px; 
       box-shadow: 0 8px 15px rgba(255,182,193,0.3); 
       object-fit: contain; 
+      transition: transform 0.2s ease; /* Logo 按壓動畫 */
     }
-    
+    .header-logo:active { transform: scale(0.92); }
+
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
     
     .day-btn { 
@@ -76,12 +88,15 @@
       justify-content: center; 
       align-items: center; 
       box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-      transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      /* 加入物理回彈速度 */
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, color 0.3s;
       border: 1px solid #ffdeed;
       color: #ff758c;
       font-weight: bold;
       min-width: 90px;
     }
+    .day-btn:active { transform: scale(0.92); } /* 升級 2：日期按鈕按壓回饋 */
+    
     .day-btn.active { 
       background: #d15d5d;
       color: white; 
@@ -104,27 +119,56 @@
       font-size: 16px;
     }
 
-    .card-v2 { cursor: pointer; background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 0px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); }
+    /* --- 升級 2：行程卡片的按壓縮小回饋 --- */
+    .card-v2 { 
+      cursor: pointer; 
+      background: white; 
+      border-radius: 25px; 
+      box-shadow: 0 8px 20px rgba(255,182,193,0.12); 
+      margin: 0 20px 0px; 
+      padding: 22px; 
+      border: 1px solid rgba(255,117,140,0.05); 
+      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease; 
+    }
+    .card-v2:active {
+      transform: scale(0.96); /* 手指按住時內縮 4% */
+      box-shadow: 0 3px 8px rgba(255,182,193,0.08); /* 陰影變小變得真實 */
+    }
+
     .time-tag { color: var(--deep-pink); font-weight: 800; font-size: 14px; margin-right: 10px; display: inline-block; background: #fff0f3; padding: 2px 8px; border-radius: 8px; }
     .card-title { font-weight: bold; color: #333; font-size: 17px; }
     .card-desc { color: #666; font-size: 14px; margin-top: 8px; line-height: 1.6; border-top: 1px dotted #eee; padding-top: 8px; }
     
     .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
-    .cat-item { background: #fff; border: 2px solid #fdf2f4; border-radius: 18px; padding: 10px 2px; text-align: center; font-size: 11px; transition: 0.3s; }
+    .cat-item { background: #fff; border: 2px solid #fdf2f4; border-radius: 18px; padding: 10px 2px; text-align: center; font-size: 11px; transition: transform 0.15s, border-color 0.3s; }
+    .cat-item:active { transform: scale(0.9); } /* 升級 2：記帳分類按壓回饋 */
     .cat-item.active { border-color: var(--deep-pink); background: #fff0f3; transform: scale(1.05); box-shadow: 0 4px 10px rgba(255,117,140,0.2); }
     .cat-icon { font-size: 20px; display: block; margin-bottom: 2px; }
 
     .input-field { width: 100%; padding: 14px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 12px; font-size: 16px; outline: none; background: #fafafa; }
-    .btn-main { background: var(--deep-pink); color: white; width: 100%; padding: 16px; border-radius: 22px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(255,117,140,0.4); }
+    .btn-main { background: var(--deep-pink); color: white; width: 100%; padding: 16px; border-radius: 22px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(255,117,140,0.4); transition: transform 0.15s; }
+    .btn-main:active { transform: scale(0.96); } /* 升級 2：主按鈕按壓回饋 */
     
     .nav-bar { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,182,193,0.2); }
-    .nav-item { color: #ccc; }
+    
+    /* 升級 2：下方導覽列按壓時的Ｑ彈感 */
+    .nav-item { color: #ccc; transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease; }
+    .nav-item:active { transform: scale(0.85); } 
     .nav-item.active { color: var(--deep-pink); }
 
-    #spot-modal { transition: opacity 0.4s ease-out; }
-    #spot-modal-content { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    /* --- 升級 1：小視窗果凍彈簧效果 (Jelly Bounce) --- */
+    #spot-modal { transition: opacity 0.3s ease-out; }
+    #spot-modal-content { 
+      transform: scale(0.7); /* 一開始縮小到 70% */
+      opacity: 0;
+      /* 神奇的貝茲曲線：讓它放大超過 100% 再縮回 100%，產生物理回彈感 */
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out; 
+    }
     #spot-modal.show { opacity: 1; }
-    #spot-modal.show #spot-modal-content { transform: scale(1); }
+    #spot-modal.show #spot-modal-content { 
+      transform: scale(1); 
+      opacity: 1; 
+    }
 
     #receipt-modal { transition: opacity 0.4s ease-out; }
     #receipt-modal.show { opacity: 1; }
@@ -146,10 +190,7 @@
       transition: opacity 0.5s ease-out;
     }
 
-    #splash-screen.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
+    #splash-screen.fade-out { opacity: 0; pointer-events: none; }
 
     .splash-logo-container {
       position: relative;
@@ -165,50 +206,11 @@
       object-fit: cover; 
     }
 
-    .splash-tour-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--deep-pink);
-      letter-spacing: 2px;
-      margin-bottom: 30px;
-    }
-
-    #splash-terminal {
-      font-family: 'Noto Sans TC', monospace;
-      font-size: 12px;
-      color: var(--deep-pink);
-      width: 80%;
-      max-width: 280px;
-      height: 60px;
-      overflow: hidden;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    #splash-progress {
-      width: 70%;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.4); 
-      border-radius: 2px;
-      overflow: hidden;
-      margin-bottom: 100px;
-    }
-
-    #splash-progress-bar {
-      width: 0%;
-      height: 100%;
-      background: var(--deep-pink);
-      border-radius: 2px;
-      transition: width 0.3s ease;
-    }
-
-    .splash-version {
-      position: absolute;
-      bottom: 30px;
-      font-size: 10px;
-      color: var(--deep-pink);
-      font-weight: 700;
-    }
+    .splash-tour-name { font-size: 20px; font-weight: 700; color: var(--deep-pink); letter-spacing: 2px; margin-bottom: 30px; }
+    #splash-terminal { font-family: 'Noto Sans TC', monospace; font-size: 12px; color: var(--deep-pink); width: 80%; max-width: 280px; height: 60px; overflow: hidden; margin-bottom: 20px; text-align: left; }
+    #splash-progress { width: 70%; height: 4px; background: rgba(255, 255, 255, 0.4); border-radius: 2px; overflow: hidden; margin-bottom: 100px; }
+    #splash-progress-bar { width: 0%; height: 100%; background: var(--deep-pink); border-radius: 2px; transition: width 0.3s ease; }
+    .splash-version { position: absolute; bottom: 30px; font-size: 10px; color: var(--deep-pink); font-weight: 700; }
   </style>
 </head>
 <body>
@@ -239,7 +241,6 @@
 
     <div class="card-v2 mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-4 text-gray-700">✈️ 航班資訊</h3>
-        
         <div class="bg-pink-50/50 rounded-2xl p-4 mb-3 border border-pink-100">
             <div class="flex justify-between items-center mb-3">
                 <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">去程 Outbound</span>
@@ -251,7 +252,6 @@
                 <div><p class="text-2xl font-black text-gray-800">15:05</p><p class="text-xs font-bold text-gray-500 mt-1">東京成田 NRT</p></div>
             </div>
         </div>
-
         <div class="bg-pink-50/50 rounded-2xl p-4 border border-pink-100">
             <div class="flex justify-between items-center mb-3">
                 <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">回程 Inbound</span>
@@ -275,58 +275,31 @@
         
         <div class="space-y-3">
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div>
-                    <p class="text-xs font-bold text-gray-400 mb-1">航班號</p>
-                    <p class="text-sm font-bold text-gray-800">JX802</p>
-                </div>
+                <div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">JX802</p></div>
                 <button onclick="copyText('JX802', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div>
-                    <p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p>
-                    <p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p>
-                </div>
+                <div><p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p></div>
                 <button onclick="copyText('HOTEL R9 Premium 市川站前', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-            
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div class="pr-2">
-                    <p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p>
-                    <p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p>
-                </div>
+                <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p></div>
                 <button onclick="copyText('272-0034', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div class="pr-2">
-                    <p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p>
-                    <p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p>
-                </div>
+                <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p><p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p></div>
                 <button onclick="copyText('CHIBA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div class="pr-2">
-                    <p class="text-xs font-bold text-gray-400 mb-1">市區町村</p>
-                    <p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p>
-                </div>
+                <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">市區町村</p><p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p></div>
                 <button onclick="copyText('ICHIKAWA-SHI', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div class="pr-2">
-                    <p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p>
-                    <p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p>
-                </div>
+                <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p><p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p></div>
                 <button onclick="copyText('1-8-6, ICHIKAWA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div>
-                    <p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p>
-                    <p class="text-sm font-bold text-gray-800">+81473743712</p>
-                </div>
+                <div><p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p><p class="text-sm font-bold text-gray-800">+81473743712</p></div>
                 <button onclick="copyText('+81473743712', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
         </div>
@@ -514,7 +487,7 @@
             <p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p>
           </div>
           <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://www. tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
+          <div class="card-v2" onclick="openModal(this)" data-img="https://www.tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
             <div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div>
             <p class="card-desc">品嚐厚蛋燒、海鮮丼，享受最後的東京美味。</p>
           </div>
@@ -748,7 +721,6 @@
         totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
     }
 
-    /* --- 修正：報表產生防切字邏輯 --- */
     function generateReceipt() {
         if (records.length === 0) {
             alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
@@ -770,7 +742,6 @@
             dateGroups[dateStr].push(r);
         });
 
-        // 移除容易導致換行錯誤的 classes (如 tracking-widest)，加入明確排版設定
         let html = `
             <div style="text-align: center; margin-bottom: 20px;">
                 <h2 style="font-size: 20px; font-weight: bold; color: #db2777; font-family: 'Zhi_Mang_Xing', cursive; margin-bottom: 4px;">🌸 2026 東京賞櫻記帳本 🌸</h2>
@@ -803,7 +774,6 @@
             html += `<div style="margin-bottom: 16px; background: white; padding: 12px; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;">
                         <div style="font-size: 12px; font-weight: bold; color: white; background: #f472b6; display: inline-block; padding: 4px 12px; border-radius: 8px; margin-bottom: 8px;">📍 ${date}</div>`;
             dateGroups[date].forEach(item => {
-                // 移除 truncate 以避免文字切斷，改用安全的 flex 排版
                 html += `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #f3f4f6;">
                             <div style="display: flex; align-items: center; font-size: 14px; padding-right: 8px;">
                                 <span style="margin-right: 8px;">${item.icon}</span>
@@ -832,7 +802,6 @@
 
         setTimeout(() => {
             modal.classList.add('show');
-            // 加入 useCORS 與更高的縮放比例，確保字體銳利
             html2canvas(captureArea, { backgroundColor: '#fff5f7', scale: 2, useCORS: true }).then(canvas => {
                 const imgData = canvas.toDataURL("image/png");
                 resultImg.src = imgData;
@@ -875,8 +844,6 @@
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
-      
-      // --- 修正導航錯誤：使用正確的 Google Maps Search API 網址結構 ---
       document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(navQuery)}`;
 
       const modal = document.getElementById('spot-modal');
