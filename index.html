@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-title" content="東京賞櫻sec.">
   <title>東京賞櫻sec.</title>
   
-  <link rel="apple-touch-icon" href="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=">
-  <link rel="icon" href="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=" type="image/jpeg">
+  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg">
+  <link rel="icon" href="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg" type="image/jpeg">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -59,27 +59,25 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
     }
     
-    /* 更新 3：為網頁最上方的櫻花圖新增專屬的呼吸動畫 */
     @keyframes headerBreath {
       0%, 100% { transform: scale(1); box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
       50% { transform: scale(1.06); box-shadow: 0 12px 20px rgba(255,182,193,0.5); }
     }
 
-    /* 更新 1 & 3：將櫻花圖放大佔滿 80% 以上，並掛上動畫 */
     .header-logo { 
       width: 120px; 
       height: 120px; 
       background: white; 
       border-radius: 50%; 
       margin: 0 auto 10px; 
-      padding: 0px; /* 留白歸零，讓圖片撐滿 */
+      padding: 0px; 
       box-shadow: 0 8px 15px rgba(255,182,193,0.3); 
-      object-fit: cover; /* 確保圖片完美覆蓋圓形 */
-      animation: headerBreath 2.5s infinite ease-in-out; /* 掛上呼吸動畫 */
+      object-fit: cover; 
+      animation: headerBreath 2.5s infinite ease-in-out; 
     }
     .header-logo:active { 
-      animation: none; /* 點擊時暫停呼吸動畫 */
-      transform: scale(0.92); /* 點擊縮小的回饋感 */
+      animation: none; 
+      transform: scale(0.92); 
     }
 
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
@@ -109,18 +107,16 @@
       border-color: #d15d5d;
     }
 
+    /* 更新 1：修改每日行程標題，去背景框線、文字放大 */
     .day-title-badge {
-      background: linear-gradient(135deg, #fff0f3 0%, #ffe4e8 100%);
       color: var(--deep-pink);
       font-weight: 900;
       text-align: center;
-      padding: 14px 10px;
-      border-radius: 20px;
+      padding: 0 10px 15px 10px;
       margin: 0 20px 20px;
-      box-shadow: 0 4px 10px rgba(255,182,193,0.2);
-      border: 1.5px dashed #ffb7c5;
+      border-bottom: 2px dotted #ffccd5; /* 改為底部的粉色虛線點綴 */
       letter-spacing: 1px;
-      font-size: 16px;
+      font-size: 20px; /* 文字放大 */
     }
 
     .card-v2 { 
@@ -347,7 +343,7 @@
     
     <div id="schedule-panels">
         <div id="day-panel-1" class="day-panel active">
-          <div class="day-title-badge">Day 1：初抵東京 🌸 目黑川夢幻夜櫻</div>
+          <div class="day-title-badge">初抵東京 🌸 目黑川夢幻夜櫻</div>
           
           <div class="card-v2" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2022/02/14-122578.webp" data-nav="成田機場第二航廈">
             <div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div>
@@ -371,7 +367,7 @@
         </div>
 
         <div id="day-panel-2" class="day-panel">
-          <div class="day-title-badge">Day 2：經典下町 ⛩️ 淺草祈福與上野櫻花雨</div>
+          <div class="day-title-badge">經典下町 ⛩️ 淺草祈福與上野櫻花雨</div>
 
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">09:00</span><span class="card-title">飯店出發</span></div>
@@ -396,7 +392,7 @@
         </div>
 
         <div id="day-panel-3" class="day-panel">
-          <div class="day-title-badge">Day 3：海濱古都 🌊 鎌倉大佛與江之電看海</div>
+          <div class="day-title-badge">海濱古都 🌊 鎌倉大佛與江之電看海</div>
 
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">09:00</span><span class="card-title">飯店出發</span></div>
@@ -426,7 +422,7 @@
         </div>
 
         <div id="day-panel-4" class="day-panel">
-          <div class="day-title-badge">Day 4：尋訪富士 🗻 河口湖絕景與水陸巴士</div>
+          <div class="day-title-badge">尋訪富士 🗻 河口湖絕景與水陸巴士</div>
 
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">08:00</span><span class="card-title">飯店出發</span></div>
@@ -456,7 +452,7 @@
         </div>
 
         <div id="day-panel-5" class="day-panel">
-          <div class="day-title-badge">Day 5：城市漫遊 🚌 明治神宮與雙層敞篷巴士</div>
+          <div class="day-title-badge">城市漫遊 🚌 明治神宮與雙層敞篷巴士</div>
 
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">09:30</span><span class="card-title">飯店出發</span></div>
@@ -481,7 +477,7 @@
         </div>
 
         <div id="day-panel-6" class="day-panel">
-          <div class="day-title-badge">Day 6：滿載而歸 🍣 築地嚐鮮與平安返家</div>
+          <div class="day-title-badge">滿載而歸 🍣 築地嚐鮮與平安返家</div>
 
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide03.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">08:30</span><span class="card-title">退房寄放行李</span></div>
@@ -500,7 +496,16 @@
         </div>
     </div>
   </div><div id="tab-help" class="tab-content">
-    <div class="flex overflow-x-auto gap-2 px-5 py-4 scrollbar-none">
+    <div class="card-v2 mt-4 mx-4 mb-4 !cursor-default p-4">
+        <p class="text-sm text-pink-600 font-bold mb-2">💬 日文字卡小幫手</p>
+        <p class="text-xs text-gray-500 mb-3 leading-relaxed">點擊下方分類，再按「喇叭圖示」即可發音，協助您輕鬆應對常見情境！若需要進行較複雜的對話，強烈推薦下載官方免費的即時翻譯 APP：</p>
+        <div class="flex gap-2">
+            <a href="https://apps.apple.com/tw/app/voicetra/id581137577" target="_blank" class="flex-1 bg-gray-50 text-gray-700 text-center py-2 rounded-xl text-xs font-bold shadow-sm border border-gray-200 active:scale-95 transition"><i class="fab fa-apple"></i> iOS 下載</a>
+            <a href="https://play.google.com/store/apps/details?id=jp.go.nict.voicetra" target="_blank" class="flex-1 bg-gray-50 text-gray-700 text-center py-2 rounded-xl text-xs font-bold shadow-sm border border-gray-200 active:scale-95 transition"><i class="fab fa-google-play"></i> Android 下載</a>
+        </div>
+    </div>
+
+    <div class="flex overflow-x-auto gap-2 px-5 py-2 scrollbar-none">
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('tax', this)">💰 退稅</button>
         <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('food', this)">🍜 點餐</button>
@@ -598,7 +603,7 @@
       <i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span>
     </div>
     <div onclick="alert('緊急求助功能開發中...')" class="nav-item flex flex-col items-center">
-      <i class="fab fa-line text-2xl"></i><span class="text-[10px] font-bold mt-1">緊急求助</span>
+      <i class="fas fa-life-ring text-2xl"></i><span class="text-[10px] font-bold mt-1">緊急求助</span>
     </div>
   </nav>
 
@@ -722,6 +727,7 @@
         totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
     }
 
+    /* --- 更新 2：修正報表匯出圖片的「文字偏移下沉」問題 --- */
     function generateReceipt() {
         if (records.length === 0) {
             alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
@@ -743,26 +749,28 @@
             dateGroups[dateStr].push(r);
         });
 
+        // 關鍵修復：加入明確的 line-height 與上下 padding 平衡，解除 flex 造成的偏移
         let html = `
             <div style="text-align: center; margin-bottom: 20px;">
-                <h2 style="font-size: 20px; font-weight: bold; color: #db2777; font-family: 'Zhi_Mang_Xing', cursive; margin-bottom: 4px;">🌸 2026 東京賞櫻記帳本 🌸</h2>
-                <p style="font-size: 10px; color: #9ca3af; font-weight: bold;">Generated by 東京賞櫻sec.</p>
+                <h2 style="font-size: 20px; font-weight: bold; color: #db2777; font-family: 'Zhi_Mang_Xing', cursive; margin-bottom: 4px; line-height: 1;">🌸 2026 東京賞櫻記帳本 🌸</h2>
+                <p style="font-size: 10px; color: #9ca3af; font-weight: bold; line-height: 1;">Generated by 東京賞櫻sec.</p>
             </div>
             
             <div style="background: white; border-radius: 16px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid #fce7f3; margin-bottom: 20px; text-align: center;">
-                <p style="font-size: 12px; font-weight: bold; color: #9ca3af; margin-bottom: 4px;">💰 旅程總結算</p>
+                <p style="font-size: 12px; font-weight: bold; color: #9ca3af; margin-bottom: 6px; line-height: 1;">💰 旅程總結算</p>
                 <p style="font-size: 32px; font-weight: 900; color: #ec4899; margin-bottom: 16px; line-height: 1;">NT$ ${totalTWD.toLocaleString()}</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; text-align: left;">
         `;
 
         for (let cat in catTotals) {
-            html += `<div style="background: rgba(253, 242, 248, 0.7); padding: 8px; border-radius: 12px; flex: 1 1 45%; display: flex; align-items: center; justify-content: space-between;">
-                        <span style="font-size: 12px; color: #4b5563; font-weight: bold;">${catTotals[cat].icon} ${cat}</span>
-                        <span style="font-size: 12px; font-weight: 900; color: #db2777;">$${catTotals[cat].sum.toLocaleString()}</span>
+            // 修正分類框：微調 padding 讓文字垂直置中
+            html += `<div style="background: rgba(253, 242, 248, 0.7); padding: 8px 10px 6px 10px; border-radius: 12px; flex: 1 1 45%; display: flex; align-items: center; justify-content: space-between;">
+                        <span style="font-size: 12px; color: #4b5563; font-weight: bold; line-height: 1;">${catTotals[cat].icon} ${cat}</span>
+                        <span style="font-size: 12px; font-weight: 900; color: #db2777; line-height: 1;">$${catTotals[cat].sum.toLocaleString()}</span>
                      </div>`;
         }
 
-        html += `</div></div><div style="margin-bottom: 16px;"><h3 style="font-size: 14px; font-weight: bold; color: #374151; margin-bottom: 12px; border-left: 4px solid #f472b6; padding-left: 8px;">📅 每日明細</h3>`;
+        html += `</div></div><div style="margin-bottom: 16px;"><h3 style="font-size: 14px; font-weight: bold; color: #374151; margin-bottom: 12px; border-left: 4px solid #f472b6; padding-left: 8px; line-height: 1;">📅 每日明細</h3>`;
 
         const sortedDates = Object.keys(dateGroups).sort((a, b) => {
             const [m1, d1] = a.split('/');
@@ -772,13 +780,15 @@
         });
 
         sortedDates.forEach(date => {
+            // 修正日期框：使用 padding 來確保背景包覆文字置中
             html += `<div style="margin-bottom: 16px; background: white; padding: 12px; border-radius: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;">
-                        <div style="font-size: 12px; font-weight: bold; color: white; background: #f472b6; display: inline-block; padding: 4px 12px; border-radius: 8px; margin-bottom: 8px;">📍 ${date}</div>`;
+                        <div style="font-size: 12px; font-weight: bold; color: white; background: #f472b6; display: inline-block; padding: 6px 12px 4px 12px; border-radius: 8px; margin-bottom: 8px; line-height: 1;">📍 ${date}</div>`;
             dateGroups[date].forEach(item => {
+                // 修正列表細項：給定固定的行高避免下沉
                 html += `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px dashed #f3f4f6;">
                             <div style="display: flex; align-items: center; font-size: 14px; padding-right: 8px;">
-                                <span style="margin-right: 8px;">${item.icon}</span>
-                                <span style="font-weight: bold; color: #374151;">${item.name}</span>
+                                <span style="margin-right: 8px; line-height: 1;">${item.icon}</span>
+                                <span style="font-weight: bold; color: #374151; line-height: 1;">${item.name}</span>
                             </div>
                             <div style="text-align: right; display: flex; flex-direction: column; flex-shrink: 0;">
                                 <span style="font-size: 14px; font-weight: 900; color: #db2777; line-height: 1.2;">NT$ ${item.tw.toLocaleString()}</span>
@@ -789,7 +799,7 @@
             html += `</div>`;
         });
 
-        html += `<div style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 2px dashed #fbcfe8;"><p style="font-size: 12px; font-weight: bold; color: #f472b6; letter-spacing: 1px;">🌸 Have a nice trip! 🌸</p></div>`;
+        html += `<div style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 2px dashed #fbcfe8;"><p style="font-size: 12px; font-weight: bold; color: #f472b6; letter-spacing: 1px; line-height: 1;">🌸 Have a nice trip! 🌸</p></div>`;
 
         document.getElementById('receipt-render-content').innerHTML = html;
 
@@ -887,7 +897,6 @@
         }, 2000);
     }
 
-    // --- 更新 4：假數據內容新增最新升級的模組項目 ---
     function initSplashScreen() {
       const splash = document.getElementById('splash-screen');
       const terminal = document.getElementById('splash-terminal');
