@@ -41,22 +41,11 @@
       animation: panelFadeIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
     }
 
-    .timeline-dots {
-      margin: 8px auto; 
-      width: 6px; 
-      height: 45px; 
-      border-left: 6px dotted #ffccd5;
-    }
+    .timeline-dots { margin: 8px auto; width: 6px; height: 45px; border-left: 6px dotted #ffccd5; }
 
     .hero-header { 
       background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
-      background-size: cover;
-      background-position: center;
-      border-radius: 0 0 40px 40px; 
-      padding: 65px 20px 25px; 
-      text-align: center; 
-      position: relative; 
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+      background-size: cover; background-position: center; border-radius: 0 0 40px 40px; padding: 65px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
     }
     
     @keyframes headerBreath {
@@ -65,73 +54,22 @@
     }
 
     .header-logo { 
-      width: 120px; 
-      height: 120px; 
-      background: white; 
-      border-radius: 50%; 
-      margin: 0 auto 10px; 
-      padding: 0px; 
-      box-shadow: 0 8px 15px rgba(255,182,193,0.3); 
-      object-fit: cover; 
-      animation: headerBreath 2.5s infinite ease-in-out; 
+      width: 120px; height: 120px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 0px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); object-fit: cover; animation: headerBreath 2.5s infinite ease-in-out; 
     }
-    .header-logo:active { 
-      animation: none; 
-      transform: scale(0.92); 
-    }
+    .header-logo:active { animation: none; transform: scale(0.92); }
 
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
     
     .day-btn { 
-      flex: 0 0 auto; 
-      padding: 8px 20px;
-      border-radius: 50px;
-      background: white; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
-      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, color 0.3s;
-      border: 1px solid #ffdeed;
-      color: #ff758c;
-      font-weight: bold;
-      min-width: 90px;
+      flex: 0 0 auto; padding: 8px 20px; border-radius: 50px; background: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, color 0.3s; border: 1px solid #ffdeed; color: #ff758c; font-weight: bold; min-width: 90px;
     }
     .day-btn:active { transform: scale(0.92); } 
-    
-    .day-btn.active { 
-      background: #d15d5d;
-      color: white; 
-      transform: scale(1.05);
-      box-shadow: 0 8px 15px rgba(209, 93, 93, 0.3);
-      border-color: #d15d5d;
-    }
+    .day-btn.active { background: #d15d5d; color: white; transform: scale(1.05); box-shadow: 0 8px 15px rgba(209, 93, 93, 0.3); border-color: #d15d5d; }
 
-    .day-title-badge {
-      color: var(--deep-pink);
-      font-weight: 900;
-      text-align: center;
-      padding: 0 10px 15px 10px;
-      margin: 0 20px 20px;
-      border-bottom: 2px dotted #ffccd5;
-      letter-spacing: 1px;
-      font-size: 20px; 
-    }
+    .day-title-badge { color: var(--deep-pink); font-weight: 900; text-align: center; padding: 0 10px 15px 10px; margin: 0 20px 20px; border-bottom: 2px dotted #ffccd5; letter-spacing: 1px; font-size: 20px; }
 
-    .card-v2 { 
-      cursor: pointer; 
-      background: white; 
-      border-radius: 25px; 
-      box-shadow: 0 8px 20px rgba(255,182,193,0.12); 
-      margin: 0 20px 0px; 
-      padding: 22px; 
-      border: 1px solid rgba(255,117,140,0.05); 
-      transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease; 
-    }
-    .card-v2:active {
-      transform: scale(0.96); 
-      box-shadow: 0 3px 8px rgba(255,182,193,0.08); 
-    }
+    .card-v2 { cursor: pointer; background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 0px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease; }
+    .card-v2:active { transform: scale(0.96); box-shadow: 0 3px 8px rgba(255,182,193,0.08); }
 
     .time-tag { color: var(--deep-pink); font-weight: 800; font-size: 14px; margin-right: 10px; display: inline-block; background: #fff0f3; padding: 2px 8px; border-radius: 8px; }
     .card-title { font-weight: bold; color: #333; font-size: 17px; }
@@ -153,36 +91,17 @@
     .nav-item.active { color: var(--deep-pink); }
 
     #spot-modal { transition: opacity 0.3s ease-out; }
-    #spot-modal-content { 
-      transform: scale(0.7); 
-      opacity: 0;
-      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out; 
-    }
+    #spot-modal-content { transform: scale(0.7); opacity: 0; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out; }
     #spot-modal.show { opacity: 1; }
     #spot-modal.show #spot-modal-content { transform: scale(1); opacity: 1; }
 
     #receipt-modal { transition: opacity 0.4s ease-out; }
     #receipt-modal.show { opacity: 1; }
 
-    @keyframes logoBreath {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.05); opacity: 0.9; }
-    }
+    @keyframes logoBreath { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
 
-    #splash-screen {
-      position: fixed;
-      inset: 0;
-      background: var(--sakura-pink);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease-out;
-    }
-
+    #splash-screen { position: fixed; inset: 0; background: var(--sakura-pink); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease-out; }
     #splash-screen.fade-out { opacity: 0; pointer-events: none; }
-
     .splash-logo-container { position: relative; margin-bottom: 20px; animation: logoBreath 2s infinite ease-in-out; }
     .splash-logo { width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 10px 25px rgba(255,182,193,0.3); object-fit: cover; }
     .splash-tour-name { font-size: 20px; font-weight: 700; color: var(--deep-pink); letter-spacing: 2px; margin-bottom: 30px; }
@@ -266,32 +185,26 @@
                 <div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">JX802</p></div>
                 <button onclick="copyText('JX802', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-            
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
                 <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p></div>
                 <button onclick="copyText('272-0034', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
                 <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p><p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p></div>
                 <button onclick="copyText('CHIBA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
                 <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">市區町村</p><p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p></div>
                 <button onclick="copyText('ICHIKAWA-SHI', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
                 <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p><p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p></div>
                 <button onclick="copyText('1-8-6, ICHIKAWA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
                 <div><p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p></div>
                 <button onclick="copyText('HOTEL R9 Premium 市川站前', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
             </div>
-
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
                 <div><p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p><p class="text-sm font-bold text-gray-800">+81473743712</p></div>
                 <button onclick="copyText('+81473743712', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
@@ -302,33 +215,17 @@
     <div class="card-v2 mt-4 mb-8 !cursor-default">
         <h3 class="text-lg font-bold mb-4 text-gray-700">⚠️ 出發前注意事項</h3>
         <ul class="space-y-4 text-sm text-gray-600">
-            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
-                <i class="fas fa-passport text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
-                <span><strong class="text-gray-800 block mb-1">護照正本</strong>效期需滿6個月以上，千萬別放在大行李箱，請隨身攜帶！</span>
-            </li>
-            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
-                <i class="fas fa-yen-sign text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
-                <span><strong class="text-gray-800 block mb-1">日幣現金</strong>建議攜帶適量日幣，日本許多小吃店、神社仍以現金交易為主。</span>
-            </li>
-            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
-                <i class="fas fa-battery-full text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
-                <span><strong class="text-gray-800 block mb-1">行動電源</strong>務必放在「手提行李」隨身登機，嚴禁放入托運行李。</span>
-            </li>
-            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
-                <i class="fas fa-subway text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
-                <span><strong class="text-gray-800 block mb-1">交通卡 (Suica)</strong>領隊已幫大家準備好實體卡，當天會統一為大家儲值現金，無需擔心。</span>
-            </li>
-            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
-                <i class="fas fa-plug text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
-                <span><strong class="text-gray-800 block mb-1">電壓與插頭</strong>日本電壓100V，插頭與台灣同為雙平腳，手機相機可直接插。</span>
-            </li>
-            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl">
-                <i class="fas fa-cloud-sun text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i> 
-                <span><strong class="text-gray-800 block mb-1">天氣與穿搭</strong>春季日夜溫差大，建議採用「洋蔥式穿法」，方便隨時穿脫保暖。</span>
-            </li>
+            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl"><i class="fas fa-passport text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i><span><strong class="text-gray-800 block mb-1">護照正本</strong>效期需滿6個月以上，千萬別放在大行李箱，請隨身攜帶！</span></li>
+            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl"><i class="fas fa-yen-sign text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i><span><strong class="text-gray-800 block mb-1">日幣現金</strong>建議攜帶適量日幣，日本許多小吃店、神社仍以現金交易為主。</span></li>
+            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl"><i class="fas fa-battery-full text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i><span><strong class="text-gray-800 block mb-1">行動電源</strong>務必放在「手提行李」隨身登機，嚴禁放入托運行李。</span></li>
+            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl"><i class="fas fa-subway text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i><span><strong class="text-gray-800 block mb-1">交通卡 (Suica)</strong>領隊已幫大家準備好實體卡，當天會統一為大家儲值現金，無需擔心。</span></li>
+            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl"><i class="fas fa-plug text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i><span><strong class="text-gray-800 block mb-1">電壓與插頭</strong>日本電壓100V，插頭與台灣同為雙平腳，手機相機可直接插。</span></li>
+            <li class="flex items-start bg-pink-50/30 p-3 rounded-xl"><i class="fas fa-cloud-sun text-pink-500 text-lg mt-1 mr-3 w-5 text-center"></i><span><strong class="text-gray-800 block mb-1">天氣與穿搭</strong>春季日夜溫差大，建議採用「洋蔥式穿法」，方便隨時穿脫保暖。</span></li>
         </ul>
     </div>
-  </div><div id="tab-schedule" class="tab-content">
+  </div>
+
+  <div id="tab-schedule" class="tab-content">
     <div class="day-selector">
       <button class="day-btn active" onclick="switchDay(1, this)">4/4 (六)</button>
       <button class="day-btn" onclick="switchDay(2, this)">4/5 (日)</button>
@@ -341,7 +238,6 @@
     <div id="schedule-panels">
         <div id="day-panel-1" class="day-panel active">
           <div class="day-title-badge">初抵東京 🌸 目黑川夢幻夜櫻</div>
-          
           <div class="card-v2" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2022/02/14-122578.webp" data-nav="成田機場第二航廈">
             <div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div>
             <p class="card-desc">抵達東京成田機場第二航廈，準備展開賞櫻之旅。</p>
@@ -365,13 +261,11 @@
 
         <div id="day-panel-2" class="day-panel">
           <div class="day-title-badge">經典下町 ⛩️ 淺草祈福與上野櫻花雨</div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">09:00</span><span class="card-title">飯店出發</span></div>
             <p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p>
           </div>
           <div class="timeline-dots"></div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://cdn.zekkei-japan.jp/images/spots/0b6079b6bb893a525c39c88eb5d95077.jpg" data-nav="淺草雷門">
             <div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div>
             <p class="card-desc">從錦糸町搭乘計程車直達雷門，節省體力。遊覽仲見世通、淺草寺。</p>
@@ -390,13 +284,11 @@
 
         <div id="day-panel-3" class="day-panel">
           <div class="day-title-badge">海濱古都 🌊 鎌倉大佛與江之電看海</div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">08:30</span><span class="card-title">飯店出發</span></div>
             <p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p>
           </div>
           <div class="timeline-dots"></div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/64/11/08/caption.jpg?w=900&h=500&s=1" data-nav="鶴岡八幡宮">
             <div><span class="time-tag">10:30</span><span class="card-title">鶴岡八幡宮 (包車)</span></div>
             <p class="card-desc">漫步若宮大路櫻花道，午餐於小町通商店街自由享用。預計 13:00 從鎌倉駅離開。</p>
@@ -425,13 +317,11 @@
 
         <div id="day-panel-4" class="day-panel">
           <div class="day-title-badge">尋訪富士 🗻 河口湖絕景與水陸巴士</div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">08:00</span><span class="card-title">飯店出發</span></div>
             <p class="card-desc">今日車程較遠，請大家提早於大廳集合出發喔！</p>
           </div>
           <div class="timeline-dots"></div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://tw.wamazing.com/media/wp-content/uploads/sites/4/2025/03/ooishipark_pixta_90606576_M.jpg.webp" data-nav="河口湖大石公園">
             <div><span class="time-tag">10:00</span><span class="card-title">大石公園 (包車)</span></div>
             <p class="card-desc">停留 75 分鐘，11:15 離開。河口湖畔拍下富士山與櫻花同框。</p>
@@ -460,13 +350,11 @@
 
         <div id="day-panel-5" class="day-panel">
           <div class="day-title-badge">城市漫遊 🚌 明治神宮與雙層敞篷巴士</div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">09:30</span><span class="card-title">飯店出發</span></div>
             <p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p>
           </div>
           <div class="timeline-dots"></div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/batch_shutterstock_1510366601.jpg" data-nav="明治神宮">
             <div><span class="time-tag">10:40</span><span class="card-title">明治神宮森林之旅</span></div>
             <p class="card-desc">東京都心最大的森林神社。午餐於園區內享用。</p>
@@ -485,7 +373,6 @@
 
         <div id="day-panel-6" class="day-panel">
           <div class="day-title-badge">滿載而歸 🍣 築地嚐鮮與平安返家</div>
-
           <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide03.jpg" data-nav="HOTEL R9 Premium Ichikawa">
             <div><span class="time-tag">08:30</span><span class="card-title">退房寄放行李</span></div>
             <p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p>
@@ -502,7 +389,9 @@
           </div>
         </div>
     </div>
-  </div><div id="tab-help" class="tab-content">
+  </div>
+
+  <div id="tab-help" class="tab-content">
     <div class="card-v2 mt-4 mx-4 mb-4 !cursor-default p-4">
         <p class="text-sm text-pink-600 font-bold mb-2">💬 日文字卡小幫手</p>
         <p class="text-xs text-gray-500 mb-3 leading-relaxed">點擊下方分類，再按「喇叭圖示」即可發音，協助您輕鬆應對常見情境！若需要進行較複雜的對話，強烈推薦下載官方免費的即時翻譯 APP：</p>
@@ -561,7 +450,6 @@
             <span id="total-sum" class="text-pink-600 font-black text-2xl">NT$ 0</span>
         </div>
         <div id="record-list"></div>
-        
         <button onclick="generateReceipt()" class="w-full bg-white border-2 border-pink-300 text-pink-500 py-4 rounded-2xl font-bold mt-6 shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
             <i class="fas fa-camera-retro text-xl"></i> 結算並產生精美報表
         </button>
@@ -608,14 +496,20 @@
     <div onclick="switchTab('exchange', this)" class="nav-item flex flex-col items-center">
       <i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span>
     </div>
-    <div onclick="alert('緊急求助功能開發中...')" class="nav-item flex flex-col items-center">
+    <div onclick="alert('緊急聯絡：\\n駐日代表處急難救助：080-1009-7179\\n日本報警：110\\n救護車：119')" class="nav-item flex flex-col items-center">
       <i class="fas fa-life-ring text-2xl"></i><span class="text-[10px] font-bold mt-1">緊急求助</span>
     </div>
   </nav>
 
   <script>
     const EXCHANGE_RATE = 0.21;
-    let records = JSON.parse(localStorage.getItem('tokyo_records')) || [];
+    let records = [];
+    try {
+        records = JSON.parse(localStorage.getItem('tokyo_records')) || [];
+    } catch(e) {
+        records = [];
+    }
+    
     let selectedCat = { icon: '💊', name: '藥妝' };
 
     const helpData = {
@@ -730,4 +624,303 @@
                     <div class="text-right"><p class="text-pink-600 font-black text-lg">NT$ ${r.tw}</p><button onclick="deleteRecord(${r.id})" class="text-gray-300 text-xs">刪除</button></div>
                 </div>`;
         }).join('');
-        totalSumEl.innerText =
+        totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
+    }
+
+    /* 🚨 終極表格修復版：完全使用 <table> 排版，徹底根絕截圖文字下沉與消失 */
+    function generateReceipt() {
+        if (records.length === 0) {
+            alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
+            return;
+        }
+
+        let totalTWD = 0;
+        const catTotals = {};
+        const dateGroups = {};
+
+        records.forEach(r => {
+            totalTWD += r.tw;
+            if (!catTotals[r.cat]) catTotals[r.cat] = { icon: r.icon, sum: 0 };
+            catTotals[r.cat].sum += r.tw;
+
+            const d = new Date(r.id);
+            const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
+            if (!dateGroups[dateStr]) dateGroups[dateStr] = [];
+            dateGroups[dateStr].push(r);
+        });
+
+        let html = `<div style="width: 340px; box-sizing: border-box; background: #fff5f7; padding: 24px; border-radius: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">`;
+        
+        html += `
+            <div style="text-align: center; margin-bottom: 20px;">
+                <div style="font-size: 22px; font-weight: 900; color: #db2777; margin-bottom: 6px;">🌸 東京賞櫻記帳本 🌸</div>
+                <div style="font-size: 11px; color: #9ca3af; font-weight: bold;">Generated by 東京賞櫻sec.</div>
+            </div>
+            
+            <div style="background: white; border-radius: 16px; padding: 20px 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #fce7f3; margin-bottom: 24px; text-align: center;">
+                <div style="font-size: 13px; font-weight: bold; color: #9ca3af; margin-bottom: 8px;">💰 旅程總結算</div>
+                <div style="font-size: 34px; font-weight: 900; color: #ec4899; margin-bottom: 20px;">NT$ ${totalTWD.toLocaleString()}</div>
+        `;
+
+        html += `<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: separate; border-spacing: 0 8px;">`;
+        let cats = Object.keys(catTotals);
+        for (let i = 0; i < cats.length; i += 2) {
+            let cat1 = cats[i];
+            let cat2 = cats[i+1];
+            
+            html += `<tr>`;
+            html += `<td width="48%" style="background: #fdf2f8; border-radius: 10px; padding: 10px;">
+                        <table width="100%" cellpadding="0" cellspacing="0"><tr>
+                            <td align="left" style="font-size: 13px; color: #4b5563; font-weight: bold; vertical-align: middle;">${catTotals[cat1].icon} ${cat1}</td>
+                            <td align="right" style="font-size: 13px; font-weight: 900; color: #db2777; vertical-align: middle;">$${catTotals[cat1].sum.toLocaleString()}</td>
+                        </tr></table>
+                     </td>`;
+            html += `<td width="4%"></td>`;
+            if (cat2) {
+                html += `<td width="48%" style="background: #fdf2f8; border-radius: 10px; padding: 10px;">
+                            <table width="100%" cellpadding="0" cellspacing="0"><tr>
+                                <td align="left" style="font-size: 13px; color: #4b5563; font-weight: bold; vertical-align: middle;">${catTotals[cat2].icon} ${cat2}</td>
+                                <td align="right" style="font-size: 13px; font-weight: 900; color: #db2777; vertical-align: middle;">$${catTotals[cat2].sum.toLocaleString()}</td>
+                            </tr></table>
+                         </td>`;
+            } else {
+                html += `<td width="48%"></td>`;
+            }
+            html += `</tr>`;
+        }
+        html += `</table></div>`;
+
+        html += `<div style="margin-bottom: 16px;"><div style="font-size: 15px; font-weight: bold; color: #374151; margin-bottom: 16px; border-left: 4px solid #f472b6; padding-left: 10px;">📅 每日明細</div>`;
+
+        const sortedDates = Object.keys(dateGroups).sort((a, b) => {
+            const [m1, d1] = a.split('/');
+            const [m2, d2] = b.split('/');
+            if (m1 !== m2) return parseInt(m1) - parseInt(m2);
+            return parseInt(d1) - parseInt(d2);
+        });
+
+        sortedDates.forEach(date => {
+            html += `<div style="margin-bottom: 16px; background: white; padding: 16px; border-radius: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;">
+                        <div style="background: #f472b6; border-radius: 6px; margin-bottom: 12px; display: inline-block; padding: 6px 12px;">
+                            <span style="font-size: 13px; font-weight: bold; color: white;">📍 ${date}</span>
+                        </div>
+                        <table width="100%" cellpadding="0" cellspacing="0">`;
+            dateGroups[date].forEach(item => {
+                html += `<tr>
+                            <td align="left" style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6; font-size: 15px; font-weight: bold; color: #374151; vertical-align: middle;">
+                                ${item.icon} ${item.name}
+                            </td>
+                            <td align="right" style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6; vertical-align: middle;">
+                                <div style="font-size: 15px; font-weight: 900; color: #db2777;">NT$ ${item.tw.toLocaleString()}</div>
+                                <div style="font-size: 11px; color: #9ca3af; font-weight: bold; margin-top: 2px;">${item.curr === 'JPY' ? '¥'+item.orig : '$'+item.orig}</div>
+                            </td>
+                         </tr>`;
+            });
+            html += `</table></div>`;
+        });
+
+        html += `<div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px dashed #fbcfe8;"><div style="font-size: 13px; font-weight: bold; color: #f472b6; letter-spacing: 1px;">🌸 Have a nice trip! 🌸</div></div></div>`;
+
+        document.getElementById('receipt-render-content').innerHTML = html;
+
+        const modal = document.getElementById('receipt-modal');
+        const captureArea = document.getElementById('receipt-capture-area');
+        const resultImg = document.getElementById('receipt-result-img');
+
+        captureArea.style.display = 'block';
+        resultImg.classList.add('hidden');
+        modal.classList.remove('hidden');
+
+        setTimeout(() => {
+            modal.classList.add('show');
+            html2canvas(document.getElementById('receipt-render-content').firstElementChild, { 
+                backgroundColor: '#fff5f7', 
+                scale: 2, 
+                useCORS: true 
+            }).then(canvas => {
+                const imgData = canvas.toDataURL("image/png");
+                resultImg.src = imgData;
+                resultImg.classList.remove('hidden');
+                captureArea.style.display = 'none';
+            });
+        }, 300);
+    }
+
+    function closeReceipt() {
+        const modal = document.getElementById('receipt-modal');
+        modal.classList.remove('show');
+        setTimeout(() => { modal.classList.add('hidden'); }, 400); 
+    }
+
+    document.getElementById('jpy-input').addEventListener('input', (e) => {
+      document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`;
+    });
+
+    function initCountdown() {
+      const target = new Date('2026-04-04T00:00:00').getTime();
+      const topEl = document.getElementById('countdown');
+      const homeEl = document.getElementById('home-countdown');
+      
+      setInterval(() => {
+        const diff = target - new Date().getTime();
+        const days = Math.floor(diff / (1000*60*60*24));
+        
+        if (topEl) topEl.innerText = diff < 0 ? "旅行中" : `出發倒數 ${days} 天`;
+        if (homeEl) homeEl.innerText = diff < 0 ? "旅行中 🌸" : `${days} 天`;
+      }, 1000);
+    }
+
+    function openModal(el) {
+      const title = el.querySelector('.card-title').innerText;
+      const desc = el.querySelector('.card-desc').innerText;
+      const imgUrl = el.getAttribute('data-img');
+      const navQuery = el.getAttribute('data-nav') || title;
+
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-desc').innerText = desc;
+      document.getElementById('modal-img').src = imgUrl || '';
+      document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(navQuery)}`;
+
+      const modal = document.getElementById('spot-modal');
+      modal.classList.remove('hidden');
+      setTimeout(() => { modal.classList.add('show'); }, 10);
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('spot-modal');
+      modal.classList.remove('show');
+      setTimeout(() => { modal.classList.add('hidden'); }, 400); 
+    }
+
+    function copyText(text, btnElement) {
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(() => { showCopySuccess(btnElement); });
+        } else {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            textArea.style.top = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try { document.execCommand('copy'); showCopySuccess(btnElement); } catch (err) { alert('複製失敗，請手動複製！'); }
+            textArea.remove();
+        }
+    }
+
+    function showCopySuccess(btn) {
+        const originalText = btn.innerText;
+        btn.innerText = '✅ 已複製';
+        btn.classList.replace('text-pink-600', 'text-green-600');
+        btn.classList.replace('bg-pink-100', 'bg-green-100');
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.classList.replace('text-green-600', 'text-pink-600');
+            btn.classList.replace('bg-green-100', 'bg-pink-100');
+        }, 2000);
+    }
+
+    function initSplashScreen() {
+      const splash = document.getElementById('splash-screen');
+      const terminal = document.getElementById('splash-terminal');
+      const progressBar = document.getElementById('splash-progress-bar');
+      const fakeData = [
+        "COOLCHI’S TOUR System v1.1.0",
+        "Initializing core modules...",
+        "Loading local data: /assets/tokyo_map.dat",
+        "Fetching real-time weather: Open-Meteo API...", 
+        "Parsing 7-day forecast data...", 
+        "Syncing travel schedule: /2026/april/cherry_blossom",
+        "Updating VJW guidelines & UI components...", 
+        "Optimizing Receipt Generator engine...", 
+        "Loading currency rates: /fin/jpy_twd",
+        "Checking group member info...",
+        "Preparing map navigation...",
+        "Finalizing setup...",
+        "Ready."
+      ];
+      let dataIndex = 0;
+      let progress = 0;
+
+      const terminalInterval = setInterval(() => {
+        if (dataIndex < fakeData.length) {
+          const line = document.createElement('p');
+          line.innerText = fakeData[dataIndex];
+          terminal.appendChild(line);
+          terminal.scrollTop = terminal.scrollHeight;
+          dataIndex++;
+        } else {
+          clearInterval(terminalInterval);
+        }
+      }, 300);
+
+      const progressInterval = setInterval(() => {
+        if (progress < 100) {
+          progress += Math.random() * 8 + 2;
+          if (progress > 100) progress = 100;
+          progressBar.style.width = progress + '%';
+        } else {
+          clearInterval(progressInterval);
+        }
+      }, 100);
+
+      setTimeout(() => {
+        clearInterval(terminalInterval);
+        clearInterval(progressInterval);
+        splash.classList.add('fade-out');
+        
+        setTimeout(() => {
+          splash.style.display = 'none';
+        }, 500); 
+      }, 5500);
+    }
+
+    async function fetchWeather() {
+        try {
+            const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo');
+            const data = await res.json();
+            const container = document.getElementById('weather-container');
+            let html = '';
+            
+            const wmoMap = {
+                0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
+                45: '🌫️', 48: '🌫️', 51: '🌧️', 53: '🌧️', 55: '🌧️',
+                61: '🌧️', 63: '🌧️', 65: '🌧️', 71: '❄️', 73: '❄️', 75: '❄️',
+                80: '🌧️', 81: '🌧️', 82: '🌧️', 95: '⛈️', 96: '⛈️', 99: '⛈️'
+            };
+
+            for(let i = 0; i < 7; i++) {
+                const date = new Date(data.daily.time[i]);
+                const dateStr = (date.getMonth() + 1) + '/' + date.getDate();
+                const max = Math.round(data.daily.temperature_2m_max[i]);
+                const min = Math.round(data.daily.temperature_2m_min[i]);
+                const code = data.daily.weathercode[i];
+                const icon = wmoMap[code] || '🌤️';
+                
+                const isToday = i === 0 ? 'bg-pink-100 border-pink-300' : 'bg-pink-50/50 border-pink-100';
+                const titleStr = i === 0 ? '今天' : dateStr;
+                
+                html += `<div class="flex-none w-20 ${isToday} rounded-2xl p-2 text-center border shadow-sm flex flex-col justify-center">
+                            <p class="text-xs font-bold text-gray-500 mb-1">${titleStr}</p>
+                            <p class="text-2xl mb-1">${icon}</p>
+                            <p class="text-[11px] font-black text-pink-600">${min}°~${max}°</p>
+                         </div>`;
+            }
+            container.innerHTML = html;
+        } catch (err) {
+            document.getElementById('weather-container').innerHTML = '<p class="text-xs text-gray-400 w-full text-center py-4">無法取得天氣資料，請稍後再試</p>';
+        }
+    }
+
+    // 🚨 終極修復：改用 DOMContentLoaded，保證瞬間啟動不再死當
+    document.addEventListener('DOMContentLoaded', () => { 
+      initSplashScreen(); 
+      initCountdown(); 
+      renderRecords(); 
+      loadVoices(); 
+      fetchWeather(); 
+    });
+  </script>
+</body>
+</html>
