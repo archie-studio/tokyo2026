@@ -7,8 +7,8 @@
   <meta name="apple-mobile-web-app-title" content="東京賞櫻sec.">
   <title>東京賞櫻sec.</title>
   
-  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg">
-  <link rel="icon" href="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg" type="image/jpeg">
+  <link rel="apple-touch-icon" href="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=">
+  <link rel="icon" href="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=" type="image/jpeg">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -59,18 +59,28 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
     }
     
+    /* 更新 3：為網頁最上方的櫻花圖新增專屬的呼吸動畫 */
+    @keyframes headerBreath {
+      0%, 100% { transform: scale(1); box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
+      50% { transform: scale(1.06); box-shadow: 0 12px 20px rgba(255,182,193,0.5); }
+    }
+
+    /* 更新 1 & 3：將櫻花圖放大佔滿 80% 以上，並掛上動畫 */
     .header-logo { 
       width: 120px; 
       height: 120px; 
       background: white; 
       border-radius: 50%; 
       margin: 0 auto 10px; 
-      padding: 10px; 
+      padding: 0px; /* 留白歸零，讓圖片撐滿 */
       box-shadow: 0 8px 15px rgba(255,182,193,0.3); 
-      object-fit: contain; 
-      transition: transform 0.2s ease; 
+      object-fit: cover; /* 確保圖片完美覆蓋圓形 */
+      animation: headerBreath 2.5s infinite ease-in-out; /* 掛上呼吸動畫 */
     }
-    .header-logo:active { transform: scale(0.92); }
+    .header-logo:active { 
+      animation: none; /* 點擊時暫停呼吸動畫 */
+      transform: scale(0.92); /* 點擊縮小的回饋感 */
+    }
 
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
     
@@ -197,7 +207,7 @@
     <div id="splash-progress">
       <div id="splash-progress-bar"></div>
     </div>
-    <div class="splash-version">v1.0.2 (Build 20260404)</div>
+    <div class="splash-version">v1.1.0 (Build 20260405)</div>
   </div>
 
   <div class="hero-header">
@@ -222,6 +232,7 @@
 
     <div class="card-v2 mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-4 text-gray-700">✈️ 航班資訊</h3>
+        
         <div class="bg-pink-50/50 rounded-2xl p-4 mb-3 border border-pink-100">
             <div class="flex justify-between items-center mb-3">
                 <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">去程 Outbound</span>
@@ -233,6 +244,7 @@
                 <div><p class="text-2xl font-black text-gray-800">15:05</p><p class="text-xs font-bold text-gray-500 mt-1">東京成田 NRT</p></div>
             </div>
         </div>
+
         <div class="bg-pink-50/50 rounded-2xl p-4 border border-pink-100">
             <div class="flex justify-between items-center mb-3">
                 <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">回程 Inbound</span>
@@ -248,7 +260,6 @@
 
     <div class="card-v2 mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-3 text-gray-700">📱 VJW 入境資訊</h3>
-        
         <div class="text-sm text-gray-600 mb-4 leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100">
             <p class="mb-2 text-center font-bold text-gray-700">入境日本必備！請於出發前填寫完成</p>
             <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/guide/#usage-flow" target="_blank" class="block text-center bg-blue-50 text-blue-600 text-base font-bold py-3 px-4 rounded-xl shadow-sm active:scale-95 transition mt-3 mb-3 border border-blue-200">
@@ -716,13 +727,16 @@
             alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
             return;
         }
+
         let totalTWD = 0;
         const catTotals = {};
         const dateGroups = {};
+
         records.forEach(r => {
             totalTWD += r.tw;
             if (!catTotals[r.cat]) catTotals[r.cat] = { icon: r.icon, sum: 0 };
             catTotals[r.cat].sum += r.tw;
+
             const d = new Date(r.id);
             const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
             if (!dateGroups[dateStr]) dateGroups[dateStr] = [];
@@ -740,12 +754,14 @@
                 <p style="font-size: 32px; font-weight: 900; color: #ec4899; margin-bottom: 16px; line-height: 1;">NT$ ${totalTWD.toLocaleString()}</p>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; text-align: left;">
         `;
+
         for (let cat in catTotals) {
             html += `<div style="background: rgba(253, 242, 248, 0.7); padding: 8px; border-radius: 12px; flex: 1 1 45%; display: flex; align-items: center; justify-content: space-between;">
                         <span style="font-size: 12px; color: #4b5563; font-weight: bold;">${catTotals[cat].icon} ${cat}</span>
                         <span style="font-size: 12px; font-weight: 900; color: #db2777;">$${catTotals[cat].sum.toLocaleString()}</span>
                      </div>`;
         }
+
         html += `</div></div><div style="margin-bottom: 16px;"><h3 style="font-size: 14px; font-weight: bold; color: #374151; margin-bottom: 12px; border-left: 4px solid #f472b6; padding-left: 8px;">📅 每日明細</h3>`;
 
         const sortedDates = Object.keys(dateGroups).sort((a, b) => {
@@ -772,8 +788,11 @@
             });
             html += `</div>`;
         });
+
         html += `<div style="text-align: center; margin-top: 24px; padding-top: 16px; border-top: 2px dashed #fbcfe8;"><p style="font-size: 12px; font-weight: bold; color: #f472b6; letter-spacing: 1px;">🌸 Have a nice trip! 🌸</p></div>`;
+
         document.getElementById('receipt-render-content').innerHTML = html;
+
         const modal = document.getElementById('receipt-modal');
         const captureArea = document.getElementById('receipt-capture-area');
         const resultImg = document.getElementById('receipt-result-img');
@@ -807,9 +826,11 @@
       const target = new Date('2026-04-04T00:00:00').getTime();
       const topEl = document.getElementById('countdown');
       const homeEl = document.getElementById('home-countdown');
+      
       setInterval(() => {
         const diff = target - new Date().getTime();
         const days = Math.floor(diff / (1000*60*60*24));
+        
         if (topEl) topEl.innerText = diff < 0 ? "旅行中" : `出發倒數 ${days} 天`;
         if (homeEl) homeEl.innerText = diff < 0 ? "旅行中 🌸" : `${days} 天`;
       }, 1000);
@@ -820,10 +841,12 @@
       const desc = el.querySelector('.card-desc').innerText;
       const imgUrl = el.getAttribute('data-img');
       const navQuery = el.getAttribute('data-nav') || title;
+
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-desc').innerText = desc;
       document.getElementById('modal-img').src = imgUrl || '';
       document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(navQuery)}`;
+
       const modal = document.getElementById('spot-modal');
       modal.classList.remove('hidden');
       setTimeout(() => { modal.classList.add('show'); }, 10);
@@ -864,17 +887,20 @@
         }, 2000);
     }
 
+    // --- 更新 4：假數據內容新增最新升級的模組項目 ---
     function initSplashScreen() {
       const splash = document.getElementById('splash-screen');
       const terminal = document.getElementById('splash-terminal');
       const progressBar = document.getElementById('splash-progress-bar');
       const fakeData = [
-        "COOLCHI’S TOUR System v1.0.2",
+        "COOLCHI’S TOUR System v1.1.0",
         "Initializing core modules...",
         "Loading local data: /assets/tokyo_map.dat",
+        "Fetching real-time weather: Open-Meteo API...", 
+        "Parsing 7-day forecast data...", 
         "Syncing travel schedule: /2026/april/cherry_blossom",
-        "Checking weather API: /api/v1/tokyo/weather",
-        "Updating VJW guidelines: /rules/entry_requirements",
+        "Updating VJW guidelines & UI components...", 
+        "Optimizing Receipt Generator engine...", 
         "Loading currency rates: /fin/jpy_twd",
         "Checking group member info...",
         "Preparing map navigation...",
@@ -883,6 +909,7 @@
       ];
       let dataIndex = 0;
       let progress = 0;
+
       const terminalInterval = setInterval(() => {
         if (dataIndex < fakeData.length) {
           const line = document.createElement('p');
@@ -894,6 +921,7 @@
           clearInterval(terminalInterval);
         }
       }, 300);
+
       const progressInterval = setInterval(() => {
         if (progress < 100) {
           progress += Math.random() * 8 + 2;
@@ -903,15 +931,18 @@
           clearInterval(progressInterval);
         }
       }, 100);
+
       setTimeout(() => {
         clearInterval(terminalInterval);
         clearInterval(progressInterval);
         splash.classList.add('fade-out');
-        setTimeout(() => { splash.style.display = 'none'; }, 500); 
+        
+        setTimeout(() => {
+          splash.style.display = 'none';
+        }, 500); 
       }, 5500);
     }
 
-    // --- 更新 1：呼叫開源天氣 API 取得東京未來七天天氣 ---
     async function fetchWeather() {
         try {
             const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo');
@@ -919,7 +950,6 @@
             const container = document.getElementById('weather-container');
             let html = '';
             
-            // 將 WMO 氣象代碼轉換為 Emoji
             const wmoMap = {
                 0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
                 45: '🌫️', 48: '🌫️', 51: '🌧️', 53: '🌧️', 55: '🌧️',
@@ -935,7 +965,6 @@
                 const code = data.daily.weathercode[i];
                 const icon = wmoMap[code] || '🌤️';
                 
-                // 第一天標示為「今天」並加深顏色
                 const isToday = i === 0 ? 'bg-pink-100 border-pink-300' : 'bg-pink-50/50 border-pink-100';
                 const titleStr = i === 0 ? '今天' : dateStr;
                 
@@ -956,7 +985,7 @@
       initCountdown(); 
       renderRecords(); 
       loadVoices(); 
-      fetchWeather(); // 啟動時自動抓取天氣
+      fetchWeather(); 
     };
   </script>
 </body>
