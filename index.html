@@ -18,51 +18,27 @@
   <style>
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
     body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 140px; overflow-x: hidden; }
-    
     * { -webkit-tap-highlight-color: transparent; }
 
-    @keyframes tabSlideIn {
-      0% { opacity: 0; transform: translateX(15px); }
-      100% { opacity: 1; transform: translateX(0); }
-    }
+    @keyframes tabSlideIn { 0% { opacity: 0; transform: translateX(15px); } 100% { opacity: 1; transform: translateX(0); } }
     .tab-content { display: none; }
-    .tab-content.active { 
-      display: block; 
-      animation: tabSlideIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
-    }
+    .tab-content.active { display: block; animation: tabSlideIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
-    @keyframes panelFadeIn {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes panelFadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
     .day-panel { display: none; }
-    .day-panel.active { 
-      display: block; 
-      animation: panelFadeIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; 
-    }
-
-    .timeline-dots { margin: 8px auto; width: 6px; height: 45px; border-left: 6px dotted #ffccd5; }
+    .day-panel.active { display: block; animation: panelFadeIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
     .hero-header { 
       background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); 
       background-size: cover; background-position: center; border-radius: 0 0 40px 40px; padding: 65px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
     }
     
-    @keyframes headerBreath {
-      0%, 100% { transform: scale(1); box-shadow: 0 8px 15px rgba(255,182,193,0.3); }
-      50% { transform: scale(1.06); box-shadow: 0 12px 20px rgba(255,182,193,0.5); }
-    }
-
-    .header-logo { 
-      width: 120px; height: 120px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 0px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); object-fit: cover; animation: headerBreath 2.5s infinite ease-in-out; 
-    }
+    @keyframes headerBreath { 0%, 100% { transform: scale(1); box-shadow: 0 8px 15px rgba(255,182,193,0.3); } 50% { transform: scale(1.06); box-shadow: 0 12px 20px rgba(255,182,193,0.5); } }
+    .header-logo { width: 120px; height: 120px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 0px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); object-fit: cover; animation: headerBreath 2.5s infinite ease-in-out; }
     .header-logo:active { animation: none; transform: scale(0.92); }
 
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
-    
-    .day-btn { 
-      flex: 0 0 auto; padding: 8px 20px; border-radius: 50px; background: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, color 0.3s; border: 1px solid #ffdeed; color: #ff758c; font-weight: bold; min-width: 90px;
-    }
+    .day-btn { flex: 0 0 auto; padding: 8px 20px; border-radius: 50px; background: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, color 0.3s; border: 1px solid #ffdeed; color: #ff758c; font-weight: bold; min-width: 90px; }
     .day-btn:active { transform: scale(0.92); } 
     .day-btn.active { background: #d15d5d; color: white; transform: scale(1.05); box-shadow: 0 8px 15px rgba(209, 93, 93, 0.3); border-color: #d15d5d; }
 
@@ -70,11 +46,15 @@
 
     .card-v2 { cursor: pointer; background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 0px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease; }
     .card-v2:active { transform: scale(0.96); box-shadow: 0 3px 8px rgba(255,182,193,0.08); }
-
     .time-tag { color: var(--deep-pink); font-weight: 800; font-size: 14px; margin-right: 10px; display: inline-block; background: #fff0f3; padding: 2px 8px; border-radius: 8px; }
     .card-title { font-weight: bold; color: #333; font-size: 17px; }
     .card-desc { color: #666; font-size: 14px; margin-top: 8px; line-height: 1.6; border-top: 1px dotted #eee; padding-top: 8px; }
     
+    /* 🌟 新增：動態交通導航按鈕動畫 */
+    @keyframes iconBreath { 0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(255,182,193,0.2); } 50% { transform: scale(1.15); box-shadow: 0 6px 15px rgba(255,182,193,0.4); } }
+    .transit-btn { animation: iconBreath 2.5s infinite ease-in-out; }
+    .transit-btn:active { animation: none; transform: scale(0.9); }
+
     .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
     .cat-item { background: #fff; border: 2px solid #fdf2f4; border-radius: 18px; padding: 10px 2px; text-align: center; font-size: 11px; transition: transform 0.15s, border-color 0.3s; }
     .cat-item:active { transform: scale(0.9); } 
@@ -99,7 +79,6 @@
     #receipt-modal.show { opacity: 1; }
 
     @keyframes logoBreath { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
-
     #splash-screen { position: fixed; inset: 0; background: var(--sakura-pink); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease-out; }
     #splash-screen.fade-out { opacity: 0; pointer-events: none; }
     .splash-logo-container { position: relative; margin-bottom: 20px; animation: logoBreath 2s infinite ease-in-out; }
@@ -113,15 +92,11 @@
 </head>
 <body>
   <div id="splash-screen">
-    <div class="splash-logo-container">
-      <img src="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg" class="splash-logo">
-    </div>
+    <div class="splash-logo-container"><img src="https://image2url.com/r2/default/images/1773163387627-5ac39a0b-39b2-4b76-bf31-543b51ccf013.jpg" class="splash-logo"></div>
     <div class="splash-tour-name">COOLCHI’S TOUR</div>
     <div id="splash-terminal"></div>
-    <div id="splash-progress">
-      <div id="splash-progress-bar"></div>
-    </div>
-    <div class="splash-version">v1.1.0 (Build 20260405)</div>
+    <div id="splash-progress"><div id="splash-progress-bar"></div></div>
+    <div class="splash-version">v1.2.0 (Build 20260406)</div>
   </div>
 
   <div class="hero-header">
@@ -139,18 +114,13 @@
 
     <div class="card-v2 mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-3 text-gray-700">🌤️ 東京未來七天天氣</h3>
-        <div id="weather-container" class="flex overflow-x-auto gap-2 pb-2 scrollbar-none">
-            <p class="text-xs text-gray-400 w-full text-center py-4 animate-pulse">天氣資料載入中...</p>
-        </div>
+        <div id="weather-container" class="flex overflow-x-auto gap-2 pb-2 scrollbar-none"><p class="text-xs text-gray-400 w-full text-center py-4 animate-pulse">天氣資料載入中...</p></div>
     </div>
 
     <div class="card-v2 mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-4 text-gray-700">✈️ 航班資訊</h3>
         <div class="bg-pink-50/50 rounded-2xl p-4 mb-3 border border-pink-100">
-            <div class="flex justify-between items-center mb-3">
-                <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">去程 Outbound</span>
-                <span class="text-sm font-bold text-pink-700">2026/04/04 (六) JX802</span>
-            </div>
+            <div class="flex justify-between items-center mb-3"><span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">去程 Outbound</span><span class="text-sm font-bold text-pink-700">2026/04/04 (六) JX802</span></div>
             <div class="flex justify-between items-center text-center">
                 <div><p class="text-2xl font-black text-gray-800">10:40</p><p class="text-xs font-bold text-gray-500 mt-1">台北桃園 TPE</p></div>
                 <div class="text-pink-300 px-2"><i class="fas fa-plane text-xl"></i></div>
@@ -158,10 +128,7 @@
             </div>
         </div>
         <div class="bg-pink-50/50 rounded-2xl p-4 border border-pink-100">
-            <div class="flex justify-between items-center mb-3">
-                <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">回程 Inbound</span>
-                <span class="text-sm font-bold text-pink-700">2026/04/09 (四) JX803</span>
-            </div>
+            <div class="flex justify-between items-center mb-3"><span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">回程 Inbound</span><span class="text-sm font-bold text-pink-700">2026/04/09 (四) JX803</span></div>
             <div class="flex justify-between items-center text-center">
                 <div><p class="text-2xl font-black text-gray-800">16:20</p><p class="text-xs font-bold text-gray-500 mt-1">東京成田 NRT</p></div>
                 <div class="text-pink-300 px-2"><i class="fas fa-plane text-xl"></i></div>
@@ -174,41 +141,17 @@
         <h3 class="text-lg font-bold mb-3 text-gray-700">📱 VJW 入境資訊</h3>
         <div class="text-sm text-gray-600 mb-4 leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100">
             <p class="mb-2 text-center font-bold text-gray-700">入境日本必備！請於出發前填寫完成</p>
-            <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/guide/#usage-flow" target="_blank" class="block text-center bg-blue-50 text-blue-600 text-base font-bold py-3 px-4 rounded-xl shadow-sm active:scale-95 transition mt-3 mb-3 border border-blue-200">
-                <i class="fas fa-book-open mr-2"></i>點我查看：VJW 官方圖文教學
-            </a>
+            <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/guide/#usage-flow" target="_blank" class="block text-center bg-blue-50 text-blue-600 text-base font-bold py-3 px-4 rounded-xl shadow-sm active:scale-95 transition mt-3 mb-3 border border-blue-200"><i class="fas fa-book-open mr-2"></i>點我查看：VJW 官方圖文教學</a>
             <strong class="text-pink-600 text-[11px] block text-center"><i class="fas fa-lightbulb"></i> 若操作有困難，也可請領隊於當天幫忙填寫喔！</strong>
         </div>
-        
         <div class="space-y-3">
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">JX802</p></div>
-                <button onclick="copyText('JX802', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
-            </div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p></div>
-                <button onclick="copyText('272-0034', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
-            </div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p><p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p></div>
-                <button onclick="copyText('CHIBA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
-            </div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">市區町村</p><p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p></div>
-                <button onclick="copyText('ICHIKAWA-SHI', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
-            </div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p><p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p></div>
-                <button onclick="copyText('1-8-6, ICHIKAWA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
-            </div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div><p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p></div>
-                <button onclick="copyText('HOTEL R9 Premium 市川站前', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
-            </div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center">
-                <div><p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p><p class="text-sm font-bold text-gray-800">+81473743712</p></div>
-                <button onclick="copyText('+81473743712', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button>
-            </div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">JX802</p></div><button onclick="copyText('JX802', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p></div><button onclick="copyText('272-0034', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p><p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p></div><button onclick="copyText('CHIBA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">市區町村</p><p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p></div><button onclick="copyText('ICHIKAWA-SHI', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p><p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p></div><button onclick="copyText('1-8-6, ICHIKAWA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p></div><button onclick="copyText('HOTEL R9 Premium 市川站前', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p><p class="text-sm font-bold text-gray-800">+81473743712</p></div><button onclick="copyText('+81473743712', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
         </div>
     </div>
 
@@ -238,155 +181,221 @@
     <div id="schedule-panels">
         <div id="day-panel-1" class="day-panel active">
           <div class="day-title-badge">初抵東京 🌸 目黑川夢幻夜櫻</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2022/02/14-122578.webp" data-nav="成田機場第二航廈">
-            <div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div>
-            <p class="card-desc">抵達東京成田機場第二航廈，準備展開賞櫻之旅。</p>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2022/02/14-122578.webp" data-nav="成田機場第二航廈"><div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div><p class="card-desc">抵達東京成田機場第二航廈，準備展開賞櫻之旅。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=成田機場第二航廈&destination=市川站&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://img.gototravel.tw/2019/tokyo/transport/narita-terminal-3/narita-terminal-2-45.jpg" data-nav="市川站">
-            <div><span class="time-tag">16:00</span><span class="card-title">搭乘 JR 前往市川</span></div>
-            <p class="card-desc">搭乘 JR 總武線快速（無需轉車），直達市川站。</p>
+          
+          <div class="card-v2" onclick="openModal(this)" data-img="https://img.gototravel.tw/2019/tokyo/transport/narita-terminal-3/narita-terminal-2-45.jpg" data-nav="市川站"><div><span class="time-tag">16:00</span><span class="card-title">搭乘 JR 前往市川</span></div><p class="card-desc">搭乘 JR 總武線快速（無需轉車），直達市川站。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=市川站&destination=HOTEL+R9+Premium+Ichikawa&travelmode=walking" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
-            <div><span class="time-tag">17:15</span><span class="card-title">飯店 Check-in</span></div>
-            <p class="card-desc">入住 HOTEL R9 Premium Ichikawa，稍作休息後前往目黑川。</p>
+          
+          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa"><div><span class="time-tag">17:15</span><span class="card-title">飯店 Check-in</span></div><p class="card-desc">入住 HOTEL R9 Premium Ichikawa，稍作休息後前往目黑川。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=中目黑櫻花&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://bobbyfun.tw/wp-content/uploads/pixnet/67700df8fd70ba3b67328744aa6ca93b.jpg" data-nav="中目黑櫻花">
-            <div><span class="time-tag">18:45</span><span class="card-title">中目黑賞夜櫻</span></div>
-            <p class="card-desc">漫步目黑川，欣賞河岸兩側如粉色隧道般的夢幻夜櫻。</p>
-          </div>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://bobbyfun.tw/wp-content/uploads/pixnet/67700df8fd70ba3b67328744aa6ca93b.jpg" data-nav="中目黑櫻花"><div><span class="time-tag">18:45</span><span class="card-title">中目黑賞夜櫻</span></div><p class="card-desc">漫步目黑川，欣賞河岸兩側如粉色隧道般的夢幻夜櫻。</p></div>
         </div>
 
         <div id="day-panel-2" class="day-panel">
           <div class="day-title-badge">經典下町 ⛩️ 淺草祈福與上野櫻花雨</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
-            <div><span class="time-tag">09:00</span><span class="card-title">飯店出發</span></div>
-            <p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa"><div><span class="time-tag">09:00</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=淺草雷門&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://cdn.zekkei-japan.jp/images/spots/0b6079b6bb893a525c39c88eb5d95077.jpg" data-nav="淺草雷門">
-            <div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div>
-            <p class="card-desc">從錦糸町搭乘計程車直達雷門，節省體力。遊覽仲見世通、淺草寺。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://cdn.zekkei-japan.jp/images/spots/0b6079b6bb893a525c39c88eb5d95077.jpg" data-nav="淺草雷門"><div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div><p class="card-desc">從錦糸町搭乘計程車直達雷門，節省體力。遊覽仲見世通、淺草寺。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=淺草雷門&destination=上野恩賜公園&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://bobbyfun.tw/wp-content/uploads/pixnet/11c5d0943cd9d3466da85a825373e726.jpg" data-nav="上野恩賜公園">
-            <div><span class="time-tag">14:00</span><span class="card-title">上野恩賜公園</span></div>
-            <p class="card-desc">漫步於上野公園，欣賞櫻花百選勝地，並遊覽不忍池美景。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://bobbyfun.tw/wp-content/uploads/pixnet/11c5d0943cd9d3466da85a825373e726.jpg" data-nav="上野恩賜公園"><div><span class="time-tag">14:00</span><span class="card-title">上野恩賜公園</span></div><p class="card-desc">漫步於上野公園，欣賞櫻花百選勝地，並遊覽不忍池美景。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=上野恩賜公園&destination=阿美橫町&travelmode=walking" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://static.gltjp.com/glt/data/article/21000/20604/20240127_171051_3ed959f4_w1920.webp" data-nav="阿美橫町">
-            <div><span class="time-tag">18:00</span><span class="card-title">阿美橫町購物</span></div>
-            <p class="card-desc">在充滿活力的商店街採買藥妝、零食並享用在地美食。</p>
-          </div>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://static.gltjp.com/glt/data/article/21000/20604/20240127_171051_3ed959f4_w1920.webp" data-nav="阿美橫町"><div><span class="time-tag">18:00</span><span class="card-title">阿美橫町購物</span></div><p class="card-desc">在充滿活力的商店街採買藥妝、零食並享用在地美食。</p></div>
         </div>
 
         <div id="day-panel-3" class="day-panel">
           <div class="day-title-badge">海濱古都 🌊 鎌倉大佛與江之電看海</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
-            <div><span class="time-tag">08:30</span><span class="card-title">飯店出發</span></div>
-            <p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa"><div><span class="time-tag">08:30</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=鶴岡八幡宮&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/64/11/08/caption.jpg?w=900&h=500&s=1" data-nav="鶴岡八幡宮">
-            <div><span class="time-tag">10:30</span><span class="card-title">鶴岡八幡宮 (包車)</span></div>
-            <p class="card-desc">漫步若宮大路櫻花道，午餐於小町通商店街自由享用。預計 13:00 從鎌倉駅離開。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/64/11/08/caption.jpg?w=900&h=500&s=1" data-nav="鶴岡八幡宮"><div><span class="time-tag">10:30</span><span class="card-title">鶴岡八幡宮 (包車)</span></div><p class="card-desc">漫步若宮大路櫻花道，午餐於小町通商店街自由享用。預計 13:00 從鎌倉駅離開。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=鶴岡八幡宮&destination=高德院鎌倉大佛&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://res.cloudinary.com/jnto/image/upload/w_750,h_503,fl_lossy,f_auto/v1648115810/kanagawa/H_00586-2_004" data-nav="高德院鎌倉大佛">
-            <div><span class="time-tag">13:10</span><span class="card-title">高德院鎌倉大佛</span></div>
-            <p class="card-desc">參拜莊嚴的露天青銅大佛。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://res.cloudinary.com/jnto/image/upload/w_750,h_503,fl_lossy,f_auto/v1648115810/kanagawa/H_00586-2_004" data-nav="高德院鎌倉大佛"><div><span class="time-tag">13:10</span><span class="card-title">高德院鎌倉大佛</span></div><p class="card-desc">參拜莊嚴的露天青銅大佛。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=高德院鎌倉大佛&destination=鎌倉高校前站&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://imgzh.tabiiro.travel/kankou.tabiiro.jp/articles/sections/1751006301-1746098828-pixta_74415181_M.webp" data-nav="鎌倉高校前站">
-            <div><span class="time-tag">13:50</span><span class="card-title">江之電體驗</span></div>
-            <p class="card-desc">司機將空車前往鐮倉高校前站附近。我們將自行搭乘江之電前往，體驗經典海邊電車路線。預計 14:30 從鎌倉高校前離開。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://imgzh.tabiiro.travel/kankou.tabiiro.jp/articles/sections/1751006301-1746098828-pixta_74415181_M.webp" data-nav="鎌倉高校前站"><div><span class="time-tag">13:50</span><span class="card-title">江之電體驗</span></div><p class="card-desc">司機將空車前往鐮倉高校前站附近。我們將自行搭乘江之電前往，體驗經典海邊電車路線。預計 14:30 從鎌倉高校前離開。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=鎌倉高校前站&destination=江之島&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://storage.chictrip.com.tw/poi/23f061ca-91f8-4f42-bdfb-e9565000ead9.jpg" data-nav="江之島">
-            <div><span class="time-tag">14:45</span><span class="card-title">江之島散策</span></div>
-            <p class="card-desc">感受海風、參訪江島神社與商店街。預計 16:00 離開。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://storage.chictrip.com.tw/poi/23f061ca-91f8-4f42-bdfb-e9565000ead9.jpg" data-nav="江之島"><div><span class="time-tag">14:45</span><span class="card-title">江之島散策</span></div><p class="card-desc">感受海風、參訪江島神社與商店街。預計 16:00 離開。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=江之島&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站">
-            <div><span class="time-tag">18:30</span><span class="card-title">返回東京市區</span></div>
-            <p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p>
-          </div>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站"><div><span class="time-tag">18:30</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
         </div>
 
         <div id="day-panel-4" class="day-panel">
           <div class="day-title-badge">尋訪富士 🗻 河口湖絕景與水陸巴士</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
-            <div><span class="time-tag">08:00</span><span class="card-title">飯店出發</span></div>
-            <p class="card-desc">今日車程較遠，請大家提早於大廳集合出發喔！</p>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa"><div><span class="time-tag">08:00</span><span class="card-title">飯店出發</span></div><p class="card-desc">今日車程較遠，請大家提早於大廳集合出發喔！</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=河口湖大石公園&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://tw.wamazing.com/media/wp-content/uploads/sites/4/2025/03/ooishipark_pixta_90606576_M.jpg.webp" data-nav="河口湖大石公園">
-            <div><span class="time-tag">10:00</span><span class="card-title">大石公園 (包車)</span></div>
-            <p class="card-desc">停留 75 分鐘，11:15 離開。河口湖畔拍下富士山與櫻花同框。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://tw.wamazing.com/media/wp-content/uploads/sites/4/2025/03/ooishipark_pixta_90606576_M.jpg.webp" data-nav="河口湖大石公園"><div><span class="time-tag">10:00</span><span class="card-title">大石公園 (包車)</span></div><p class="card-desc">停留 75 分鐘，11:15 離開。河口湖畔拍下富士山與櫻花同框。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=河口湖大石公園&destination=ほうとう研究所&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://wetravelhk.com/wp-content/uploads/2024/11/%E9%A4%BA%E9%A3%A5%E7%A0%94%E7%A9%B6%E6%89%80-05.jpg" data-nav="ほうとう研究所">
-            <div><span class="time-tag">11:25</span><span class="card-title">海鮮餺飥午餐</span></div>
-            <p class="card-desc">用餐 100 分鐘。品嚐河口湖名產「ほうとう研究所」地鐵鍋。12:50 離開。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://wetravelhk.com/wp-content/uploads/2024/11/%E9%A4%BA%E9%A3%A5%E7%A0%94%E7%A9%B6%E6%89%80-05.jpg" data-nav="ほうとう研究所"><div><span class="time-tag">11:25</span><span class="card-title">海鮮餺飥午餐</span></div><p class="card-desc">用餐 100 分鐘。品嚐河口湖名產「ほうとう研究所」地鐵鍋。12:50 離開。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=ほうとう研究所&destination=山中湖+KABA&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGPIiK4s4_QdUCGUOh8rRvfDJQieqgNYqcOA&s" data-nav="山中湖 KABA 水陸巴士">
-            <div><span class="time-tag">13:20</span><span class="card-title">山中湖 KABA 水陸巴士</span></div>
-            <p class="card-desc">停留 80 分鐘。體驗驚險刺激的巴士入水衝刺。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGPIiK4s4_QdUCGUOh8rRvfDJQieqgNYqcOA&s" data-nav="山中湖 KABA 水陸巴士"><div><span class="time-tag">13:20</span><span class="card-title">山中湖 KABA 水陸巴士</span></div><p class="card-desc">停留 80 分鐘。體驗驚險刺激的巴士入水衝刺。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=山中湖+KABA&destination=忍野八海&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://imgs.gotrip.hk/wp-content/uploads/2021/03/I_967196266605b1f6dc3386-1024x683.jpg" data-nav="忍野八海">
-            <div><span class="time-tag">14:45</span><span class="card-title">忍野八海</span></div>
-            <p class="card-desc">停留 45 分鐘。欣賞富士山雪水濾出的清澈湧泉奇景。15:30 離開。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://imgs.gotrip.hk/wp-content/uploads/2021/03/I_967196266605b1f6dc3386-1024x683.jpg" data-nav="忍野八海"><div><span class="time-tag">14:45</span><span class="card-title">忍野八海</span></div><p class="card-desc">停留 45 分鐘。欣賞富士山雪水濾出的清澈湧泉奇景。15:30 離開。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=忍野八海&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站">
-            <div><span class="time-tag">18:00</span><span class="card-title">返回東京市區</span></div>
-            <p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p>
-          </div>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站"><div><span class="time-tag">18:00</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
         </div>
 
         <div id="day-panel-5" class="day-panel">
           <div class="day-title-badge">城市漫遊 🚌 明治神宮與雙層敞篷巴士</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa">
-            <div><span class="time-tag">09:30</span><span class="card-title">飯店出發</span></div>
-            <p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa"><div><span class="time-tag">09:30</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=明治神宮&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/batch_shutterstock_1510366601.jpg" data-nav="明治神宮">
-            <div><span class="time-tag">10:40</span><span class="card-title">明治神宮森林之旅</span></div>
-            <p class="card-desc">東京都心最大的森林神社。午餐於園區內享用。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/batch_shutterstock_1510366601.jpg" data-nav="明治神宮"><div><span class="time-tag">10:40</span><span class="card-title">明治神宮森林之旅</span></div><p class="card-desc">東京都心最大的森林神社。午餐於園區內享用。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=明治神宮&destination=東京車站+丸之內&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/w_1200,h_630,c_fill,q_65/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xner44oggbksavqlzqpv/%E6%9D%B1%E4%BA%AC%E5%9F%8E%E5%B8%82%E6%95%9E%E7%AF%B7%E8%A7%80%E5%85%89%E5%B7%B4%E5%A3%AB%E4%B9%8B%E6%97%85.jpg" data-nav="東京 SKY BUS">
-            <div><span class="time-tag">13:30</span><span class="card-title">SKY BUS 敞篷巴士</span></div>
-            <p class="card-desc">乘坐雙層開棚巴士一次遊覽東京鐵塔、明治神宮外苑等景點。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/w_1200,h_630,c_fill,q_65/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xner44oggbksavqlzqpv/%E6%9D%B1%E4%BA%AC%E5%9F%8E%E5%B8%82%E6%95%9E%E7%AF%B7%E8%A7%80%E5%85%89%E5%B7%B4%E5%A3%AB%E4%B9%8B%E6%97%85.jpg" data-nav="東京 SKY BUS"><div><span class="time-tag">13:30</span><span class="card-title">SKY BUS 敞篷巴士</span></div><p class="card-desc">乘坐雙層開棚巴士一次遊覽東京鐵塔、明治神宮外苑等景點。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=東京車站+丸之內&destination=東京車站+KITTE&travelmode=walking" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://www.bubu-jp.com/wp-content/uploads/2025/07/f40ff1b7cf0a26bf8c868bc856be58d8-1024x683.jpeg" data-nav="東京車站 KITTE">
-            <div><span class="time-tag">15:00</span><span class="card-title">皇居與東京車站</span></div>
-            <p class="card-desc">參觀皇居後漫步至東京車站 KITTE 大樓欣賞美景。</p>
-          </div>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://www.bubu-jp.com/wp-content/uploads/2025/07/f40ff1b7cf0a26bf8c868bc856be58d8-1024x683.jpeg" data-nav="東京車站 KITTE"><div><span class="time-tag">15:00</span><span class="card-title">皇居與東京車站</span></div><p class="card-desc">參觀皇居後漫步至東京車站 KITTE 大樓欣賞美景。</p></div>
         </div>
 
         <div id="day-panel-6" class="day-panel">
           <div class="day-title-badge">滿載而歸 🍣 築地嚐鮮與平安返家</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide03.jpg" data-nav="HOTEL R9 Premium Ichikawa">
-            <div><span class="time-tag">08:30</span><span class="card-title">退房寄放行李</span></div>
-            <p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide03.jpg" data-nav="HOTEL R9 Premium Ichikawa"><div><span class="time-tag">08:30</span><span class="card-title">退房寄放行李</span></div><p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=築地外市場&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://www.tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場">
-            <div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div>
-            <p class="card-desc">品嚐厚蛋燒、海鮮丼，享受最後的東京美味。</p>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://www.tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場"><div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div><p class="card-desc">品嚐厚蛋燒、海鮮丼，享受最後的東京美味。</p></div>
+          
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=成田機場第二航廈&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
-          <div class="timeline-dots"></div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://image.kkday.com/v2/image/get/c_fit%2Cq_55%2Ct_webp%2Cw_960/s1.kkday.com/product_161696/20240131092250_idXXH/jpg" data-nav="成田機場">
-            <div><span class="time-tag">13:00</span><span class="card-title">專車接送機</span></div>
-            <p class="card-desc">專車抵達飯店門口接送前往機場，準備返台。</p>
-          </div>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://image.kkday.com/v2/image/get/c_fit%2Cq_55%2Ct_webp%2Cw_960/s1.kkday.com/product_161696/20240131092250_idXXH/jpg" data-nav="成田機場"><div><span class="time-tag">13:00</span><span class="card-title">專車接送機</span></div><p class="card-desc">專車抵達飯店門口接送前往機場，準備返台。</p></div>
         </div>
     </div>
   </div>
@@ -475,11 +484,7 @@
   <div id="receipt-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex-col items-center justify-start overflow-y-auto backdrop-blur-sm opacity-0 pb-20 pt-10 px-4">
     <button onclick="closeReceipt()" class="absolute top-4 right-4 bg-white/20 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl backdrop-blur-md z-50">✕</button>
     <p class="text-white text-sm font-bold mb-4 tracking-widest animate-pulse text-center w-full">👇 請長按下方圖片儲存至相簿 👇</p>
-    
-    <div id="receipt-capture-area" class="relative mx-auto bg-transparent">
-        <div id="receipt-render-content" class="relative z-10"></div>
-    </div>
-    
+    <div id="receipt-capture-area" class="relative mx-auto bg-transparent"><div id="receipt-render-content" class="relative z-10"></div></div>
     <img id="receipt-result-img" class="hidden w-[340px] rounded-[24px] shadow-2xl shadow-pink-500/20 mt-2 mb-10 mx-auto" />
   </div>
 
@@ -504,12 +509,7 @@
   <script>
     const EXCHANGE_RATE = 0.21;
     let records = [];
-    try {
-        records = JSON.parse(localStorage.getItem('tokyo_records')) || [];
-    } catch(e) {
-        records = [];
-    }
-    
+    try { records = JSON.parse(localStorage.getItem('tokyo_records')) || []; } catch(e) { records = []; }
     let selectedCat = { icon: '💊', name: '藥妝' };
 
     const helpData = {
@@ -542,20 +542,11 @@
 
     function filterHelp(cat, btn) {
         if(btn) {
-            document.querySelectorAll('.cat-btn').forEach(b => {
-                b.classList.remove('bg-pink-500', 'text-white');
-                b.classList.add('bg-white', 'text-pink-500'); 
-            });
-            btn.classList.remove('bg-white', 'text-pink-500'); 
-            btn.classList.add('bg-pink-500', 'text-white'); 
+            document.querySelectorAll('.cat-btn').forEach(b => { b.classList.remove('bg-pink-500', 'text-white'); b.classList.add('bg-white', 'text-pink-500'); });
+            btn.classList.remove('bg-white', 'text-pink-500'); btn.classList.add('bg-pink-500', 'text-white'); 
         }
         const list = document.getElementById('help-list');
-        list.innerHTML = helpData[cat].map(item => `
-            <div class="card-v2 anim-item flex justify-between items-center py-5 mb-3">
-                <div><p class="font-bold text-xl">${item.jp}</p><p class="text-sm text-pink-500 mt-1">${item.cn}</p></div>
-                <button class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-xl" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button>
-            </div>
-        `).join('');
+        list.innerHTML = helpData[cat].map(item => `<div class="card-v2 anim-item flex justify-between items-center py-5 mb-3"><div><p class="font-bold text-xl">${item.jp}</p><p class="text-sm text-pink-500 mt-1">${item.cn}</p></div><button class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-xl" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button></div>`).join('');
     }
 
     let jpVoice = null;
@@ -563,33 +554,21 @@
       const voices = window.speechSynthesis.getVoices();
       jpVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
     }
-    if (speechSynthesis.onvoiceschanged !== undefined) {
-      speechSynthesis.onvoiceschanged = loadVoices;
-    }
+    if (speechSynthesis.onvoiceschanged !== undefined) { speechSynthesis.onvoiceschanged = loadVoices; }
 
     function playJP(text) {
       window.speechSynthesis.cancel();
       const msg = new SpeechSynthesisUtterance(text);
       msg.lang = 'ja-JP'; msg.rate = 0.8;
-      if (jpVoice) {
-        msg.voice = jpVoice;
-      } else {
+      if (jpVoice) { msg.voice = jpVoice; } else {
         const voices = window.speechSynthesis.getVoices();
         const backupVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
-        if (backupVoice) {
-            msg.voice = backupVoice;
-        } else if (voices.length > 0) {
-            alert("💡 小提醒：您的手機似乎未安裝「日文語音包」，系統可能會用中文硬唸喔！");
-        }
+        if (backupVoice) { msg.voice = backupVoice; } else if (voices.length > 0) { alert("💡 小提醒：您的手機似乎未安裝「日文語音包」，系統可能會用中文硬唸喔！"); }
       }
       window.speechSynthesis.speak(msg);
     }
 
-    function selectRecordCat(icon, name, el) {
-        selectedCat = { icon, name };
-        document.querySelectorAll('.cat-item').forEach(item => item.classList.remove('active'));
-        el.classList.add('active');
-    }
+    function selectRecordCat(icon, name, el) { selectedCat = { icon, name }; document.querySelectorAll('.cat-item').forEach(item => item.classList.remove('active')); el.classList.add('active'); }
 
     function addRecord() {
         const name = document.getElementById('rec-name').value || '項目';
@@ -603,11 +582,7 @@
         document.getElementById('rec-name').value = ''; document.getElementById('rec-price').value = '';
     }
 
-    function deleteRecord(id) {
-        records = records.filter(r => r.id !== id);
-        localStorage.setItem('tokyo_records', JSON.stringify(records));
-        renderRecords();
-    }
+    function deleteRecord(id) { records = records.filter(r => r.id !== id); localStorage.setItem('tokyo_records', JSON.stringify(records)); renderRecords(); }
 
     function renderRecords() {
         const list = document.getElementById('record-list');
@@ -615,34 +590,18 @@
         let total = 0;
         list.innerHTML = records.map(r => {
             total += r.tw;
-            return `
-                <div class="card-v2 anim-item flex justify-between items-center py-4 mb-3" style="margin: 0 0 15px 0;">
-                    <div class="flex items-center">
-                        <span class="text-3xl mr-4">${r.icon}</span>
-                        <div><p class="font-bold text-gray-700">${r.name}</p><p class="text-xs text-gray-400">${r.cat} | ${r.curr === 'JPY' ? '¥'+r.orig : '$'+r.orig}</p></div>
-                    </div>
-                    <div class="text-right"><p class="text-pink-600 font-black text-lg">NT$ ${r.tw}</p><button onclick="deleteRecord(${r.id})" class="text-gray-300 text-xs">刪除</button></div>
-                </div>`;
+            return `<div class="card-v2 anim-item flex justify-between items-center py-4 mb-3" style="margin: 0 0 15px 0;"><div class="flex items-center"><span class="text-3xl mr-4">${r.icon}</span><div><p class="font-bold text-gray-700">${r.name}</p><p class="text-xs text-gray-400">${r.cat} | ${r.curr === 'JPY' ? '¥'+r.orig : '$'+r.orig}</p></div></div><div class="text-right"><p class="text-pink-600 font-black text-lg">NT$ ${r.tw}</p><button onclick="deleteRecord(${r.id})" class="text-gray-300 text-xs">刪除</button></div></div>`;
         }).join('');
         totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
     }
 
-    /* 🚨 終極表格修復版：完全使用 <table> 排版，徹底根絕截圖文字下沉與消失 */
     function generateReceipt() {
-        if (records.length === 0) {
-            alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸");
-            return;
-        }
-
-        let totalTWD = 0;
-        const catTotals = {};
-        const dateGroups = {};
-
+        if (records.length === 0) { alert("目前還沒有任何記帳紀錄喔！趕快去買點東西吧 🌸"); return; }
+        let totalTWD = 0; const catTotals = {}; const dateGroups = {};
         records.forEach(r => {
             totalTWD += r.tw;
             if (!catTotals[r.cat]) catTotals[r.cat] = { icon: r.icon, sum: 0 };
             catTotals[r.cat].sum += r.tw;
-
             const d = new Date(r.id);
             const dateStr = `${d.getMonth() + 1}/${d.getDate()}`;
             if (!dateGroups[dateStr]) dateGroups[dateStr] = [];
@@ -650,277 +609,44 @@
         });
 
         let html = `<div style="width: 340px; box-sizing: border-box; background: #fff5f7; padding: 24px; border-radius: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">`;
-        
-        html += `
-            <div style="text-align: center; margin-bottom: 20px;">
-                <div style="font-size: 22px; font-weight: 900; color: #db2777; margin-bottom: 6px;">🌸 東京賞櫻記帳本 🌸</div>
-                <div style="font-size: 11px; color: #9ca3af; font-weight: bold;">Generated by 東京賞櫻sec.</div>
-            </div>
-            
-            <div style="background: white; border-radius: 16px; padding: 20px 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #fce7f3; margin-bottom: 24px; text-align: center;">
-                <div style="font-size: 13px; font-weight: bold; color: #9ca3af; margin-bottom: 8px;">💰 旅程總結算</div>
-                <div style="font-size: 34px; font-weight: 900; color: #ec4899; margin-bottom: 20px;">NT$ ${totalTWD.toLocaleString()}</div>
-        `;
-
+        html += `<div style="text-align: center; margin-bottom: 20px;"><div style="font-size: 22px; font-weight: 900; color: #db2777; margin-bottom: 6px;">🌸 東京賞櫻記帳本 🌸</div><div style="font-size: 11px; color: #9ca3af; font-weight: bold;">Generated by 東京賞櫻sec.</div></div><div style="background: white; border-radius: 16px; padding: 20px 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #fce7f3; margin-bottom: 24px; text-align: center;"><div style="font-size: 13px; font-weight: bold; color: #9ca3af; margin-bottom: 8px;">💰 旅程總結算</div><div style="font-size: 34px; font-weight: 900; color: #ec4899; margin-bottom: 20px;">NT$ ${totalTWD.toLocaleString()}</div>`;
         html += `<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: separate; border-spacing: 0 8px;">`;
         let cats = Object.keys(catTotals);
         for (let i = 0; i < cats.length; i += 2) {
-            let cat1 = cats[i];
-            let cat2 = cats[i+1];
-            
-            html += `<tr>`;
-            html += `<td width="48%" style="background: #fdf2f8; border-radius: 10px; padding: 10px;">
-                        <table width="100%" cellpadding="0" cellspacing="0"><tr>
-                            <td align="left" style="font-size: 13px; color: #4b5563; font-weight: bold; vertical-align: middle;">${catTotals[cat1].icon} ${cat1}</td>
-                            <td align="right" style="font-size: 13px; font-weight: 900; color: #db2777; vertical-align: middle;">$${catTotals[cat1].sum.toLocaleString()}</td>
-                        </tr></table>
-                     </td>`;
-            html += `<td width="4%"></td>`;
-            if (cat2) {
-                html += `<td width="48%" style="background: #fdf2f8; border-radius: 10px; padding: 10px;">
-                            <table width="100%" cellpadding="0" cellspacing="0"><tr>
-                                <td align="left" style="font-size: 13px; color: #4b5563; font-weight: bold; vertical-align: middle;">${catTotals[cat2].icon} ${cat2}</td>
-                                <td align="right" style="font-size: 13px; font-weight: 900; color: #db2777; vertical-align: middle;">$${catTotals[cat2].sum.toLocaleString()}</td>
-                            </tr></table>
-                         </td>`;
-            } else {
-                html += `<td width="48%"></td>`;
-            }
+            let cat1 = cats[i]; let cat2 = cats[i+1];
+            html += `<tr><td width="48%" style="background: #fdf2f8; border-radius: 10px; padding: 10px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td align="left" style="font-size: 13px; color: #4b5563; font-weight: bold; vertical-align: middle;">${catTotals[cat1].icon} ${cat1}</td><td align="right" style="font-size: 13px; font-weight: 900; color: #db2777; vertical-align: middle;">$${catTotals[cat1].sum.toLocaleString()}</td></tr></table></td><td width="4%"></td>`;
+            if (cat2) { html += `<td width="48%" style="background: #fdf2f8; border-radius: 10px; padding: 10px;"><table width="100%" cellpadding="0" cellspacing="0"><tr><td align="left" style="font-size: 13px; color: #4b5563; font-weight: bold; vertical-align: middle;">${catTotals[cat2].icon} ${cat2}</td><td align="right" style="font-size: 13px; font-weight: 900; color: #db2777; vertical-align: middle;">$${catTotals[cat2].sum.toLocaleString()}</td></tr></table></td>`; } else { html += `<td width="48%"></td>`; }
             html += `</tr>`;
         }
-        html += `</table></div>`;
+        html += `</table></div><div style="margin-bottom: 16px;"><div style="font-size: 15px; font-weight: bold; color: #374151; margin-bottom: 16px; border-left: 4px solid #f472b6; padding-left: 10px;">📅 每日明細</div>`;
 
-        html += `<div style="margin-bottom: 16px;"><div style="font-size: 15px; font-weight: bold; color: #374151; margin-bottom: 16px; border-left: 4px solid #f472b6; padding-left: 10px;">📅 每日明細</div>`;
-
-        const sortedDates = Object.keys(dateGroups).sort((a, b) => {
-            const [m1, d1] = a.split('/');
-            const [m2, d2] = b.split('/');
-            if (m1 !== m2) return parseInt(m1) - parseInt(m2);
-            return parseInt(d1) - parseInt(d2);
-        });
-
+        const sortedDates = Object.keys(dateGroups).sort((a, b) => { const [m1, d1] = a.split('/'); const [m2, d2] = b.split('/'); if (m1 !== m2) return parseInt(m1) - parseInt(m2); return parseInt(d1) - parseInt(d2); });
         sortedDates.forEach(date => {
-            html += `<div style="margin-bottom: 16px; background: white; padding: 16px; border-radius: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;">
-                        <div style="background: #f472b6; border-radius: 6px; margin-bottom: 12px; display: inline-block; padding: 6px 12px;">
-                            <span style="font-size: 13px; font-weight: bold; color: white;">📍 ${date}</span>
-                        </div>
-                        <table width="100%" cellpadding="0" cellspacing="0">`;
-            dateGroups[date].forEach(item => {
-                html += `<tr>
-                            <td align="left" style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6; font-size: 15px; font-weight: bold; color: #374151; vertical-align: middle;">
-                                ${item.icon} ${item.name}
-                            </td>
-                            <td align="right" style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6; vertical-align: middle;">
-                                <div style="font-size: 15px; font-weight: 900; color: #db2777;">NT$ ${item.tw.toLocaleString()}</div>
-                                <div style="font-size: 11px; color: #9ca3af; font-weight: bold; margin-top: 2px;">${item.curr === 'JPY' ? '¥'+item.orig : '$'+item.orig}</div>
-                            </td>
-                         </tr>`;
-            });
+            html += `<div style="margin-bottom: 16px; background: white; padding: 16px; border-radius: 16px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border: 1px solid #f3f4f6;"><div style="background: #f472b6; border-radius: 6px; margin-bottom: 12px; display: inline-block; padding: 6px 12px;"><span style="font-size: 13px; font-weight: bold; color: white;">📍 ${date}</span></div><table width="100%" cellpadding="0" cellspacing="0">`;
+            dateGroups[date].forEach(item => { html += `<tr><td align="left" style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6; font-size: 15px; font-weight: bold; color: #374151; vertical-align: middle;">${item.icon} ${item.name}</td><td align="right" style="padding: 10px 0; border-bottom: 1px dashed #f3f4f6; vertical-align: middle;"><div style="font-size: 15px; font-weight: 900; color: #db2777;">NT$ ${item.tw.toLocaleString()}</div><div style="font-size: 11px; color: #9ca3af; font-weight: bold; margin-top: 2px;">${item.curr === 'JPY' ? '¥'+item.orig : '$'+item.orig}</div></td></tr>`; });
             html += `</table></div>`;
         });
 
         html += `<div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 2px dashed #fbcfe8;"><div style="font-size: 13px; font-weight: bold; color: #f472b6; letter-spacing: 1px;">🌸 Have a nice trip! 🌸</div></div></div>`;
-
         document.getElementById('receipt-render-content').innerHTML = html;
-
         const modal = document.getElementById('receipt-modal');
         const captureArea = document.getElementById('receipt-capture-area');
         const resultImg = document.getElementById('receipt-result-img');
 
-        captureArea.style.display = 'block';
-        resultImg.classList.add('hidden');
-        modal.classList.remove('hidden');
-
-        setTimeout(() => {
-            modal.classList.add('show');
-            html2canvas(document.getElementById('receipt-render-content').firstElementChild, { 
-                backgroundColor: '#fff5f7', 
-                scale: 2, 
-                useCORS: true 
-            }).then(canvas => {
-                const imgData = canvas.toDataURL("image/png");
-                resultImg.src = imgData;
-                resultImg.classList.remove('hidden');
-                captureArea.style.display = 'none';
-            });
-        }, 300);
+        captureArea.style.display = 'block'; resultImg.classList.add('hidden'); modal.classList.remove('hidden');
+        setTimeout(() => { modal.classList.add('show'); html2canvas(document.getElementById('receipt-render-content').firstElementChild, { backgroundColor: '#fff5f7', scale: 2, useCORS: true }).then(canvas => { const imgData = canvas.toDataURL("image/png"); resultImg.src = imgData; resultImg.classList.remove('hidden'); captureArea.style.display = 'none'; }); }, 300);
     }
 
-    function closeReceipt() {
-        const modal = document.getElementById('receipt-modal');
-        modal.classList.remove('show');
-        setTimeout(() => { modal.classList.add('hidden'); }, 400); 
-    }
-
-    document.getElementById('jpy-input').addEventListener('input', (e) => {
-      document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`;
-    });
-
-    function initCountdown() {
-      const target = new Date('2026-04-04T00:00:00').getTime();
-      const topEl = document.getElementById('countdown');
-      const homeEl = document.getElementById('home-countdown');
-      
-      setInterval(() => {
-        const diff = target - new Date().getTime();
-        const days = Math.floor(diff / (1000*60*60*24));
-        
-        if (topEl) topEl.innerText = diff < 0 ? "旅行中" : `出發倒數 ${days} 天`;
-        if (homeEl) homeEl.innerText = diff < 0 ? "旅行中 🌸" : `${days} 天`;
-      }, 1000);
-    }
-
-    function openModal(el) {
-      const title = el.querySelector('.card-title').innerText;
-      const desc = el.querySelector('.card-desc').innerText;
-      const imgUrl = el.getAttribute('data-img');
-      const navQuery = el.getAttribute('data-nav') || title;
-
-      document.getElementById('modal-title').innerText = title;
-      document.getElementById('modal-desc').innerText = desc;
-      document.getElementById('modal-img').src = imgUrl || '';
-      document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(navQuery)}`;
-
-      const modal = document.getElementById('spot-modal');
-      modal.classList.remove('hidden');
-      setTimeout(() => { modal.classList.add('show'); }, 10);
-    }
-
-    function closeModal() {
-      const modal = document.getElementById('spot-modal');
-      modal.classList.remove('show');
-      setTimeout(() => { modal.classList.add('hidden'); }, 400); 
-    }
-
-    function copyText(text, btnElement) {
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(text).then(() => { showCopySuccess(btnElement); });
-        } else {
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            textArea.style.position = "fixed";
-            textArea.style.left = "-999999px";
-            textArea.style.top = "-999999px";
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try { document.execCommand('copy'); showCopySuccess(btnElement); } catch (err) { alert('複製失敗，請手動複製！'); }
-            textArea.remove();
-        }
-    }
-
-    function showCopySuccess(btn) {
-        const originalText = btn.innerText;
-        btn.innerText = '✅ 已複製';
-        btn.classList.replace('text-pink-600', 'text-green-600');
-        btn.classList.replace('bg-pink-100', 'bg-green-100');
-        setTimeout(() => {
-            btn.innerText = originalText;
-            btn.classList.replace('text-green-600', 'text-pink-600');
-            btn.classList.replace('bg-green-100', 'bg-pink-100');
-        }, 2000);
-    }
-
-    function initSplashScreen() {
-      const splash = document.getElementById('splash-screen');
-      const terminal = document.getElementById('splash-terminal');
-      const progressBar = document.getElementById('splash-progress-bar');
-      const fakeData = [
-        "COOLCHI’S TOUR System v1.1.0",
-        "Initializing core modules...",
-        "Loading local data: /assets/tokyo_map.dat",
-        "Fetching real-time weather: Open-Meteo API...", 
-        "Parsing 7-day forecast data...", 
-        "Syncing travel schedule: /2026/april/cherry_blossom",
-        "Updating VJW guidelines & UI components...", 
-        "Optimizing Receipt Generator engine...", 
-        "Loading currency rates: /fin/jpy_twd",
-        "Checking group member info...",
-        "Preparing map navigation...",
-        "Finalizing setup...",
-        "Ready."
-      ];
-      let dataIndex = 0;
-      let progress = 0;
-
-      const terminalInterval = setInterval(() => {
-        if (dataIndex < fakeData.length) {
-          const line = document.createElement('p');
-          line.innerText = fakeData[dataIndex];
-          terminal.appendChild(line);
-          terminal.scrollTop = terminal.scrollHeight;
-          dataIndex++;
-        } else {
-          clearInterval(terminalInterval);
-        }
-      }, 300);
-
-      const progressInterval = setInterval(() => {
-        if (progress < 100) {
-          progress += Math.random() * 8 + 2;
-          if (progress > 100) progress = 100;
-          progressBar.style.width = progress + '%';
-        } else {
-          clearInterval(progressInterval);
-        }
-      }, 100);
-
-      setTimeout(() => {
-        clearInterval(terminalInterval);
-        clearInterval(progressInterval);
-        splash.classList.add('fade-out');
-        
-        setTimeout(() => {
-          splash.style.display = 'none';
-        }, 500); 
-      }, 5500);
-    }
-
-    async function fetchWeather() {
-        try {
-            const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo');
-            const data = await res.json();
-            const container = document.getElementById('weather-container');
-            let html = '';
-            
-            const wmoMap = {
-                0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️',
-                45: '🌫️', 48: '🌫️', 51: '🌧️', 53: '🌧️', 55: '🌧️',
-                61: '🌧️', 63: '🌧️', 65: '🌧️', 71: '❄️', 73: '❄️', 75: '❄️',
-                80: '🌧️', 81: '🌧️', 82: '🌧️', 95: '⛈️', 96: '⛈️', 99: '⛈️'
-            };
-
-            for(let i = 0; i < 7; i++) {
-                const date = new Date(data.daily.time[i]);
-                const dateStr = (date.getMonth() + 1) + '/' + date.getDate();
-                const max = Math.round(data.daily.temperature_2m_max[i]);
-                const min = Math.round(data.daily.temperature_2m_min[i]);
-                const code = data.daily.weathercode[i];
-                const icon = wmoMap[code] || '🌤️';
-                
-                const isToday = i === 0 ? 'bg-pink-100 border-pink-300' : 'bg-pink-50/50 border-pink-100';
-                const titleStr = i === 0 ? '今天' : dateStr;
-                
-                html += `<div class="flex-none w-20 ${isToday} rounded-2xl p-2 text-center border shadow-sm flex flex-col justify-center">
-                            <p class="text-xs font-bold text-gray-500 mb-1">${titleStr}</p>
-                            <p class="text-2xl mb-1">${icon}</p>
-                            <p class="text-[11px] font-black text-pink-600">${min}°~${max}°</p>
-                         </div>`;
-            }
-            container.innerHTML = html;
-        } catch (err) {
-            document.getElementById('weather-container').innerHTML = '<p class="text-xs text-gray-400 w-full text-center py-4">無法取得天氣資料，請稍後再試</p>';
-        }
-    }
-
-    // 🚨 終極修復：改用 DOMContentLoaded，保證瞬間啟動不再死當
-    document.addEventListener('DOMContentLoaded', () => { 
-      initSplashScreen(); 
-      initCountdown(); 
-      renderRecords(); 
-      loadVoices(); 
-      fetchWeather(); 
-    });
+    function closeReceipt() { const modal = document.getElementById('receipt-modal'); modal.classList.remove('show'); setTimeout(() => { modal.classList.add('hidden'); }, 400); }
+    document.getElementById('jpy-input').addEventListener('input', (e) => { document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`; });
+    function initCountdown() { const target = new Date('2026-04-04T00:00:00').getTime(); const topEl = document.getElementById('countdown'); const homeEl = document.getElementById('home-countdown'); setInterval(() => { const diff = target - new Date().getTime(); const days = Math.floor(diff / (1000*60*60*24)); if (topEl) topEl.innerText = diff < 0 ? "旅行中" : `出發倒數 ${days} 天`; if (homeEl) homeEl.innerText = diff < 0 ? "旅行中 🌸" : `${days} 天`; }, 1000); }
+    function openModal(el) { const title = el.querySelector('.card-title').innerText; const desc = el.querySelector('.card-desc').innerText; const imgUrl = el.getAttribute('data-img'); const navQuery = el.getAttribute('data-nav') || title; document.getElementById('modal-title').innerText = title; document.getElementById('modal-desc').innerText = desc; document.getElementById('modal-img').src = imgUrl || ''; document.getElementById('modal-nav').href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(navQuery)}`; const modal = document.getElementById('spot-modal'); modal.classList.remove('hidden'); setTimeout(() => { modal.classList.add('show'); }, 10); }
+    function closeModal() { const modal = document.getElementById('spot-modal'); modal.classList.remove('show'); setTimeout(() => { modal.classList.add('hidden'); }, 400); }
+    function copyText(text, btnElement) { if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text).then(() => { showCopySuccess(btnElement); }); } else { const textArea = document.createElement("textarea"); textArea.value = text; textArea.style.position = "fixed"; textArea.style.left = "-999999px"; textArea.style.top = "-999999px"; document.body.appendChild(textArea); textArea.focus(); textArea.select(); try { document.execCommand('copy'); showCopySuccess(btnElement); } catch (err) { alert('複製失敗，請手動複製！'); } textArea.remove(); } }
+    function showCopySuccess(btn) { const originalText = btn.innerText; btn.innerText = '✅ 已複製'; btn.classList.replace('text-pink-600', 'text-green-600'); btn.classList.replace('bg-pink-100', 'bg-green-100'); setTimeout(() => { btn.innerText = originalText; btn.classList.replace('text-green-600', 'text-pink-600'); btn.classList.replace('bg-green-100', 'bg-pink-100'); }, 2000); }
+    function initSplashScreen() { const splash = document.getElementById('splash-screen'); const terminal = document.getElementById('splash-terminal'); const progressBar = document.getElementById('splash-progress-bar'); const fakeData = [ "COOLCHI’S TOUR System v1.2.0", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Optimizing Receipt Generator engine...", "Loading currency rates: /fin/jpy_twd", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; let dataIndex = 0; let progress = 0; const terminalInterval = setInterval(() => { if (dataIndex < fakeData.length) { const line = document.createElement('p'); line.innerText = fakeData[dataIndex]; terminal.appendChild(line); terminal.scrollTop = terminal.scrollHeight; dataIndex++; } else { clearInterval(terminalInterval); } }, 300); const progressInterval = setInterval(() => { if (progress < 100) { progress += Math.random() * 8 + 2; if (progress > 100) progress = 100; progressBar.style.width = progress + '%'; } else { clearInterval(progressInterval); } }, 100); setTimeout(() => { clearInterval(terminalInterval); clearInterval(progressInterval); splash.classList.add('fade-out'); setTimeout(() => { splash.style.display = 'none'; }, 500); }, 5500); }
+    async function fetchWeather() { try { const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo'); const data = await res.json(); const container = document.getElementById('weather-container'); let html = ''; const wmoMap = { 0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️', 51: '🌧️', 53: '🌧️', 55: '🌧️', 61: '🌧️', 63: '🌧️', 65: '🌧️', 71: '❄️', 73: '❄️', 75: '❄️', 80: '🌧️', 81: '🌧️', 82: '🌧️', 95: '⛈️', 96: '⛈️', 99: '⛈️' }; for(let i = 0; i < 7; i++) { const date = new Date(data.daily.time[i]); const dateStr = (date.getMonth() + 1) + '/' + date.getDate(); const max = Math.round(data.daily.temperature_2m_max[i]); const min = Math.round(data.daily.temperature_2m_min[i]); const code = data.daily.weathercode[i]; const icon = wmoMap[code] || '🌤️'; const isToday = i === 0 ? 'bg-pink-100 border-pink-300' : 'bg-pink-50/50 border-pink-100'; const titleStr = i === 0 ? '今天' : dateStr; html += `<div class="flex-none w-20 ${isToday} rounded-2xl p-2 text-center border shadow-sm flex flex-col justify-center"><p class="text-xs font-bold text-gray-500 mb-1">${titleStr}</p><p class="text-2xl mb-1">${icon}</p><p class="text-[11px] font-black text-pink-600">${min}°~${max}°</p></div>`; } container.innerHTML = html; } catch (err) { document.getElementById('weather-container').innerHTML = '<p class="text-xs text-gray-400 w-full text-center py-4">無法取得天氣資料，請稍後再試</p>'; } }
+    document.addEventListener('DOMContentLoaded', () => { initSplashScreen(); initCountdown(); renderRecords(); loadVoices(); fetchWeather(); });
   </script>
 </body>
 </html>
