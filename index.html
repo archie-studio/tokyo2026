@@ -44,6 +44,13 @@
     .petal-4 { width: 10px; height: 10px; left: 85%; animation-duration: 6s; animation-delay: 2.5s; top: -15px; }
     .petal-5 { width: 13px; height: 13px; left: 25%; animation-duration: 5.5s; animation-delay: 3s; top: -15px; }
 
+    /* 🚨 全新：緊急求助文字閃爍動畫 */
+    @keyframes alertPulse {
+        0%, 100% { transform: scale(1); color: #dc2626; text-shadow: 0 0 0px rgba(220,38,38,0); }
+        50% { transform: scale(1.04); color: #ef4444; text-shadow: 0 0 10px rgba(239,68,68,0.5); }
+    }
+    .alert-text-pulse { display: inline-block; animation: alertPulse 1.8s infinite ease-in-out; }
+
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
     .day-btn { flex: 0 0 auto; padding: 8px 20px; border-radius: 50px; background: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, color 0.3s; border: 1px solid #ffdeed; color: #ff758c; font-weight: bold; min-width: 90px; }
     .day-btn:active { transform: scale(0.92); } 
@@ -93,7 +100,6 @@
     .splash-logo-container { position: relative; margin-bottom: 20px; animation: logoBreath 2s infinite ease-in-out; }
     .splash-logo { width: 160px; height: 160px; object-fit: contain; background: transparent; filter: drop-shadow(0 10px 15px rgba(255,182,193,0.7)); }
     
-    /* 🚨 更新：去除光暈，只保留提升質感的微淡陰影，與下方英文統一風格 */
     .splash-title-cn { font-family: 'LXGW WenKai TC', serif; font-size: 32px; font-weight: 700; color: #e11d48; margin-bottom: 6px; text-shadow: 0 1px 2px rgba(255,255,255,0.4); letter-spacing: 2px; }
     .splash-title-en { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; color: #ff758c; letter-spacing: 4px; margin-bottom: 30px; text-shadow: 0 1px 2px rgba(255,255,255,0.4); }
     
@@ -112,7 +118,7 @@
 
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.17 (Build 202603)</div>
+    <div class="splash-version">v1.18 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
@@ -408,8 +414,10 @@
   </div>
 
   <div id="tab-sos" class="tab-content">
-    <div class="bg-red-50 text-red-600 p-4 text-center text-[13px] font-bold border-b-2 border-red-200 shadow-sm relative">
-        <i class="fas fa-exclamation-triangle mr-1 animate-pulse"></i> 提醒：出門在外請隨時保持網路暢通，以便及時求助！
+    <div class="bg-red-50 text-red-600 p-4 text-center text-[13px] font-bold border-b-2 border-red-200 shadow-sm relative overflow-hidden">
+        <span class="alert-text-pulse">
+            <i class="fas fa-exclamation-triangle mr-1"></i> 提醒：出門在外請隨時保持網路暢通，以便及時求助！
+        </span>
     </div>
 
     <div class="card-v2 mt-4 border-l-[6px] border-l-blue-400 !cursor-default">
@@ -843,7 +851,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.17", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.18", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
