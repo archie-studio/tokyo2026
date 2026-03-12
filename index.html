@@ -34,12 +34,46 @@
     .header-logo { width: 120px; height: 120px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 0px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); object-fit: cover; animation: headerBreath 2.5s infinite ease-in-out; }
     .header-logo:active { animation: none; transform: scale(0.92); }
 
+    /* 🚨 標題專屬：白邊光暈特效 */
+    .title-glow {
+        color: #e11d48; /* 更深的粉紅色確保對比度 */
+        text-shadow: 
+            -1.5px -1.5px 0 #fff,  
+             1.5px -1.5px 0 #fff,
+            -1.5px  1.5px 0 #fff,
+             1.5px  1.5px 0 #fff,
+             0px 0px 10px rgba(255, 255, 255, 0.9),
+             0px 0px 15px rgba(255, 255, 255, 0.8);
+    }
+
+    /* 🚨 櫻花飄落動畫 CSS */
+    @keyframes fall {
+        0% { transform: translate(0, -10px) rotate(0deg); opacity: 0; }
+        20% { opacity: 0.8; }
+        80% { opacity: 0.8; }
+        100% { transform: translate(25px, 120px) rotate(360deg); opacity: 0; }
+    }
+    .petal {
+        position: absolute;
+        background: linear-gradient(135deg, #ffb7c5, #ffccd5);
+        border-radius: 15px 0 15px 0;
+        opacity: 0;
+        animation: fall linear infinite;
+        z-index: 1;
+    }
+    .petal-1 { width: 12px; height: 12px; left: 15%; animation-duration: 4.5s; animation-delay: 0s; top: -15px; }
+    .petal-2 { width: 9px; height: 9px; left: 40%; animation-duration: 5.2s; animation-delay: 1.2s; top: -15px; }
+    .petal-3 { width: 14px; height: 14px; left: 65%; animation-duration: 4.8s; animation-delay: 0.5s; top: -15px; }
+    .petal-4 { width: 10px; height: 10px; left: 85%; animation-duration: 6s; animation-delay: 2.5s; top: -15px; }
+    .petal-5 { width: 13px; height: 13px; left: 25%; animation-duration: 5.5s; animation-delay: 3s; top: -15px; }
+
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
     .day-btn { flex: 0 0 auto; padding: 8px 20px; border-radius: 50px; background: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, color 0.3s; border: 1px solid #ffdeed; color: #ff758c; font-weight: bold; min-width: 90px; }
     .day-btn:active { transform: scale(0.92); } 
     .day-btn.active { background: #d15d5d; color: white; transform: scale(1.05); box-shadow: 0 8px 15px rgba(209, 93, 93, 0.3); border-color: #d15d5d; }
 
-    .day-title-badge { color: var(--deep-pink); font-weight: 900; text-align: center; padding: 0 10px 15px 10px; margin: 0 20px 20px; border-bottom: 2px dotted #ffccd5; letter-spacing: 1.5px; font-size: 23px; text-shadow: 1px 1px 2px rgba(255,182,193,0.4); }
+    /* 🚨 修復標題大小為 18px，確保不換行 */
+    .day-title-badge { color: var(--deep-pink); font-weight: 900; text-align: center; padding: 0 10px 15px 10px; margin: 0 20px 20px; border-bottom: 2px dotted #ffccd5; letter-spacing: 1px; font-size: 18px; }
 
     .card-v2 { cursor: pointer; background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 0px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease; }
     .card-v2:active { transform: scale(0.96); box-shadow: 0 3px 8px rgba(255,182,193,0.08); }
@@ -97,23 +131,31 @@
     <div class="splash-tour-name">COOLCHI’S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.12 (Build 202603)</div>
+    <div class="splash-version">v1.13 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
-    <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider z-10"></div>
-    <img src="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=" class="header-logo cursor-pointer relative z-10" onclick="switchTab('home', document.querySelector('.nav-item'))">
+    <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider z-20"></div>
+    <img src="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=" class="header-logo cursor-pointer relative z-20" onclick="switchTab('home', document.querySelector('.nav-item'))">
     
-    <div class="mt-2 bg-white/80 backdrop-blur-md px-6 py-2 rounded-3xl inline-block shadow-[0_4px_15px_rgba(255,182,193,0.4)] border-2 border-white relative z-10">
-        <h1 class="text-[26px] font-black text-pink-600 font-['Zhi_Mang_Xing'] tracking-widest drop-shadow-sm">2026東京賞櫻旅行助手</h1>
+    <div class="mt-4 relative z-20">
+        <h1 class="text-[28px] font-black font-['Zhi_Mang_Xing'] tracking-widest title-glow">2026東京賞櫻旅行助手</h1>
     </div>
   </div>
 
   <div id="tab-home" class="tab-content active">
-    <div class="card-v2 mt-4 text-center !cursor-default">
-        <h3 class="text-lg font-bold mb-1 text-gray-700">⏳ 距離出發還有</h3>
-        <div id="home-countdown" class="text-5xl font-black text-pink-500 my-3 tracking-wide">-- 天</div>
-        <p class="text-sm font-bold text-gray-400">2026/04/04 準備啟程！</p>
+    <div class="card-v2 mt-4 text-center !cursor-default relative overflow-hidden bg-white/90">
+        <div class="petal petal-1"></div>
+        <div class="petal petal-2"></div>
+        <div class="petal petal-3"></div>
+        <div class="petal petal-4"></div>
+        <div class="petal petal-5"></div>
+
+        <div class="relative z-10">
+            <h3 class="text-lg font-bold mb-1 text-gray-700">⏳ 距離出發還有</h3>
+            <div id="home-countdown" class="text-5xl font-black text-pink-500 my-3 tracking-wide">-- 天</div>
+            <p class="text-sm font-bold text-gray-400">2026/04/04 準備啟程！</p>
+        </div>
     </div>
 
     <div class="card-v2 mt-4 !cursor-default overflow-hidden relative" style="background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,245,247,0.98)), url('https://png.pngtree.com/thumb_back/fh260/background/20210902/pngtree-blue-sky-and-white-clouds-pure-sky-material-image_786708.jpg'); background-size: cover; background-position: center;">
@@ -520,7 +562,7 @@
     </div>
 
     <div class="card-v2 mt-4 border-l-[6px] border-l-green-400 !cursor-default">
-        <h3 class="text-lg font-bold mb-2 text-gray-800">📱 聯絡領隊 (威奇)</h3>
+        <h3 class="text-lg font-bold mb-2 text-gray-800">📱 聯絡領隊 (家齊)</h3>
         <p class="text-[13px] text-gray-500 mb-4 leading-relaxed">若不小心走散或遇到任何突發狀況，請直接打 LINE 與我聯繫。</p>
         <a href="https://line.me/ti/p/~weichi0920" target="_blank" class="w-full bg-[#06C755] text-white py-4 rounded-2xl font-bold shadow-md active:scale-95 transition flex items-center justify-center gap-2 text-[16px]">
             <i class="fab fa-line text-2xl"></i> 打 LINE 給領隊
@@ -617,7 +659,7 @@
                 setTimeout(() => { splash.style.display = 'none'; }, 500);
             }
         }, 6000);
-        try { initApp(); } catch(e) { console.error("App init error", e); }
+        try { initApp(); } catch(e) { console.error(e); }
     });
 
     const EXCHANGE_RATE = 0.21;
@@ -720,11 +762,7 @@
       window.speechSynthesis.cancel();
       const msg = new SpeechSynthesisUtterance(text);
       msg.lang = 'ja-JP'; msg.rate = 0.8;
-      if (jpVoice) { msg.voice = jpVoice; } else {
-        const voices = window.speechSynthesis.getVoices();
-        const backupVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
-        if (backupVoice) { msg.voice = backupVoice; } else if (voices.length > 0) { alert("💡 小提醒：您的手機似乎未安裝「日文語音包」，系統可能會用中文硬唸喔！"); }
-      }
+      if (jpVoice) msg.voice = jpVoice; 
       window.speechSynthesis.speak(msg);
     }
 
@@ -803,9 +841,8 @@
     function closeReceipt() { const modal = document.getElementById('receipt-modal'); modal.classList.remove('show'); setTimeout(() => { modal.classList.add('hidden'); }, 400); }
     function initCountdown() { const target = new Date('2026-04-04T00:00:00').getTime(); const topEl = document.getElementById('countdown'); const homeEl = document.getElementById('home-countdown'); setInterval(() => { const diff = target - new Date().getTime(); const days = Math.floor(diff / (1000*60*60*24)); if (topEl) topEl.innerText = diff < 0 ? "旅行中" : `出發倒數 ${days} 天`; if (homeEl) homeEl.innerText = diff < 0 ? "旅行中 🌸" : `${days} 天`; }, 1000); }
     
-    // 🚨 安全的 Google Maps 導航啟動器 (閃避系統竄改網址)
     function openNav(origin, dest, mode) {
-        const url = `https://ww` + `w.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(dest)}&travelmode=${mode}`;
+        const url = 'https://ww' + 'w.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(origin) + '&destination=' + encodeURIComponent(dest) + '&travelmode=' + mode;
         window.open(url, '_blank');
     }
 
@@ -818,9 +855,8 @@
         document.getElementById('modal-desc').innerText = desc; 
         document.getElementById('modal-img').src = imgUrl || ''; 
         
-        // 綁定動態點擊事件，安全啟動 Google Maps
         document.getElementById('modal-nav').onclick = function() {
-            const u = 'https://m' + 'aps.google.com/maps?q=' + encodeURIComponent(navQuery);
+            const u = 'https://map' + 's.google.com/?q=' + encodeURIComponent(navQuery);
             window.open(u, '_blank');
         };
         
@@ -853,8 +889,7 @@
             navigator.geolocation.getCurrentPosition(function(position) {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
-                // SOS 安全精準定位連結
-                const mapLink = `🆘 我迷路了！這是我現在的位置：\nhttps://m` + `aps.google.com/maps?q=${lat},${lng}`;
+                const mapLink = `🆘 我迷路了！這是我現在的位置：\nhttps://map` + `s.google.com/?q=${lat},${lng}`;
                 
                 document.getElementById('location-text').value = mapLink;
                 document.getElementById('location-result-area').classList.remove('hidden');
@@ -921,7 +956,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.12", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.13", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
@@ -958,12 +993,11 @@
         }, 5500); 
     }
 
-    // 🚨 修正：穩定版天氣 API 讀取
     const wmoMap = { 0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️', 51: '🌧️', 53: '🌧️', 55: '🌧️', 61: '🌧️', 63: '🌧️', 65: '🌧️', 71: '❄️', 73: '❄️', 75: '❄️', 80: '🌧️', 81: '🌧️', 82: '🌧️', 95: '⛈️', 96: '⛈️', 99: '⛈️' }; 
     
     async function fetchWeather() { 
         try { 
-            const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weathercode,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weathercode&timezone=Asia%2FTokyo'); 
+            const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weathercode,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weathercode&timezone=Asia%2FTokyo&_' + Date.now()); 
             weatherGlobalData = await res.json(); 
             
             if (!weatherGlobalData || !weatherGlobalData.daily || !weatherGlobalData.hourly) {
@@ -974,7 +1008,7 @@
             if(!container) return;
             let html = ''; 
             
-            const d_codes = weatherGlobalData.daily.weathercode || [];
+            const d_codes = weatherGlobalData.daily.weathercode || weatherGlobalData.daily.weather_code || [];
             const d_max = weatherGlobalData.daily.temperature_2m_max || [];
             const d_min = weatherGlobalData.daily.temperature_2m_min || [];
             const d_time = weatherGlobalData.daily.time || [];
@@ -1017,10 +1051,10 @@
         const startIndex = index * 24;
         let temps = [], icons = [], rains = [], humids = [];
         
-        const h_codes = h.weathercode || [];
+        const h_codes = h.weathercode || h.weather_code || [];
         const h_temps = h.temperature_2m || [];
-        const h_rains = h.precipitation_probability || [];
-        const h_humids = h.relative_humidity_2m || [];
+        const h_rains = h.precipitation_probability || h.precipitation || [];
+        const h_humids = h.relative_humidity_2m || h.relativehumidity_2m || [];
 
         for(let j=0; j<24; j+=3) { 
             const idx = startIndex + j;
