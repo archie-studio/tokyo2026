@@ -80,7 +80,7 @@
     @keyframes logoBreath { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.9; } }
     #splash-screen { position: fixed; inset: 0; background: var(--sakura-pink); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease-out; }
     #splash-screen.fade-out { opacity: 0; pointer-events: none; }
-    .splash-logo-container { position: relative; margin-bottom: 20px; animation: logoBreath 2.5s infinite ease-in-out; }
+    .splash-logo-container { position: relative; margin-bottom: 20px; animation: logoBreath 2s infinite ease-in-out; }
     
     /* 🚨 針對去背黑柴的最佳化 CSS 🚨 */
     .splash-logo { 
@@ -105,7 +105,7 @@
     <div class="splash-tour-name">COOLCHI’S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.10 (Build 202603)</div>
+    <div class="splash-version">v1.11 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
@@ -217,7 +217,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=市川站&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=成田機場第二航廈&destination=市川站&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -226,7 +226,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=HOTEL+R9+Premium+Ichikawa&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=市川站&destination=HOTEL R9 Premium 市川駅前&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -235,7 +235,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=中目黑櫻花&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=HOTEL R9 Premium 市川駅前&destination=目黑川櫻花&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -249,7 +249,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=淺草雷門&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=HOTEL R9 Premium 市川駅前&destination=淺草雷門&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -258,7 +258,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=上野恩賜公園&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=淺草雷門&destination=上野恩賜公園&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -267,7 +267,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=阿美橫町&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=上野恩賜公園&destination=阿美橫町&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -281,7 +281,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=鶴岡八幡宮&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=HOTEL R9 Premium 市川駅前&destination=鶴岡八幡宮&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -290,7 +290,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=高德院鎌倉大佛&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=鶴岡八幡宮&destination=高德院鎌倉大佛&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -299,7 +299,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=鎌倉高校前站&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=高德院鎌倉大佛&destination=鎌倉高校前站&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -308,7 +308,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=江之島&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=鎌倉高校前站&destination=江之島&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -317,7 +317,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=江之島&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -331,7 +331,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=河口湖大石公園&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=HOTEL R9 Premium 市川駅前&destination=河口湖大石公園&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -340,7 +340,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=ほうとう研究所&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=河口湖大石公園&destination=ほうとう研究所&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -349,7 +349,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=山中湖+KABA&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=ほうとう研究所&destination=山中湖 KABA 水陸巴士&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -358,7 +358,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=忍野八海&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=山中湖 KABA 水陸巴士&destination=忍野八海&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -367,7 +367,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=忍野八海&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -381,7 +381,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=明治神宮&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=HOTEL R9 Premium 市川駅前&destination=明治神宮&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -390,7 +390,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=東京+SKY+BUS+丸之內&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=明治神宮&destination=東京車站 丸之內&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -399,7 +399,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=東京車站+KITTE&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=東京車站 丸之內&destination=KITTE 丸之內&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -413,7 +413,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=築地外市場&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=HOTEL R9 Premium 市川駅前&destination=築地外市場&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -422,7 +422,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=HOTEL+R9+Premium+Ichikawa&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=築地外市場&destination=HOTEL R9 Premium 市川駅前&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -431,7 +431,7 @@
 
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+%E5%B8%82%E5%B7%9D%E9%A7%85%E5%89%8D&destination=%E6%88%90%E7%94%B0%E6%A9%9F%E5%A0%B4%E7%AC%AC%E4%BA%8C%E8%88%AA%E5%BB%88&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="http://googleusercontent.com/maps.google.com/dir/?api=1&origin=HOTEL R9 Premium 市川駅前&destination=成田機場第二航廈&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -552,6 +552,7 @@
   </nav>
 
   <script>
+    // 🚨 保底解鎖與初始化
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             const splash = document.getElementById('splash-screen');
@@ -560,8 +561,7 @@
                 setTimeout(() => { splash.style.display = 'none'; }, 500);
             }
         }, 6000);
-
-        try { initApp(); } catch(e) { console.error("App init error", e); }
+        try { initApp(); } catch(e) { console.error(e); }
     });
 
     const EXCHANGE_RATE = 0.21;
@@ -601,7 +601,7 @@
         const content = document.getElementById('notes-content');
         const icon = document.getElementById('notes-toggle-icon');
         const btn = document.getElementById('notes-toggle-btn');
-        if (content.style.maxHeight === '0px') {
+        if (content.style.maxHeight === '0px' || !content.style.maxHeight) {
             content.style.maxHeight = '800px';
             content.style.opacity = '1';
             icon.className = 'fas fa-minus';
@@ -664,11 +664,7 @@
       window.speechSynthesis.cancel();
       const msg = new SpeechSynthesisUtterance(text);
       msg.lang = 'ja-JP'; msg.rate = 0.8;
-      if (jpVoice) { msg.voice = jpVoice; } else {
-        const voices = window.speechSynthesis.getVoices();
-        const backupVoice = voices.find(v => v.lang === 'ja-JP' || v.lang.includes('ja'));
-        if (backupVoice) { msg.voice = backupVoice; } else if (voices.length > 0) { alert("💡 小提醒：您的手機似乎未安裝「日文語音包」，系統可能會用中文硬唸喔！"); }
-      }
+      if (jpVoice) msg.voice = jpVoice; 
       window.speechSynthesis.speak(msg);
     }
 
@@ -785,6 +781,7 @@
             navigator.geolocation.getCurrentPosition(function(position) {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
+                // SOS 精準定位連結
                 const mapLink = `🆘 我迷路了！這是我現在的位置：\nhttps://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
                 
                 document.getElementById('location-text').value = mapLink;
@@ -795,11 +792,7 @@
                 btn.classList.replace('text-blue-600', 'text-gray-400');
                 btn.classList.replace('border-blue-200', 'border-gray-200');
             }, function(error) {
-                let errorMsg = '無法取得位置！\n\n';
-                if (error.code === 1) errorMsg += '原因：您可能按到了「拒絕」，請至手機設定中允許瀏覽器存取位置。';
-                else if (error.code === 2) errorMsg += '原因：手機完全抓不到訊號，請走到靠近窗戶或戶外重試。';
-                else if (error.code === 3) errorMsg += '原因：定位等太久超時了，請確認網路連線。';
-                alert(errorMsg);
+                alert('無法取得位置！請確認手機設定已允許瀏覽器存取定位。');
                 btn.innerHTML = originalHTML;
                 btn.disabled = false;
             }, { timeout: 10000, enableHighAccuracy: false, maximumAge: 0 }); 
@@ -852,7 +845,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.10", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.11", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
@@ -889,13 +882,13 @@
         }, 5500); 
     }
 
-    // 🚨 修正天氣 API 參數 (改為 weather_code 防呆)
+    // 🚨 修正：統一標準天氣代碼，並使用快取閃避機制
     const wmoMap = { 0: '☀️', 1: '🌤️', 2: '⛅', 3: '☁️', 45: '🌫️', 48: '🌫️', 51: '🌧️', 53: '🌧️', 55: '🌧️', 61: '🌧️', 63: '🌧️', 65: '🌧️', 71: '❄️', 73: '❄️', 75: '❄️', 80: '🌧️', 81: '🌧️', 82: '🌧️', 95: '⛈️', 96: '⛈️', 99: '⛈️' }; 
     
     async function fetchWeather() { 
         try { 
-            // 修正：hourly 與 daily 參數一律強制使用官方標準的 weather_code
-            const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weather_code,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weather_code&timezone=Asia%2FTokyo&forecast_days=7'); 
+            // 加入 `&_=${Date.now()}` 強制不讀取手機內的失敗暫存
+            const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917&daily=weathercode,temperature_2m_max,temperature_2m_min&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,weathercode&timezone=Asia%2FTokyo&_' + Date.now()); 
             weatherGlobalData = await res.json(); 
             
             if (!weatherGlobalData || !weatherGlobalData.daily || !weatherGlobalData.hourly) {
@@ -905,16 +898,24 @@
             const container = document.getElementById('weather-days-wrapper'); 
             if(!container) return;
             let html = ''; 
+            
+            // 🚨 防呆：同時支援 weathercode 與 weather_code，避免 API 臨時變更導致報錯
+            const d_codes = weatherGlobalData.daily.weathercode || weatherGlobalData.daily.weather_code || [];
+            const d_max = weatherGlobalData.daily.temperature_2m_max || [];
+            const d_min = weatherGlobalData.daily.temperature_2m_min || [];
+            const d_time = weatherGlobalData.daily.time || [];
+
             for(let i = 0; i < 7; i++) { 
-                const date = new Date(weatherGlobalData.daily.time[i]); 
+                if(!d_time[i]) continue;
+                const date = new Date(d_time[i]); 
                 const dateStr = (date.getMonth() + 1) + '/' + date.getDate(); 
-                const max = Math.round(weatherGlobalData.daily.temperature_2m_max[i]); 
-                const min = Math.round(weatherGlobalData.daily.temperature_2m_min[i]); 
-                const code = weatherGlobalData.daily.weather_code[i]; 
+                const max = Math.round(d_max[i] || 0); 
+                const min = Math.round(d_min[i] || 0); 
+                const code = d_codes[i] || 0; 
                 const icon = wmoMap[code] || '🌤️'; 
-                const isToday = i === 0 ? 'bg-pink-100 border-pink-300' : 'bg-white border-white/50'; 
+                const isToday = i === 0 ? 'bg-pink-100 border-pink-300' : 'bg-white/80 border-white/50'; 
                 const titleStr = i === 0 ? '今天' : dateStr; 
-                html += `<div id="weather-day-card-${i}" onclick="selectWeatherDay(${i})" class="weather-day-card flex-none w-20 ${isToday} rounded-2xl p-2 text-center shadow-sm flex flex-col justify-center cursor-pointer transition-all duration-300 backdrop-blur-sm"><p class="text-xs font-bold text-gray-500 mb-1 pointer-events-none">${titleStr}</p><p class="text-2xl mb-1 pointer-events-none">${icon}</p><p class="text-[11px] font-black text-pink-600 pointer-events-none">${min}°~${max}°</p></div>`; 
+                html += `<div id="weather-day-card-${i}" onclick="selectWeatherDay(${i})" class="weather-day-card flex-none w-20 ${isToday} rounded-2xl p-2 text-center shadow-sm flex flex-col justify-center cursor-pointer transition-all duration-300 backdrop-blur-sm"><p class="text-xs font-bold text-gray-600 mb-1 pointer-events-none">${titleStr}</p><p class="text-2xl mb-1 pointer-events-none">${icon}</p><p class="text-[11px] font-black text-pink-600 pointer-events-none">${min}°~${max}°</p></div>`; 
             } 
             container.innerHTML = html; 
             selectWeatherDay(0); 
@@ -926,27 +927,34 @@
     }
 
     function selectWeatherDay(index) {
-        if (!weatherGlobalData) return;
+        if (!weatherGlobalData || !weatherGlobalData.hourly) return;
+        
         document.querySelectorAll('.weather-day-card').forEach((el, i) => {
             if(i === index) {
                 el.classList.add('bg-pink-100', 'border-pink-300', 'scale-105');
-                el.classList.remove('bg-white', 'border-white/50');
+                el.classList.remove('bg-white/80', 'border-white/50');
             } else {
                 el.classList.remove('bg-pink-100', 'border-pink-300', 'scale-105');
-                el.classList.add('bg-white', 'border-white/50');
+                el.classList.add('bg-white/80', 'border-white/50');
             }
         });
 
-        const hourly = weatherGlobalData.hourly;
+        const h = weatherGlobalData.hourly;
         const startIndex = index * 24;
         let temps = [], icons = [], rains = [], humids = [];
         
+        // 防呆讀取 Hourly 資料
+        const h_codes = h.weathercode || h.weather_code || [];
+        const h_temps = h.temperature_2m || [];
+        const h_rains = h.precipitation_probability || h.precipitation || [];
+        const h_humids = h.relative_humidity_2m || h.relativehumidity_2m || [];
+
         for(let j=0; j<24; j+=3) { 
             const idx = startIndex + j;
-            temps.push(Math.round(hourly.temperature_2m[idx]));
-            icons.push(wmoMap[hourly.weather_code[idx]] || '☁️');
-            rains.push(hourly.precipitation_probability[idx] || 0);
-            humids.push(hourly.relative_humidity_2m[idx] || 0);
+            temps.push(Math.round(h_temps[idx] || 0));
+            icons.push(wmoMap[h_codes[idx] || 0] || '☁️');
+            rains.push(h_rains[idx] || 0);
+            humids.push(Math.round(h_humids[idx] || 0));
         }
 
         const minT = Math.min(...temps) - 2; 
