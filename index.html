@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="東京賞櫻sec.">
+  <meta name="apple-mobile-web-app-title" content="酷奇旅行團">
   <title>東京賞櫻sec.</title>
   
-  <link rel="apple-touch-icon" href="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=">
-  <link rel="icon" href="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=" type="image/jpeg">
+  <link rel="apple-touch-icon" href="https://image2url.com/r2/default/images/1773342396225-e0c2d6fc-4d84-46e8-9491-63ef3ce471d4.jpg">
+  <link rel="icon" href="https://image2url.com/r2/default/images/1773342396225-e0c2d6fc-4d84-46e8-9491-63ef3ce471d4.jpg" type="image/jpeg">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Playfair+Display:wght@600;700&family=Noto+Sans+TC:wght@400;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
 
   <style>
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
@@ -30,8 +30,9 @@
 
     .hero-header { background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); background-size: cover; background-position: center; border-radius: 0 0 40px 40px; padding: 65px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     
-    @keyframes headerBreath { 0%, 100% { transform: scale(1); box-shadow: 0 8px 15px rgba(255,182,193,0.3); } 50% { transform: scale(1.06); box-shadow: 0 12px 20px rgba(255,182,193,0.5); } }
-    .header-logo { width: 120px; height: 120px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 0px; box-shadow: 0 8px 15px rgba(255,182,193,0.3); object-fit: cover; animation: headerBreath 2.5s infinite ease-in-out; }
+    /* 🚨 更新首頁櫻花 Logo：尺寸放大為 150px */
+    @keyframes headerBreath { 0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(255,182,193,0.4); } 50% { transform: scale(1.06); box-shadow: 0 15px 30px rgba(255,182,193,0.6); } }
+    .header-logo { width: 150px; height: 150px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 0px; box-shadow: 0 8px 20px rgba(255,182,193,0.4); object-fit: cover; animation: headerBreath 2.5s infinite ease-in-out; border: 3px solid white; }
     .header-logo:active { animation: none; transform: scale(0.92); }
 
     .title-glow { color: #e11d48; text-shadow: -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff, -1.5px 1.5px 0 #fff, 1.5px 1.5px 0 #fff, 0px 0px 10px rgba(255, 255, 255, 0.9), 0px 0px 15px rgba(255, 255, 255, 0.8); }
@@ -91,10 +92,12 @@
     #splash-screen { position: fixed; inset: 0; background: var(--sakura-pink); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; transition: opacity 0.5s ease-out; }
     #splash-screen.fade-out { opacity: 0; pointer-events: none; }
     .splash-logo-container { position: relative; margin-bottom: 20px; animation: logoBreath 2s infinite ease-in-out; }
-    
     .splash-logo { width: 160px; height: 160px; object-fit: contain; background: transparent; filter: drop-shadow(0 10px 15px rgba(255,182,193,0.7)); }
     
-    .splash-tour-name { font-size: 20px; font-weight: 700; color: var(--deep-pink); letter-spacing: 2px; margin-bottom: 30px; text-shadow: 0 2px 5px rgba(255,255,255,0.5); }
+    /* 🚨 全新 Loading 品牌字體設計 🚨 */
+    .splash-title-cn { font-family: 'LXGW WenKai TC', serif; font-size: 32px; font-weight: 700; color: #e11d48; margin-bottom: 6px; text-shadow: 0 2px 5px rgba(255,255,255,0.6); letter-spacing: 2px;}
+    .splash-title-en { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; color: #ff758c; letter-spacing: 4px; margin-bottom: 30px; text-shadow: 0 1px 2px rgba(255,255,255,0.4); }
+    
     #splash-terminal { font-family: 'Noto Sans TC', monospace; font-size: 12px; color: var(--deep-pink); width: 80%; max-width: 280px; height: 60px; overflow: hidden; margin-bottom: 20px; text-align: left; }
     #splash-progress { width: 70%; height: 4px; background: rgba(255, 255, 255, 0.4); border-radius: 2px; overflow: hidden; margin-bottom: 100px; }
     #splash-progress-bar { width: 0%; height: 100%; background: var(--deep-pink); border-radius: 2px; transition: width 0.3s ease; }
@@ -104,15 +107,19 @@
 <body>
   <div id="splash-screen">
     <div class="splash-logo-container"><img src="https://image2url.com/r2/default/images/1773334872914-15a09cb8-891b-4629-b41e-8222504d6fe3.png" class="splash-logo"></div>
-    <div class="splash-tour-name">COOLCHI’S TOUR</div>
+    
+    <div class="splash-title-cn">酷奇旅行團</div>
+    <div class="splash-title-en">COOLCHI'S TOUR</div>
+
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.15 (Build 202603)</div>
+    <div class="splash-version">v1.16 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider z-20"></div>
-    <img src="https://media.istockphoto.com/id/1224300131/zh/%E5%90%91%E9%87%8F/%E6%AB%BB%E8%8A%B1%E8%8A%B1%E6%A8%99%E8%AA%8C%E7%AF%84%E6%9C%AC%E5%9C%96%E7%A4%BA%E5%92%8C%E7%AC%A6%E8%99%9F.jpg?s=612x612&w=0&k=20&c=zeISNXw4fldPIVRKQj8WB6HHZfXMJPsWYbmVAF9JH18=" class="header-logo cursor-pointer relative z-20" onclick="switchTab('home', document.querySelector('.nav-item'))">
+    
+    <img src="https://image2url.com/r2/default/images/1773342357086-7d80766f-4fc6-4a77-84a5-0a63e2fe9f73.jpg" class="header-logo cursor-pointer relative z-20" onclick="switchTab('home', document.querySelector('.nav-item'))">
     
     <div class="mt-4 relative z-20">
         <h1 class="text-[28px] font-black font-['Zhi_Mang_Xing'] tracking-widest title-glow">2026東京賞櫻旅行助手</h1>
@@ -522,7 +529,6 @@
         try { initApp(); } catch(e) { console.error(e); }
     });
 
-    // 🚨 匯率改為 let，以便動態更新
     let EXCHANGE_RATE = 0.21;
     let records = [];
     let weatherGlobalData = null; 
@@ -579,7 +585,7 @@
         renderRecords();
         loadVoices();
         fetchWeather();
-        fetchExchangeRate(); // 呼叫官方即時匯率
+        fetchExchangeRate();
 
         const jpyInput = document.getElementById('jpy-input');
         if (jpyInput) {
@@ -589,7 +595,6 @@
         }
     }
 
-    // 🚨 全新：抓取即時官方匯率系統
     async function fetchExchangeRate() {
         try {
             const res = await fetch('https://open.er-api.com/v6/latest/JPY');
@@ -601,7 +606,7 @@
                 throw new Error("Invalid rate data");
             }
         } catch (err) {
-            console.error("匯率讀取失敗，使用預設保底值", err);
+            console.error("匯率讀取失敗", err);
             document.getElementById('exchange-rate-title').innerText = `💴 匯率換算 (預設: ${EXCHANGE_RATE})`;
         }
     }
@@ -721,7 +726,7 @@
     function initCountdown() { const target = new Date('2026-04-04T00:00:00').getTime(); const topEl = document.getElementById('countdown'); const homeEl = document.getElementById('home-countdown'); setInterval(() => { const diff = target - new Date().getTime(); const days = Math.floor(diff / (1000*60*60*24)); if (topEl) topEl.innerText = diff < 0 ? "旅行中" : `出發倒數 ${days} 天`; if (homeEl) homeEl.innerText = diff < 0 ? "旅行中 🌸" : `${days} 天`; }, 1000); }
     
     function openNav(origin, dest, mode) {
-        const url = 'https://ww' + 'w.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(origin) + '&destination=' + encodeURIComponent(dest) + '&travelmode=' + mode;
+        const url = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent(origin) + '&destination=' + encodeURIComponent(dest) + '&travelmode=' + mode;
         window.open(url, '_blank');
     }
 
@@ -735,7 +740,7 @@
         document.getElementById('modal-img').src = imgUrl || ''; 
         
         document.getElementById('modal-nav').onclick = function() {
-            const u = 'https://map' + 's.google.com/?q=' + encodeURIComponent(navQuery);
+            const u = 'https://maps.google.com/?q=' + encodeURIComponent(navQuery);
             window.open(u, '_blank');
         };
         
@@ -772,7 +777,7 @@
             navigator.geolocation.getCurrentPosition(function(position) {
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
-                const mapLink = `🆘 我迷路了！這是我現在的位置：\nhttps://map` + `s.google.com/?q=${lat},${lng}`;
+                const mapLink = `🆘 我迷路了！這是我現在的位置：\nhttps://maps.google.com/?q=${lat},${lng}`;
                 
                 document.getElementById('location-text').value = mapLink;
                 document.getElementById('location-result-area').classList.remove('hidden');
@@ -839,7 +844,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.15", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time exchange rates...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.16", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
