@@ -16,17 +16,56 @@
   <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Playfair+Display:wght@600;700&family=Noto+Sans+TC:wght@400;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
 
   <style>
-    :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
-    body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 140px; overflow-x: hidden; }
+    :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fffdfd; }
+    /* 🚨 1. 全域背景改為透明，讓微光背景透出來 */
+    body { font-family: 'Noto Sans TC', sans-serif; background: transparent; padding-bottom: 140px; overflow-x: hidden; min-height: 100vh; }
     * { -webkit-tap-highlight-color: transparent; }
+
+    /* 🚨 2. 全域微光呼吸背景 (Ambient Glow) */
+    .ambient-bg { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--soft-bg); pointer-events: none; }
+    .glow { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.55; animation: floatGlow alternate ease-in-out infinite; }
+    .glow-1 { width: 350px; height: 350px; background: #ffe4e6; top: -10%; left: -15%; animation-duration: 12s; }
+    .glow-2 { width: 400px; height: 400px; background: #e0f2fe; bottom: -5%; right: -15%; animation-duration: 15s; animation-delay: -3s; }
+    .glow-3 { width: 300px; height: 300px; background: #fce7f3; top: 40%; left: 50%; animation-duration: 18s; animation-delay: -7s; }
+    @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, 50px) scale(1.15); } }
 
     @keyframes tabSlideIn { 0% { opacity: 0; transform: translateX(15px); } 100% { opacity: 1; transform: translateX(0); } }
     .tab-content { display: none; }
     .tab-content.active { display: block; animation: tabSlideIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
-    @keyframes panelFadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
     .day-panel { display: none; }
-    .day-panel.active { display: block; animation: panelFadeIn 0.35s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+    .day-panel.active { display: block; }
+
+    /* 🚨 3. 骨牌式層疊浮現 (Staggered Fade-in) */
+    @keyframes staggerFadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    /* 行程表子元素骨牌動畫 */
+    .day-panel.active > * { opacity: 0; animation: staggerFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+    .day-panel.active > *:nth-child(1) { animation-delay: 0.05s; }
+    .day-panel.active > *:nth-child(2) { animation-delay: 0.10s; }
+    .day-panel.active > *:nth-child(3) { animation-delay: 0.15s; }
+    .day-panel.active > *:nth-child(4) { animation-delay: 0.20s; }
+    .day-panel.active > *:nth-child(5) { animation-delay: 0.25s; }
+    .day-panel.active > *:nth-child(6) { animation-delay: 0.30s; }
+    .day-panel.active > *:nth-child(7) { animation-delay: 0.35s; }
+    .day-panel.active > *:nth-child(8) { animation-delay: 0.40s; }
+    .day-panel.active > *:nth-child(9) { animation-delay: 0.45s; }
+    .day-panel.active > *:nth-child(10) { animation-delay: 0.50s; }
+    .day-panel.active > *:nth-child(11) { animation-delay: 0.55s; }
+    .day-panel.active > *:nth-child(12) { animation-delay: 0.60s; }
+    .day-panel.active > *:nth-child(13) { animation-delay: 0.65s; }
+    .day-panel.active > *:nth-child(14) { animation-delay: 0.70s; }
+    .day-panel.active > *:nth-child(15) { animation-delay: 0.75s; }
+    /* 字卡與記帳清單專用骨牌動畫 (配合 JS 的 --i) */
+    .stagger-item { opacity: 0; animation: staggerFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: calc(var(--i) * 0.06s); }
+
+    /* 🚨 4. 流光掃過特效 (Shimmer Sweep) */
+    .shimmer-btn { position: relative; overflow: hidden; border: none; }
+    .shimmer-btn::after { content: ''; position: absolute; top: 0; left: -150%; width: 60%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); animation: shimmer 4s infinite; }
+    @keyframes shimmer { 0% { left: -150%; } 20% { left: 200%; } 100% { left: 200%; } }
+
+    /* 🚨 5. 果凍彈跳回饋 (Jelly Bounce) - 取代原本生硬的 transform */
+    .jelly-effect { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease, color 0.3s ease; }
+    .jelly-effect:active { transform: scale(0.92) translateY(2px); transition: transform 0.1s; }
 
     .hero-header { background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1772998425081-8f12c824-6dbc-4854-a7e4-077ece0d6109.jpg'); background-size: cover; background-position: center; border-radius: 0 0 40px 40px; padding: 65px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     
@@ -44,43 +83,33 @@
     .petal-4 { width: 10px; height: 10px; left: 85%; animation-duration: 6s; animation-delay: 2.5s; top: -15px; }
     .petal-5 { width: 13px; height: 13px; left: 25%; animation-duration: 5.5s; animation-delay: 3s; top: -15px; }
 
-    /* 🚨 全新：緊急求助文字閃爍動畫 */
-    @keyframes alertPulse {
-        0%, 100% { transform: scale(1); color: #dc2626; text-shadow: 0 0 0px rgba(220,38,38,0); }
-        50% { transform: scale(1.04); color: #ef4444; text-shadow: 0 0 10px rgba(239,68,68,0.5); }
-    }
+    @keyframes alertPulse { 0%, 100% { transform: scale(1); color: #dc2626; text-shadow: 0 0 0px rgba(220,38,38,0); } 50% { transform: scale(1.04); color: #ef4444; text-shadow: 0 0 10px rgba(239,68,68,0.5); } }
     .alert-text-pulse { display: inline-block; animation: alertPulse 1.8s infinite ease-in-out; }
 
     .day-selector { display: flex; overflow-x: auto; gap: 10px; padding: 20px; scrollbar-width: none; }
-    .day-btn { flex: 0 0 auto; padding: 8px 20px; border-radius: 50px; background: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, color 0.3s; border: 1px solid #ffdeed; color: #ff758c; font-weight: bold; min-width: 90px; }
-    .day-btn:active { transform: scale(0.92); } 
+    .day-btn { flex: 0 0 auto; padding: 8px 20px; border-radius: 50px; background: white; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 1px solid #ffdeed; color: #ff758c; font-weight: bold; min-width: 90px; }
     .day-btn.active { background: #d15d5d; color: white; transform: scale(1.05); box-shadow: 0 8px 15px rgba(209, 93, 93, 0.3); border-color: #d15d5d; }
 
     .day-title-badge { color: var(--deep-pink); font-weight: 900; text-align: center; padding: 0 10px 15px 10px; margin: 0 20px 20px; border-bottom: 2px dotted #ffccd5; letter-spacing: 1px; font-size: 18px; }
 
-    .card-v2 { cursor: pointer; background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 0px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.15s ease; }
-    .card-v2:active { transform: scale(0.96); box-shadow: 0 3px 8px rgba(255,182,193,0.08); }
+    .card-v2 { cursor: pointer; background: white; border-radius: 25px; box-shadow: 0 8px 20px rgba(255,182,193,0.12); margin: 0 20px 0px; padding: 22px; border: 1px solid rgba(255,117,140,0.05); }
     .time-tag { color: var(--deep-pink); font-weight: 800; font-size: 14px; margin-right: 10px; display: inline-block; background: #fff0f3; padding: 2px 8px; border-radius: 8px; }
     .card-title { font-weight: bold; color: #333; font-size: 17px; }
     .card-desc { color: #666; font-size: 14px; margin-top: 8px; line-height: 1.6; border-top: 1px dotted #eee; padding-top: 8px; }
     
     @keyframes iconBreath { 0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(255,182,193,0.2); } 50% { transform: scale(1.15); box-shadow: 0 6px 15px rgba(255,182,193,0.4); } }
     .transit-btn { animation: iconBreath 2.5s infinite ease-in-out; }
-    .transit-btn:active { animation: none; transform: scale(0.9); }
 
     .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
-    .cat-item { background: #fff; border: 2px solid #fdf2f4; border-radius: 18px; padding: 10px 2px; text-align: center; font-size: 11px; transition: transform 0.15s, border-color 0.3s; }
-    .cat-item:active { transform: scale(0.9); } 
+    .cat-item { background: #fff; border: 2px solid #fdf2f4; border-radius: 18px; padding: 10px 2px; text-align: center; font-size: 11px; }
     .cat-item.active { border-color: var(--deep-pink); background: #fff0f3; transform: scale(1.05); box-shadow: 0 4px 10px rgba(255,117,140,0.2); }
     .cat-icon { font-size: 20px; display: block; margin-bottom: 2px; }
 
     .input-field { width: 100%; padding: 14px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 12px; font-size: 16px; outline: none; background: #fafafa; }
-    .btn-main { background: var(--deep-pink); color: white; width: 100%; padding: 16px; border-radius: 22px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(255,117,140,0.4); transition: transform 0.15s; }
-    .btn-main:active { transform: scale(0.96); } 
+    .btn-main { background: var(--deep-pink); color: white; width: 100%; padding: 16px; border-radius: 22px; font-weight: bold; font-size: 18px; box-shadow: 0 5px 15px rgba(255,117,140,0.4); }
     
     .nav-bar { background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); border-top: 1px solid rgba(255,182,193,0.2); }
-    .nav-item { color: #ccc; transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease; }
-    .nav-item:active { transform: scale(0.85); } 
+    .nav-item { color: #ccc; }
     .nav-item.active { color: var(--deep-pink); }
 
     #spot-modal { transition: opacity 0.3s ease-out; }
@@ -110,29 +139,31 @@
   </style>
 </head>
 <body>
+  <div class="ambient-bg">
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-3"></div>
+  </div>
+
   <div id="splash-screen">
     <div class="splash-logo-container"><img src="https://image2url.com/r2/default/images/1773334872914-15a09cb8-891b-4629-b41e-8222504d6fe3.png" class="splash-logo"></div>
-    
     <div class="splash-title-cn">酷奇旅行團</div>
     <div class="splash-title-en">COOLCHI'S TOUR</div>
-
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.18 (Build 202603)</div>
+    <div class="splash-version">v1.19 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider z-20"></div>
-    
-    <img src="https://image2url.com/r2/default/images/1773342357086-7d80766f-4fc6-4a77-84a5-0a63e2fe9f73.jpg" class="header-logo cursor-pointer relative z-20" onclick="switchTab('home', document.querySelector('.nav-item'))">
-    
+    <img src="https://image2url.com/r2/default/images/1773342357086-7d80766f-4fc6-4a77-84a5-0a63e2fe9f73.jpg" class="header-logo cursor-pointer relative z-20 jelly-effect" onclick="switchTab('home', document.querySelector('.nav-item'))">
     <div class="mt-4 relative z-20">
         <h1 class="text-[28px] font-black font-['Zhi_Mang_Xing'] tracking-widest title-glow">2026東京賞櫻旅行助手</h1>
     </div>
   </div>
 
   <div id="tab-home" class="tab-content active">
-    <div class="card-v2 mt-4 text-center !cursor-default relative overflow-hidden bg-white/90">
+    <div class="card-v2 jelly-effect mt-4 text-center !cursor-default relative overflow-hidden bg-white/90">
         <div class="petal petal-1"></div><div class="petal petal-2"></div><div class="petal petal-3"></div><div class="petal petal-4"></div><div class="petal petal-5"></div>
         <div class="relative z-10">
             <h3 class="text-lg font-bold mb-1 text-gray-700">⏳ 距離出發還有</h3>
@@ -141,7 +172,7 @@
         </div>
     </div>
 
-    <div class="card-v2 mt-4 !cursor-default overflow-hidden relative" style="background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,245,247,0.98)), url('https://png.pngtree.com/thumb_back/fh260/background/20210902/pngtree-blue-sky-and-white-clouds-pure-sky-material-image_786708.jpg'); background-size: cover; background-position: center;">
+    <div class="card-v2 jelly-effect mt-4 !cursor-default overflow-hidden relative" style="background: linear-gradient(135deg, rgba(255,255,255,0.65), rgba(255,245,247,0.98)), url('https://png.pngtree.com/thumb_back/fh260/background/20210902/pngtree-blue-sky-and-white-clouds-pure-sky-material-image_786708.jpg'); background-size: cover; background-position: center;">
         <div class="flex justify-between items-center mb-3 relative z-10">
             <h3 class="text-lg font-bold text-gray-700">🌤️ 東京未來七天天氣</h3>
             <span class="text-[10px] bg-white/70 backdrop-blur-sm text-pink-500 px-2 py-1 rounded-md font-bold border border-white">點擊看細節 👇</span>
@@ -149,7 +180,6 @@
         <div id="weather-days-wrapper" class="flex overflow-x-auto gap-3 pb-2 scrollbar-none relative z-10">
             <p class="text-xs text-gray-500 w-full text-center py-4 animate-pulse font-bold">天氣資料載入中...</p>
         </div>
-        
         <div id="weather-detail-panel" class="relative z-10">
             <p class="text-xs font-bold text-gray-500 mb-2 pl-1"><i class="fas fa-chart-area mr-1 text-pink-400"></i> 當日每3小時氣溫與降雨預報</p>
             <div class="relative w-full overflow-x-auto scrollbar-none pb-2">
@@ -158,7 +188,7 @@
         </div>
     </div>
 
-    <div class="card-v2 mt-4 !cursor-default">
+    <div class="card-v2 jelly-effect mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-4 text-gray-700">✈️ 航班資訊</h3>
         <div class="bg-pink-50/50 rounded-2xl p-4 mb-3 border border-pink-100">
             <div class="flex justify-between items-center mb-3"><span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-md font-bold shadow-sm">去程 Outbound</span><span class="text-sm font-bold text-pink-700">2026/04/04 (六) JX802</span></div>
@@ -178,7 +208,7 @@
         </div>
     </div>
 
-    <div class="card-v2 mt-4 !cursor-default">
+    <div class="card-v2 jelly-effect mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-3 text-gray-700">📱 VJW 入境資訊</h3>
         <div class="text-sm text-gray-600 mb-4 leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100">
             <p class="mb-2 text-center font-bold text-gray-700">入境日本必備！請於出發前填寫完成</p>
@@ -186,17 +216,17 @@
             <strong class="text-pink-600 text-[11px] block text-center"><i class="fas fa-lightbulb"></i> 若操作有困難，也可請領隊於當天幫忙填寫喔！</strong>
         </div>
         <div class="space-y-3">
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">JX802</p></div><button onclick="copyText('JX802', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p></div><button onclick="copyText('272-0034', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p><p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p></div><button onclick="copyText('CHIBA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">市區町村</p><p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p></div><button onclick="copyText('ICHIKAWA-SHI', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p><p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p></div><button onclick="copyText('1-8-6, ICHIKAWA', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p></div><button onclick="copyText('HOTEL R9 Premium 市川站前', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p><p class="text-sm font-bold text-gray-800">+81473743712</p></div><button onclick="copyText('+81473743712', this)" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold active:scale-95 transition whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">JX802</p></div><button onclick="copyText('JX802', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p></div><button onclick="copyText('272-0034', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p><p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p></div><button onclick="copyText('CHIBA', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">市區町村</p><p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p></div><button onclick="copyText('ICHIKAWA-SHI', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p><p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p></div><button onclick="copyText('1-8-6, ICHIKAWA', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p></div><button onclick="copyText('HOTEL R9 Premium 市川站前', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p><p class="text-sm font-bold text-gray-800">+81473743712</p></div><button onclick="copyText('+81473743712', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
         </div>
     </div>
 
-    <div class="card-v2 mt-4 mb-8 !cursor-default">
+    <div class="card-v2 jelly-effect mt-4 mb-8 !cursor-default">
         <div class="flex justify-between items-center cursor-pointer" onclick="toggleNotes()">
             <h3 class="text-lg font-bold text-gray-700 m-0">⚠️ 出發前注意事項</h3>
             <div id="notes-toggle-btn" class="w-8 h-8 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center font-bold transition-all active:scale-90 shadow-sm">
@@ -219,131 +249,131 @@
 
   <div id="tab-schedule" class="tab-content">
     <div class="day-selector">
-      <button class="day-btn active" onclick="switchDay(1, this)">4/4 (六)</button>
-      <button class="day-btn" onclick="switchDay(2, this)">4/5 (日)</button>
-      <button class="day-btn" onclick="switchDay(3, this)">4/6 (一)</button>
-      <button class="day-btn" onclick="switchDay(4, this)">4/7 (二)</button>
-      <button class="day-btn" onclick="switchDay(5, this)">4/8 (三)</button>
-      <button class="day-btn" onclick="switchDay(6, this)">4/9 (四)</button>
+      <button class="day-btn jelly-effect active" onclick="switchDay(1, this)">4/4 (六)</button>
+      <button class="day-btn jelly-effect" onclick="switchDay(2, this)">4/5 (日)</button>
+      <button class="day-btn jelly-effect" onclick="switchDay(3, this)">4/6 (一)</button>
+      <button class="day-btn jelly-effect" onclick="switchDay(4, this)">4/7 (二)</button>
+      <button class="day-btn jelly-effect" onclick="switchDay(5, this)">4/8 (三)</button>
+      <button class="day-btn jelly-effect" onclick="switchDay(6, this)">4/9 (四)</button>
     </div>
     
     <div id="schedule-panels">
         <div id="day-panel-1" class="day-panel active">
           <div class="day-title-badge">初抵東京 🌸 目黑川夢幻夜櫻</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2022/02/14-122578.webp" data-nav="成田機場第二航廈" data-detail="歡迎來到日本！降落後請先準備好手機的 VJW 通關 QR Code。領完行李後，我們先去上個洗手間，接著就準備搭車前往今晚的落腳處囉！"><div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div><p class="card-desc">抵達東京成田機場第二航廈，準備展開賞櫻之旅。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2022/02/14-122578.webp" data-nav="成田機場第二航廈" data-detail="歡迎來到日本！降落後請先準備好手機的 VJW 通關 QR Code。領完行李後，我們先去上個洗手間，接著就準備搭車前往今晚的落腳處囉！"><div><span class="time-tag">15:05</span><span class="card-title">抵達成田機場</span></div><p class="card-desc">抵達東京成田機場第二航廈，準備展開賞櫻之旅。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('成田機場第二航廈', '市川站', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('成田機場第二航廈', '市川站', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
           
-          <div class="card-v2" onclick="openModal(this)" data-img="https://img.gototravel.tw/2019/tokyo/transport/narita-terminal-3/narita-terminal-2-45.jpg" data-nav="市川站" data-detail="搭乘 JR 總武線直達的交通樞紐。車站周邊生活機能非常方便，我們可以在這裡先買點飲料或小零食解解饞。"><div><span class="time-tag">16:00</span><span class="card-title">搭乘 JR 前往市川</span></div><p class="card-desc">搭乘 JR 總武線快速（無需轉車），直達市川站。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://img.gototravel.tw/2019/tokyo/transport/narita-terminal-3/narita-terminal-2-45.jpg" data-nav="市川站" data-detail="搭乘 JR 總武線直達的交通樞紐。車站周邊生活機能非常方便，我們可以在這裡先買點飲料或小零食解解饞。"><div><span class="time-tag">16:00</span><span class="card-title">搭乘 JR 前往市川</span></div><p class="card-desc">搭乘 JR 總武線快速（無需轉車），直達市川站。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('市川站', 'HOTEL R9 Premium 市川駅前', 'walking')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-walking"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('市川站', 'HOTEL R9 Premium 市川駅前', 'walking')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-walking"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
           
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="充滿特色的獨立貨櫃型飯店！辦理入住後，我們先進房放下沉重的行李，稍微伸展一下筋骨，稍作休息後再出發去看夜櫻。"><div><span class="time-tag">17:15</span><span class="card-title">飯店 Check-in</span></div><p class="card-desc">入住 HOTEL R9 Premium Ichikawa，稍作休息後前往目黑川。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="充滿特色的獨立貨櫃型飯店！辦理入住後，我們先進房放下沉重的行李，稍微伸展一下筋骨，稍作休息後再出發去看夜櫻。"><div><span class="time-tag">17:15</span><span class="card-title">飯店 Check-in</span></div><p class="card-desc">入住 HOTEL R9 Premium Ichikawa，稍作休息後前往目黑川。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '目黑川櫻花', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '目黑川櫻花', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://bobbyfun.tw/wp-content/uploads/pixnet/67700df8fd70ba3b67328744aa6ca93b.jpg" data-nav="目黑川櫻花" data-detail="東京必看的絕美夜櫻！約 800 棵櫻花樹在河岸兩側綻放，搭配浪漫的粉色燈籠，美不勝收。💡 貼心小提醒：賞櫻人潮較多，拍照時請留意腳下安全與隨身貴重物品喔。"><div><span class="time-tag">18:45</span><span class="card-title">中目黑賞夜櫻</span></div><p class="card-desc">漫步目黑川，欣賞河岸兩側如粉色隧道般的夢幻夜櫻。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://bobbyfun.tw/wp-content/uploads/pixnet/67700df8fd70ba3b67328744aa6ca93b.jpg" data-nav="目黑川櫻花" data-detail="東京必看的絕美夜櫻！約 800 棵櫻花樹在河岸兩側綻放，搭配浪漫的粉色燈籠，美不勝收。💡 貼心小提醒：賞櫻人潮較多，拍照時請留意腳下安全與隨身貴重物品喔。"><div><span class="time-tag">18:45</span><span class="card-title">中目黑賞夜櫻</span></div><p class="card-desc">漫步目黑川，欣賞河岸兩側如粉色隧道般的夢幻夜櫻。</p></div>
         </div>
 
         <div id="day-panel-2" class="day-panel">
           <div class="day-title-badge">經典下町 ⛩️ 淺草祈福與上野櫻花雨</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="早安！吃飽喝足，準備好愉快的心情與充飽電的手機，大廳集合，準備展開今天的下町之旅！"><div><span class="time-tag">09:00</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="早安！吃飽喝足，準備好愉快的心情與充飽電的手機，大廳集合，準備展開今天的下町之旅！"><div><span class="time-tag">09:00</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '淺草雷門', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '淺草雷門', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://cdn.zekkei-japan.jp/images/spots/0b6079b6bb893a525c39c88eb5d95077.jpg" data-nav="淺草雷門" data-detail="巨大的紅色雷門燈籠是東京最經典的象徵。穿過熱鬧的仲見世通商店街，別忘了品嚐現烤的人形燒，並到淺草寺正殿為家人祈求平安健康。"><div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div><p class="card-desc">搭乘大眾運輸直達雷門，遊覽仲見世通、淺草寺。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://cdn.zekkei-japan.jp/images/spots/0b6079b6bb893a525c39c88eb5d95077.jpg" data-nav="淺草雷門" data-detail="巨大的紅色雷門燈籠是東京最經典的象徵。穿過熱鬧的仲見世通商店街，別忘了品嚐現烤的人形燒，並到淺草寺正殿為家人祈求平安健康。"><div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div><p class="card-desc">搭乘大眾運輸直達雷門，遊覽仲見世通、淺草寺。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('淺草雷門', '上野恩賜公園', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('淺草雷門', '上野恩賜公園', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://bobbyfun.tw/wp-content/uploads/pixnet/11c5d0943cd9d3466da85a825373e726.jpg" data-nav="上野恩賜公園" data-detail="東京最熱鬧的賞櫻勝地！漫步在無盡的櫻花隧道下，感受日本人席地而坐的熱鬧賞櫻文化。旁邊不忍池畔的風景也非常優美，適合慢慢散步。"><div><span class="time-tag">14:00</span><span class="card-title">上野恩賜公園</span></div><p class="card-desc">漫步於上野公園，欣賞櫻花百選勝地，並遊覽不忍池美景。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://bobbyfun.tw/wp-content/uploads/pixnet/11c5d0943cd9d3466da85a825373e726.jpg" data-nav="上野恩賜公園" data-detail="東京最熱鬧的賞櫻勝地！漫步在無盡的櫻花隧道下，感受日本人席地而坐的熱鬧賞櫻文化。旁邊不忍池畔的風景也非常優美，適合慢慢散步。"><div><span class="time-tag">14:00</span><span class="card-title">上野恩賜公園</span></div><p class="card-desc">漫步於上野公園，欣賞櫻花百選勝地，並遊覽不忍池美景。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('上野恩賜公園', '阿美橫町', 'walking')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-walking"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('上野恩賜公園', '阿美橫町', 'walking')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-walking"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://static.gltjp.com/glt/data/article/21000/20604/20240127_171051_3ed959f4_w1920.webp" data-nav="阿美橫町" data-detail="充滿活力的高 CP 值購物天堂！從連鎖藥妝、超值零食到新鮮水果應有盡有。💡 貼心小提醒：這裡非常適合大買特買伴手禮，記得多比價喔！"><div><span class="time-tag">18:00</span><span class="card-title">阿美橫町購物</span></div><p class="card-desc">在充滿活力的商店街採買藥妝、零食並享用在地美食。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://static.gltjp.com/glt/data/article/21000/20604/20240127_171051_3ed959f4_w1920.webp" data-nav="阿美橫町" data-detail="充滿活力的高 CP 值購物天堂！從連鎖藥妝、超值零食到新鮮水果應有盡有。💡 貼心小提醒：這裡非常適合大買特買伴手禮，記得多比價喔！"><div><span class="time-tag">18:00</span><span class="card-title">阿美橫町購物</span></div><p class="card-desc">在充滿活力的商店街採買藥妝、零食並享用在地美食。</p></div>
         </div>
 
         <div id="day-panel-3" class="day-panel">
           <div class="day-title-badge">海濱古都 🌊 鎌倉大佛與江之電看海</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="早安！吃飽喝足，準備好愉快的心情與充飽電的手機，大廳集合，準備展開今天的海濱之旅！"><div><span class="time-tag">08:30</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="早安！吃飽喝足，準備好愉快的心情與充飽電的手機，大廳集合，準備展開今天的海濱之旅！"><div><span class="time-tag">08:30</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '鶴岡八幡宮', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '鶴岡八幡宮', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/64/11/08/caption.jpg?w=900&h=500&s=1" data-nav="鶴岡八幡宮" data-detail="鎌倉最重要的信仰中心。通往神社的「若宮大路」在春天是一條絕美的櫻花大道。參拜結束後，我們會在旁邊熱鬧的「小町通」商店街自由享用在地美食。"><div><span class="time-tag">10:30</span><span class="card-title">鶴岡八幡宮 (包車)</span></div><p class="card-desc">漫步若宮大路櫻花道，午餐於小町通商店街自由享用。預計 13:00 從鎌倉駅離開。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/23/64/11/08/caption.jpg?w=900&h=500&s=1" data-nav="鶴岡八幡宮" data-detail="鎌倉最重要的信仰中心。通往神社的「若宮大路」在春天是一條絕美的櫻花大道。參拜結束後，我們會在旁邊熱鬧的「小町通」商店街自由享用在地美食。"><div><span class="time-tag">10:30</span><span class="card-title">鶴岡八幡宮 (包車)</span></div><p class="card-desc">漫步若宮大路櫻花道，午餐於小町通商店街自由享用。預計 13:00 從鎌倉駅離開。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('鶴岡八幡宮', '高德院鎌倉大佛', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('鶴岡八幡宮', '高德院鎌倉大佛', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://res.cloudinary.com/jnto/image/upload/w_750,h_503,fl_lossy,f_auto/v1648115810/kanagawa/H_00586-2_004" data-nav="高德院鎌倉大佛" data-detail="高達 13.3 公尺的國寶級露天青銅大佛，莊嚴且宏偉。如果運氣好，還能捕捉到大佛與櫻花同框的寧靜畫面。"><div><span class="time-tag">13:10</span><span class="card-title">高德院鎌倉大佛</span></div><p class="card-desc">參拜莊嚴的露天青銅大佛。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://res.cloudinary.com/jnto/image/upload/w_750,h_503,fl_lossy,f_auto/v1648115810/kanagawa/H_00586-2_004" data-nav="高德院鎌倉大佛" data-detail="高達 13.3 公尺的國寶級露天青銅大佛，莊嚴且宏偉。如果運氣好，還能捕捉到大佛與櫻花同框的寧靜畫面。"><div><span class="time-tag">13:10</span><span class="card-title">高德院鎌倉大佛</span></div><p class="card-desc">參拜莊嚴的露天青銅大佛。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('高德院鎌倉大佛', '鎌倉高校前站', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('高德院鎌倉大佛', '鎌倉高校前站', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://imgzh.tabiiro.travel/kankou.tabiiro.jp/articles/sections/1751006301-1746098828-pixta_74415181_M.webp" data-nav="鎌倉高校前站" data-detail="搭乘擁有百年歷史的復古「江之電」沿著湘南海岸行駛。這裡也是《灌籃高手》動畫中最經典的平交道場景！💡 貼心小提醒：拍照時請千萬不要站在馬路中央，務必注意來車安全。"><div><span class="time-tag">13:50</span><span class="card-title">江之電體驗＆鎌倉高校平交道</span></div><p class="card-desc">司機將空車前往鐮倉高校前站附近。我們將自行搭乘江之電前往，體驗經典海邊電車路線。預計 14:30 從鎌倉高校前離開。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://imgzh.tabiiro.travel/kankou.tabiiro.jp/articles/sections/1751006301-1746098828-pixta_74415181_M.webp" data-nav="鎌倉高校前站" data-detail="搭乘擁有百年歷史的復古「江之電」沿著湘南海岸行駛。這裡也是《灌籃高手》動畫中最經典的平交道場景！💡 貼心小提醒：拍照時請千萬不要站在馬路中央，務必注意來車安全。"><div><span class="time-tag">13:50</span><span class="card-title">江之電體驗＆鎌倉高校平交道</span></div><p class="card-desc">司機將空車前往鐮倉高校前站附近。我們將自行搭乘江之電前往，體驗經典海邊電車路線。預計 14:30 從鎌倉高校前離開。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('鎌倉高校前站', '江之島', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('鎌倉高校前站', '江之島', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://storage.chictrip.com.tw/poi/23f061ca-91f8-4f42-bdfb-e9565000ead9.jpg" data-nav="江之島" data-detail="漫步跨海大橋來到這座神聖的小島。這裡充滿了悠閒的海濱風情，必吃比臉還要大的「現烤章魚仙貝」與新鮮的「魩仔魚丼」！"><div><span class="time-tag">14:45</span><span class="card-title">江之島散策</span></div><p class="card-desc">感受海風、參訪江島神社與商店街。預計 16:00 離開。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://storage.chictrip.com.tw/poi/23f061ca-91f8-4f42-bdfb-e9565000ead9.jpg" data-nav="江之島" data-detail="漫步跨海大橋來到這座神聖的小島。這裡充滿了悠閒的海濱風情，必吃比臉還要大的「現烤章魚仙貝」與新鮮的「魩仔魚丼」！"><div><span class="time-tag">14:45</span><span class="card-title">江之島散策</span></div><p class="card-desc">感受海風、參訪江島神社與商店街。預計 16:00 離開。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('江之島', '東京車站', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('江之島', '東京車站', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站" data-detail="告別壯麗的海岸，搭車返回東京市區。大家可以找間喜歡的餐廳好好吃頓晚餐，再搭地鐵回飯店休息。"><div><span class="time-tag">18:30</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站" data-detail="告別壯麗的海岸，搭車返回東京市區。大家可以找間喜歡的餐廳好好吃頓晚餐，再搭地鐵回飯店休息。"><div><span class="time-tag">18:30</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
         </div>
 
         <div id="day-panel-4" class="day-panel">
           <div class="day-title-badge">尋訪富士 🗻 河口湖絕景與水陸巴士</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="今日車程較遠，請大家提早於大廳集合出發，準備一睹富士山的風采喔！"><div><span class="time-tag">08:00</span><span class="card-title">飯店出發</span></div><p class="card-desc">今日車程較遠，請大家提早於大廳集合出發喔！</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="今日車程較遠，請大家提早於大廳集合出發，準備一睹富士山的風采喔！"><div><span class="time-tag">08:00</span><span class="card-title">飯店出發</span></div><p class="card-desc">今日車程較遠，請大家提早於大廳集合出發喔！</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '河口湖大石公園', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '河口湖大石公園', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://tw.wamazing.com/media/wp-content/uploads/sites/4/2025/03/ooishipark_pixta_90606576_M.jpg.webp" data-nav="河口湖大石公園" data-detail="絕佳的富士山觀景台！如果天氣晴朗，這裡能拍到「富士山 ＋ 湖面倒影 ＋ 花海」的無敵神級美景，絕對是這趟旅行中最令人期待的畫面。"><div><span class="time-tag">10:00</span><span class="card-title">大石公園 (包車)</span></div><p class="card-desc">停留 75 分鐘，11:15 離開。河口湖畔拍下富士山與櫻花同框。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://tw.wamazing.com/media/wp-content/uploads/sites/4/2025/03/ooishipark_pixta_90606576_M.jpg.webp" data-nav="河口湖大石公園" data-detail="絕佳的富士山觀景台！如果天氣晴朗，這裡能拍到「富士山 ＋ 湖面倒影 ＋ 花海」的無敵神級美景，絕對是這趟旅行中最令人期待的畫面。"><div><span class="time-tag">10:00</span><span class="card-title">大石公園 (包車)</span></div><p class="card-desc">停留 75 分鐘，11:15 離開。河口湖畔拍下富士山與櫻花同框。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('河口湖大石公園', 'ほうとう研究所', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('河口湖大石公園', 'ほうとう研究所', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://wetravelhk.com/wp-content/uploads/2024/11/%E9%A4%BA%E9%A3%A5%E7%A0%94%E7%A9%B6%E6%89%80-05.jpg" data-nav="ほうとう研究所" data-detail="來河口湖必吃的鄉土料理「餺飥麵」(Hoto)！Q 彈的寬扁麵條吸滿濃郁的南瓜野菜與海鮮湯汁，吃完保證全身暖呼呼，充滿元氣。"><div><span class="time-tag">11:25</span><span class="card-title">海鮮餺飥午餐</span></div><p class="card-desc">用餐 100 分鐘。品嚐河口湖名產「ほうとう研究所」地鐵鍋。12:50 離開。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://wetravelhk.com/wp-content/uploads/2024/11/%E9%A4%BA%E9%A3%A5%E7%A0%94%E7%A9%B6%E6%89%80-05.jpg" data-nav="ほうとう研究所" data-detail="來河口湖必吃的鄉土料理「餺飥麵」(Hoto)！Q 彈的寬扁麵條吸滿濃郁的南瓜野菜與海鮮湯汁，吃完保證全身暖呼呼，充滿元氣。"><div><span class="time-tag">11:25</span><span class="card-title">海鮮餺飥午餐</span></div><p class="card-desc">用餐 100 分鐘。品嚐河口湖名產「ほうとう研究所」地鐵鍋。12:50 離開。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('ほうとう研究所', '山中湖 KABA 水陸巴士', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('ほうとう研究所', '山中湖 KABA 水陸巴士', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGPIiK4s4_QdUCGUOh8rRvfDJQieqgNYqcOA&s" data-nav="山中湖 KABA 水陸巴士" data-detail="搭乘造型超可愛的河馬水陸兩用巴士！從陸地直接衝入湖中的瞬間非常刺激，在湖面上吹著微風欣賞富士山，是非常難忘的體驗。"><div><span class="time-tag">13:20</span><span class="card-title">山中湖 KABA 水陸巴士</span></div><p class="card-desc">停留 80 分鐘。體驗驚險刺激的巴士入水衝刺。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGPIiK4s4_QdUCGUOh8rRvfDJQieqgNYqcOA&s" data-nav="山中湖 KABA 水陸巴士" data-detail="搭乘造型超可愛的河馬水陸兩用巴士！從陸地直接衝入湖中的瞬間非常刺激，在湖面上吹著微風欣賞富士山，是非常難忘的體驗。"><div><span class="time-tag">13:20</span><span class="card-title">山中湖 KABA 水陸巴士</span></div><p class="card-desc">停留 80 分鐘。體驗驚險刺激的巴士入水衝刺。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('山中湖 KABA 水陸巴士', '忍野八海', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('山中湖 KABA 水陸巴士', '忍野八海', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://imgs.gotrip.hk/wp-content/uploads/2021/03/I_967196266605b1f6dc3386-1024x683.jpg" data-nav="忍野八海" data-detail="由富士山融雪過濾後形成的八個清澈湧泉。水質清澈見底，甚至能看見深處優游的魚兒與池底倒影，被譽為「神之泉」，風景如詩如畫。"><div><span class="time-tag">14:45</span><span class="card-title">忍野八海</span></div><p class="card-desc">停留 45 分鐘。欣賞富士山雪水濾出的清澈湧泉奇景。15:30 離開。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://imgs.gotrip.hk/wp-content/uploads/2021/03/I_967196266605b1f6dc3386-1024x683.jpg" data-nav="忍野八海" data-detail="由富士山融雪過濾後形成的八個清澈湧泉。水質清澈見底，甚至能看見深處優游的魚兒與池底倒影，被譽為「神之泉」，風景如詩如畫。"><div><span class="time-tag">14:45</span><span class="card-title">忍野八海</span></div><p class="card-desc">停留 45 分鐘。欣賞富士山雪水濾出的清澈湧泉奇景。15:30 離開。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('忍野八海', '東京車站', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('忍野八海', '東京車站', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站" data-detail="告別壯麗的富士山，搭車返回東京市區。大家可以找間喜歡的餐廳好好吃頓晚餐，再搭地鐵回飯店休息。"><div><span class="time-tag">18:00</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站" data-detail="告別壯麗的富士山，搭車返回東京市區。大家可以找間喜歡的餐廳好好吃頓晚餐，再搭地鐵回飯店休息。"><div><span class="time-tag">18:00</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
         </div>
 
         <div id="day-panel-5" class="day-panel">
           <div class="day-title-badge">城市漫遊 🚌 明治神宮與雙層敞篷巴士</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="早安！吃飽喝足，準備好愉快的心情與充飽電的手機，大廳集合，準備展開今天的城市漫遊！"><div><span class="time-tag">09:30</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="早安！吃飽喝足，準備好愉快的心情與充飽電的手機，大廳集合，準備展開今天的城市漫遊！"><div><span class="time-tag">09:30</span><span class="card-title">飯店出發</span></div><p class="card-desc">於大廳集合準備出發，開啟美好的一天！</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '明治神宮', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '明治神宮', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/batch_shutterstock_1510366601.jpg" data-nav="明治神宮" data-detail="隱藏在東京市中心最大的靜謐森林。走在兩旁都是參天巨木的碎石參道上，大口呼吸芬多精，感受遠離城市喧囂的寧靜與神聖氛圍。"><div><span class="time-tag">10:40</span><span class="card-title">明治神宮森林之旅</span></div><p class="card-desc">東京都心最大的森林神社。午餐於園區內享用。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://blog-static.kkday.com/zh-tw/blog/wp-content/uploads/batch_shutterstock_1510366601.jpg" data-nav="明治神宮" data-detail="隱藏在東京市中心最大的靜謐森林。走在兩旁都是參天巨木的碎石參道上，大口呼吸芬多精，感受遠離城市喧囂的寧靜與神聖氛圍。"><div><span class="time-tag">10:40</span><span class="card-title">明治神宮森林之旅</span></div><p class="card-desc">東京都心最大的森林神社。午餐於園區內享用。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('明治神宮', '東京車站 丸之內', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('明治神宮', '東京車站 丸之內', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://res.klook.com/images/w_1200,h_630,c_fill,q_65/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xner44oggbksavqlzqpv/%E6%9D%B1%E4%BA%AC%E5%9F%8E%E5%B8%82%E6%95%9E%E7%AF%B7%E8%A7%80%E5%85%89%E5%B7%B4%E5%A3%AB%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站 丸之內" data-detail="乘坐雙層露天敞篷巴士，換個高度與視角遊覽東京！毫無遮蔽地欣賞東京鐵塔、皇居等經典地標，不用走路也能把東京美景盡收眼底。"><div><span class="time-tag">13:30</span><span class="card-title">SKY BUS 敞篷巴士</span></div><p class="card-desc">乘坐雙層開棚巴士一次遊覽東京鐵塔、明治神宮外苑等景點。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://res.klook.com/images/w_1200,h_630,c_fill,q_65/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/xner44oggbksavqlzqpv/%E6%9D%B1%E4%BA%AC%E5%9F%8E%E5%B8%82%E6%95%9E%E7%AF%B7%E8%A7%80%E5%85%89%E5%B7%B4%E5%A3%AB%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站 丸之內" data-detail="乘坐雙層露天敞篷巴士，換個高度與視角遊覽東京！毫無遮蔽地欣賞東京鐵塔、皇居等經典地標，不用走路也能把東京美景盡收眼底。"><div><span class="time-tag">13:30</span><span class="card-title">SKY BUS 敞篷巴士</span></div><p class="card-desc">乘坐雙層開棚巴士一次遊覽東京鐵塔、明治神宮外苑等景點。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('東京車站 丸之內', 'KITTE 丸之內', 'walking')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-walking"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('東京車站 丸之內', 'KITTE 丸之內', 'walking')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-walking"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://www.bubu-jp.com/wp-content/uploads/2025/07/f40ff1b7cf0a26bf8c868bc856be58d8-1024x683.jpeg" data-nav="KITTE 丸之內" data-detail="由舊東京中央郵局改建的文青商場。頂樓的露天花園是欣賞「東京車站百年紅磚建築」全貌的秘密基地，不僅好拍，室內的商店也非常有質感。"><div><span class="time-tag">15:00</span><span class="card-title">皇居與東京車站</span></div><p class="card-desc">參觀皇居後漫步至東京車站 KITTE 大樓欣賞美景。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://www.bubu-jp.com/wp-content/uploads/2025/07/f40ff1b7cf0a26bf8c868bc856be58d8-1024x683.jpeg" data-nav="KITTE 丸之內" data-detail="由舊東京中央郵局改建的文青商場。頂樓的露天花園是欣賞「東京車站百年紅磚建築」全貌的秘密基地，不僅好拍，室內的商店也非常有質感。"><div><span class="time-tag">15:00</span><span class="card-title">皇居與東京車站</span></div><p class="card-desc">參觀皇居後漫步至東京車站 KITTE 大樓欣賞美景。</p></div>
         </div>
 
         <div id="day-panel-6" class="day-panel">
           <div class="day-title-badge">滿載而歸 🍣 築地嚐鮮與平安返家</div>
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide03.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="歡樂的時光總是過得特別快，確認房間內沒有遺漏物品後，我們先辦理退房並將行李寄放在櫃台，輕鬆前往最後的行程。"><div><span class="time-tag">08:30</span><span class="card-title">退房寄放行李</span></div><p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide03.jpg" data-nav="HOTEL R9 Premium 市川駅前" data-detail="歡樂的時光總是過得特別快，確認房間內沒有遺漏物品後，我們先辦理退房並將行李寄放在櫃台，輕鬆前往最後的行程。"><div><span class="time-tag">08:30</span><span class="card-title">退房寄放行李</span></div><p class="card-desc">行李寄放飯店櫃台，輕鬆前往最後行程。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '築地外市場', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '築地外市場', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://www.tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場" data-detail="東京人的廚房！雖然內市場搬走了，但外市場依然充滿各式新鮮美味。必吃超厚實的玉子燒、生魚片海鮮丼、烤扇貝，為這趟旅程畫下美味句點。"><div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div><p class="card-desc">品嚐厚蛋燒、海鮮丼，享受最後的東京美味。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://www.tsukihotel.com/cms/tw/wp-content/uploads/2019/08/guide01.jpg" data-nav="築地外市場" data-detail="東京人的廚房！雖然內市場搬走了，但外市場依然充滿各式新鮮美味。必吃超厚實的玉子燒、生魚片海鮮丼、烤扇貝，為這趟旅程畫下美味句點。"><div><span class="time-tag">09:40</span><span class="card-title">築地市場海鮮味蕾</span></div><p class="card-desc">品嚐厚蛋燒、海鮮丼，享受最後的東京美味。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('築地外市場', 'HOTEL R9 Premium 市川駅前', 'transit')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('築地外市場', 'HOTEL R9 Premium 市川駅前', 'transit')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-subway"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa" data-detail="回到飯店領取寄放的戰利品與行李。我們的專車已經在門口等候，大家可以舒舒服服地在車上補個眠，直達機場。"><div><span class="time-tag">13:00</span><span class="card-title">返回飯店專車送機</span></div><p class="card-desc">搭乘地鐵返回飯店領取行李，專車已在飯店門口等候，準備接送前往機場。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa" data-detail="回到飯店領取寄放的戰利品與行李。我們的專車已經在門口等候，大家可以舒舒服服地在車上補個眠，直達機場。"><div><span class="time-tag">13:00</span><span class="card-title">返回飯店專車送機</span></div><p class="card-desc">搭乘地鐵返回飯店領取行李，專車已在飯店門口等候，準備接送前往機場。</p></div>
 
-          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '成田機場第二航廈', 'driving')" class="transit-btn cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('HOTEL R9 Premium 市川駅前', '成田機場第二航廈', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://image.kkday.com/v2/image/get/c_fit%2Cq_55%2Ct_webp%2Cw_960/s1.kkday.com/product_161696/20240131092250_idXXH/jpg" data-nav="成田機場第二航廈" data-detail="抵達機場辦理報到手續。入關後還有最後的免稅店大採購時間（白色戀人、薯條三兄弟都在這），帶著滿滿的美好回憶平安返台！"><div><span class="time-tag">14:00</span><span class="card-title">抵達成田機場</span></div><p class="card-desc">抵達機場辦理報到手續。最後衝刺免稅商店採買伴手禮，帶著滿滿的美好回憶平安返家！</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://image.kkday.com/v2/image/get/c_fit%2Cq_55%2Ct_webp%2Cw_960/s1.kkday.com/product_161696/20240131092250_idXXH/jpg" data-nav="成田機場第二航廈" data-detail="抵達機場辦理報到手續。入關後還有最後的免稅店大採購時間（白色戀人、薯條三兄弟都在這），帶著滿滿的美好回憶平安返台！"><div><span class="time-tag">14:00</span><span class="card-title">抵達成田機場</span></div><p class="card-desc">抵達機場辦理報到手續。最後衝刺免稅商店採買伴手禮，帶著滿滿的美好回憶平安返家！</p></div>
         </div>
     </div>
   </div>
@@ -353,18 +383,18 @@
         <p class="text-sm text-pink-600 font-bold mb-2">💬 日文字卡小幫手</p>
         <p class="text-xs text-gray-500 mb-3 leading-relaxed">點擊下方分類，再按「喇叭圖示」即可發音，協助您輕鬆應對常見情境！若需要進行較複雜的對話，強烈推薦下載官方免費的即時翻譯 APP：</p>
         <div class="flex gap-2">
-            <a href="https://apps.apple.com/tw/app/voicetra/id581137577" target="_blank" class="flex-1 bg-gray-50 text-gray-700 text-center py-2 rounded-xl text-xs font-bold shadow-sm border border-gray-200 active:scale-95 transition"><i class="fab fa-apple"></i> iOS 下載</a>
-            <a href="https://play.google.com/store/apps/details?id=jp.go.nict.voicetra" target="_blank" class="flex-1 bg-gray-50 text-gray-700 text-center py-2 rounded-xl text-xs font-bold shadow-sm border border-gray-200 active:scale-95 transition"><i class="fab fa-google-play"></i> Android 下載</a>
+            <a href="https://apps.apple.com/tw/app/voicetra/id581137577" target="_blank" class="flex-1 bg-gray-50 text-gray-700 text-center py-2 rounded-xl text-xs font-bold shadow-sm border border-gray-200 active:scale-95 transition jelly-effect"><i class="fab fa-apple"></i> iOS 下載</a>
+            <a href="https://play.google.com/store/apps/details?id=jp.go.nict.voicetra" target="_blank" class="flex-1 bg-gray-50 text-gray-700 text-center py-2 rounded-xl text-xs font-bold shadow-sm border border-gray-200 active:scale-95 transition jelly-effect"><i class="fab fa-google-play"></i> Android 下載</a>
         </div>
     </div>
 
     <div class="flex overflow-x-auto gap-2 px-5 py-2 scrollbar-none">
-        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
-        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('tax', this)">💰 退稅</button>
-        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('food', this)">🍜 點餐</button>
-        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('find', this)">🚻 設施</button>
-        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('sos', this)">🚑 緊急</button>
-        <button class="cat-btn bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('polite', this)">🤝 禮貌</button>
+        <button class="cat-btn jelly-effect bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap active" onclick="filterHelp('shopping', this)">🛍️ 購物</button>
+        <button class="cat-btn jelly-effect bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('tax', this)">💰 退稅</button>
+        <button class="cat-btn jelly-effect bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('food', this)">🍜 點餐</button>
+        <button class="cat-btn jelly-effect bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('find', this)">🚻 設施</button>
+        <button class="cat-btn jelly-effect bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('sos', this)">🚑 緊急</button>
+        <button class="cat-btn jelly-effect bg-white border border-pink-200 px-5 py-2 rounded-full font-bold text-pink-500 whitespace-nowrap" onclick="filterHelp('polite', this)">🤝 禮貌</button>
     </div>
     <div id="help-list" class="mt-2 px-1"></div>
   </div>
@@ -379,16 +409,16 @@
     <div class="card-v2">
         <h3 class="text-lg font-bold mb-4 text-gray-700">✍️ 簡易記帳</h3>
         <div class="cat-grid">
-            <div class="cat-item active" onclick="selectRecordCat('💊', '藥妝', this)"><span class="cat-icon">💊</span>藥妝</div>
-            <div class="cat-item" onclick="selectRecordCat('👕', '服飾', this)"><span class="cat-icon">👕</span>服飾</div>
-            <div class="cat-item" onclick="selectRecordCat('🍱', '美食', this)"><span class="cat-icon">🍱</span>美食</div>
-            <div class="cat-item" onclick="selectRecordCat('🍡', '零食', this)"><span class="cat-icon">🍡</span>零食</div>
-            <div class="cat-item" onclick="selectRecordCat('🎁', '紀念品', this)"><span class="cat-icon">🎁</span>紀念品</div>
-            <div class="cat-item" onclick="selectRecordCat('⛩️', '門票', this)"><span class="cat-icon">⛩️</span>門票</div>
-            <div class="cat-item" onclick="selectRecordCat('🚌', '交通', this)"><span class="cat-icon">🚌</span>交通</div>
-            <div class="cat-item" onclick="selectRecordCat('🏪', '超市', this)"><span class="cat-icon">🏪</span>超市</div>
-            <div class="cat-item" onclick="selectRecordCat('🔌', '電器', this)"><span class="cat-icon">🔌</span>電器</div>
-            <div class="cat-item" onclick="selectRecordCat('➕', '其他', this)"><span class="cat-icon">➕</span>其他</div>
+            <div class="cat-item jelly-effect active" onclick="selectRecordCat('💊', '藥妝', this)"><span class="cat-icon">💊</span>藥妝</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('👕', '服飾', this)"><span class="cat-icon">👕</span>服飾</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('🍱', '美食', this)"><span class="cat-icon">🍱</span>美食</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('🍡', '零食', this)"><span class="cat-icon">🍡</span>零食</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('🎁', '紀念品', this)"><span class="cat-icon">🎁</span>紀念品</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('⛩️', '門票', this)"><span class="cat-icon">⛩️</span>門票</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('🚌', '交通', this)"><span class="cat-icon">🚌</span>交通</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('🏪', '超市', this)"><span class="cat-icon">🏪</span>超市</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('🔌', '電器', this)"><span class="cat-icon">🔌</span>電器</div>
+            <div class="cat-item jelly-effect" onclick="selectRecordCat('➕', '其他', this)"><span class="cat-icon">➕</span>其他</div>
         </div>
         <input type="text" id="rec-name" placeholder="商品名稱" class="input-field">
         <div class="flex gap-2 mb-4">
@@ -398,7 +428,7 @@
                 <option value="TWD">台幣 $</option>
             </select>
         </div>
-        <button onclick="addRecord()" class="btn-main">加入清單 🌸</button>
+        <button onclick="addRecord()" class="btn-main shimmer-btn jelly-effect">加入清單 🌸</button>
     </div>
     
     <div id="record-list-container" class="mt-6 mb-4 px-6">
@@ -407,7 +437,7 @@
             <span id="total-sum" class="text-pink-600 font-black text-2xl">NT$ 0</span>
         </div>
         <div id="record-list"></div>
-        <button onclick="generateReceipt()" class="w-full bg-white border-2 border-pink-300 text-pink-500 py-4 rounded-2xl font-bold mt-6 shadow-sm active:scale-95 transition flex items-center justify-center gap-2">
+        <button onclick="generateReceipt()" class="w-full bg-white border-2 border-pink-300 text-pink-500 py-4 rounded-2xl font-bold mt-6 shadow-sm flex items-center justify-center gap-2 shimmer-btn jelly-effect">
             <i class="fas fa-camera-retro text-xl"></i> 結算並產生精美報表
         </button>
     </div>
@@ -424,13 +454,13 @@
         <h3 class="text-lg font-bold mb-2 text-gray-800">📍 傳送目前位置給領隊</h3>
         <p class="text-[13px] text-gray-500 mb-4 leading-relaxed">按下定位後，請點擊複製，並至 LINE 旅遊群組<strong class="text-blue-500">「長按貼上」</strong>。</p>
         
-        <button id="btn-get-location" onclick="startLocation(this)" class="w-full bg-blue-50 border border-blue-200 text-blue-600 py-4 rounded-2xl font-bold shadow-sm active:scale-95 transition flex items-center justify-center gap-2 text-[15px]">
+        <button id="btn-get-location" onclick="startLocation(this)" class="w-full bg-blue-50 border border-blue-200 text-blue-600 py-4 rounded-2xl font-bold shadow-sm flex items-center justify-center gap-2 text-[15px] shimmer-btn jelly-effect">
             <i class="fas fa-map-marker-alt text-lg"></i> 1. 獲取我的位置
         </button>
 
         <div id="location-result-area" class="hidden mt-3">
             <textarea id="location-text" readonly class="w-full bg-gray-100 border border-gray-200 rounded-xl p-3 text-sm text-gray-700 mb-2 h-[75px] outline-none resize-none"></textarea>
-            <button id="btn-copy-action" onclick="executeSyncCopy()" class="w-full bg-green-500 text-white py-3 rounded-xl font-bold shadow-md active:scale-95 transition flex items-center justify-center gap-2 text-[15px]">
+            <button id="btn-copy-action" onclick="executeSyncCopy()" class="w-full bg-green-500 text-white py-3 rounded-xl font-bold shadow-md flex items-center justify-center gap-2 text-[15px] jelly-effect">
                 <i class="fas fa-copy text-lg"></i> 2. 點我複製
             </button>
         </div>
@@ -439,7 +469,7 @@
     <div class="card-v2 mt-4 border-l-[6px] border-l-green-400 !cursor-default">
         <h3 class="text-lg font-bold mb-2 text-gray-800">📱 聯絡領隊 (威奇)</h3>
         <p class="text-[13px] text-gray-500 mb-4 leading-relaxed">若不小心走散或遇到任何突發狀況，請直接打 LINE 與我聯繫。</p>
-        <a href="https://line.me/ti/p/~weichi0920" target="_blank" class="w-full bg-[#06C755] text-white py-4 rounded-2xl font-bold shadow-md active:scale-95 transition flex items-center justify-center gap-2 text-[16px]">
+        <a href="https://line.me/ti/p/~weichi0920" target="_blank" class="w-full bg-[#06C755] text-white py-4 rounded-2xl font-bold shadow-md flex items-center justify-center gap-2 text-[16px] jelly-effect">
             <i class="fab fa-line text-2xl"></i> 打 LINE 給領隊
         </a>
     </div>
@@ -452,7 +482,7 @@
             <p class="text-[12px] text-yellow-700 font-bold leading-relaxed border-t border-yellow-200 pt-3">
                 (不好意思，我跟家人走散了，可以麻煩您告訴我最近的警察局在哪裡，或是帶我過去嗎？)
             </p>
-            <button onclick="playJP('すみません、家族とはぐれて迷子になりました。近くの交番を教えてもらえませんか？')" class="absolute top-4 right-4 w-12 h-12 bg-yellow-400 text-yellow-900 rounded-full flex items-center justify-center text-xl shadow-md active:scale-90 transition">
+            <button onclick="playJP('すみません、家族とはぐれて迷子になりました。近くの交番を教えてもらえませんか？')" class="absolute top-4 right-4 w-12 h-12 bg-yellow-400 text-yellow-900 rounded-full flex items-center justify-center text-xl shadow-md jelly-effect">
                 <i class="fas fa-volume-up"></i>
             </button>
         </div>
@@ -478,15 +508,15 @@
     <div class="card-v2 mt-4 mb-8 border-l-[6px] border-l-red-500 !cursor-default">
         <h3 class="text-lg font-bold mb-4 text-gray-800">☎️ 日本當地緊急撥號</h3>
         <div class="space-y-3">
-            <a href="tel:110" class="flex items-center justify-between bg-red-50 p-4 rounded-2xl border border-red-100 active:scale-95 transition shadow-sm">
+            <a href="tel:110" class="flex items-center justify-between bg-red-50 p-4 rounded-2xl border border-red-100 shadow-sm jelly-effect">
                 <div class="flex items-center gap-4"><span class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-red-500 shadow-md text-xl"><i class="fas fa-shield-alt"></i></span><span class="font-bold text-gray-800 text-[15px]">報警 (警察局)</span></div>
                 <span class="text-red-600 font-black text-2xl tracking-wider">110</span>
             </a>
-            <a href="tel:119" class="flex items-center justify-between bg-red-50 p-4 rounded-2xl border border-red-100 active:scale-95 transition shadow-sm">
+            <a href="tel:119" class="flex items-center justify-between bg-red-50 p-4 rounded-2xl border border-red-100 shadow-sm jelly-effect">
                 <div class="flex items-center gap-4"><span class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-red-500 shadow-md text-xl"><i class="fas fa-ambulance"></i></span><span class="font-bold text-gray-800 text-[15px]">救護車 / 火警</span></div>
                 <span class="text-red-600 font-black text-2xl tracking-wider">119</span>
             </a>
-            <a href="tel:08010097179" class="flex items-center justify-between bg-red-50 p-4 rounded-2xl border border-red-100 active:scale-95 transition shadow-sm">
+            <a href="tel:08010097179" class="flex items-center justify-between bg-red-50 p-4 rounded-2xl border border-red-100 shadow-sm jelly-effect">
                 <div class="flex items-center gap-4"><span class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-red-500 shadow-md text-xl"><i class="fas fa-hands-helping"></i></span><div><p class="font-bold text-gray-800 text-[15px]">駐日代表處</p><p class="text-[11px] text-gray-500 mt-1 font-bold">24小時急難救助</p></div></div>
                 <i class="fas fa-phone-alt text-red-400 text-xl mr-2"></i>
             </a>
@@ -502,7 +532,7 @@
       <div class="p-6 relative text-center">
         <h2 id="modal-title" class="text-xl font-black text-gray-800 mb-3"></h2>
         <p id="modal-desc" class="text-gray-600 text-sm leading-relaxed mb-6 text-left"></p>
-        <a id="modal-nav" href="javascript:void(0)" class="inline-flex items-center justify-center bg-pink-100 text-pink-600 px-6 py-3 rounded-full font-bold text-sm shadow-sm w-full transition active:scale-95">
+        <a id="modal-nav" href="javascript:void(0)" class="inline-flex items-center justify-center bg-pink-100 text-pink-600 px-6 py-3 rounded-full font-bold text-sm shadow-sm w-full jelly-effect">
           <i class="fas fa-location-arrow mr-2"></i> 導航至此景點
         </a>
       </div>
@@ -510,18 +540,18 @@
   </div>
 
   <div id="receipt-modal" class="fixed inset-0 bg-black/80 z-[110] hidden flex-col items-center justify-start overflow-y-auto backdrop-blur-sm opacity-0 pb-20 pt-10 px-4">
-    <button onclick="closeReceipt()" class="absolute top-4 right-4 bg-white/20 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl backdrop-blur-md z-50">✕</button>
+    <button onclick="closeReceipt()" class="absolute top-4 right-4 bg-white/20 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl backdrop-blur-md z-50 jelly-effect">✕</button>
     <p class="text-white text-sm font-bold mb-4 tracking-widest animate-pulse text-center w-full">👇 請長按下方圖片儲存至相簿 👇</p>
     <div id="receipt-capture-area" class="relative mx-auto bg-transparent"><div id="receipt-render-content" class="relative z-10"></div></div>
     <img id="receipt-result-img" class="hidden w-[340px] rounded-[24px] shadow-2xl shadow-pink-500/20 mt-2 mb-10 mx-auto" />
   </div>
 
   <nav class="nav-bar fixed bottom-0 w-full flex justify-around py-4 pb-8 z-50">
-    <div onclick="switchTab('home', this)" class="nav-item active flex flex-col items-center"><i class="fas fa-home text-2xl"></i><span class="text-[10px] font-bold mt-1">首頁</span></div>
-    <div onclick="switchTab('schedule', this)" class="nav-item flex flex-col items-center"><i class="fas fa-calendar-alt text-2xl"></i><span class="text-[10px] font-bold mt-1">行程表</span></div>
-    <div onclick="switchTab('help', this)" class="nav-item flex flex-col items-center"><i class="fas fa-comment-dots text-2xl"></i><span class="text-[10px] font-bold mt-1">日文字卡</span></div>
-    <div onclick="switchTab('exchange', this)" class="nav-item flex flex-col items-center"><i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span></div>
-    <div onclick="switchTab('sos', this)" class="nav-item flex flex-col items-center"><i class="fas fa-life-ring text-2xl"></i><span class="text-[10px] font-bold mt-1">緊急求助</span></div>
+    <div onclick="switchTab('home', this)" class="nav-item jelly-effect active flex flex-col items-center"><i class="fas fa-home text-2xl"></i><span class="text-[10px] font-bold mt-1">首頁</span></div>
+    <div onclick="switchTab('schedule', this)" class="nav-item jelly-effect flex flex-col items-center"><i class="fas fa-calendar-alt text-2xl"></i><span class="text-[10px] font-bold mt-1">行程表</span></div>
+    <div onclick="switchTab('help', this)" class="nav-item jelly-effect flex flex-col items-center"><i class="fas fa-comment-dots text-2xl"></i><span class="text-[10px] font-bold mt-1">日文字卡</span></div>
+    <div onclick="switchTab('exchange', this)" class="nav-item jelly-effect flex flex-col items-center"><i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span></div>
+    <div onclick="switchTab('sos', this)" class="nav-item jelly-effect flex flex-col items-center"><i class="fas fa-life-ring text-2xl"></i><span class="text-[10px] font-bold mt-1">緊急求助</span></div>
   </nav>
 
   <script>
@@ -634,7 +664,7 @@
             btn.classList.remove('bg-white', 'text-pink-500'); btn.classList.add('bg-pink-500', 'text-white'); 
         }
         const list = document.getElementById('help-list');
-        list.innerHTML = helpData[cat].map(item => `<div class="card-v2 anim-item flex justify-between items-center py-5 mb-3"><div><p class="font-bold text-xl">${item.jp}</p><p class="text-sm text-pink-500 mt-1">${item.cn}</p></div><button class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-xl" onclick="playJP('${item.jp}')"><i class="fas fa-volume-up"></i></button></div>`).join('');
+        list.innerHTML = helpData[cat].map((item, index) => `<div class="card-v2 stagger-item jelly-effect flex justify-between items-center py-5 mb-3" style="--i:${index}"><div><p class="font-bold text-xl">${item.jp}</p><p class="text-sm text-pink-500 mt-1">${item.cn}</p></div><button class="w-12 h-12 bg-pink-100 text-pink-500 rounded-full flex items-center justify-center text-xl" onclick="playJP('${item.jp}'); event.stopPropagation();"><i class="fas fa-volume-up"></i></button></div>`).join('');
     }
 
     let jpVoice = null;
@@ -678,10 +708,10 @@
         const totalSumEl = document.getElementById('total-sum');
         let total = 0;
         if (!Array.isArray(records)) records = []; 
-        list.innerHTML = records.map(r => {
+        list.innerHTML = records.map((r, index) => {
             if (!r || typeof r.tw === 'undefined') return '';
             total += r.tw;
-            return `<div class="card-v2 anim-item flex justify-between items-center py-4 mb-3" style="margin: 0 0 15px 0;"><div class="flex items-center"><span class="text-3xl mr-4">${r.icon}</span><div><p class="font-bold text-gray-700">${r.name}</p><p class="text-xs text-gray-400">${r.cat} | ${r.curr === 'JPY' ? '¥'+r.orig : '$'+r.orig}</p></div></div><div class="text-right"><p class="text-pink-600 font-black text-lg">NT$ ${r.tw}</p><button onclick="deleteRecord(${r.id})" class="text-gray-300 text-xs">刪除</button></div></div>`;
+            return `<div class="card-v2 stagger-item jelly-effect flex justify-between items-center py-4 mb-3" style="margin: 0 0 15px 0; --i:${index}"><div class="flex items-center"><span class="text-3xl mr-4">${r.icon}</span><div><p class="font-bold text-gray-700">${r.name}</p><p class="text-xs text-gray-400">${r.cat} | ${r.curr === 'JPY' ? '¥'+r.orig : '$'+r.orig}</p></div></div><div class="text-right"><p class="text-pink-600 font-black text-lg">NT$ ${r.tw}</p><button onclick="deleteRecord(${r.id}); event.stopPropagation();" class="text-gray-300 text-xs py-1 px-2">刪除</button></div></div>`;
         }).join('');
         totalSumEl.innerText = `NT$ ${total.toLocaleString()}`;
     }
@@ -746,7 +776,8 @@
         document.getElementById('modal-desc').innerText = desc; 
         document.getElementById('modal-img').src = imgUrl || ''; 
         
-        document.getElementById('modal-nav').onclick = function() {
+        document.getElementById('modal-nav').onclick = function(e) {
+            e.stopPropagation();
             const u = 'https://map' + 's.google.com/?q=' + encodeURIComponent(navQuery);
             window.open(u, '_blank');
         };
@@ -851,7 +882,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.18", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.19", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
@@ -918,7 +949,7 @@
                 const icon = wmoMap[code] || '🌤️'; 
                 const isToday = i === 0 ? 'bg-pink-100 border-pink-300' : 'bg-white/80 border-white/50'; 
                 const titleStr = i === 0 ? '今天' : dateStr; 
-                html += `<div id="weather-day-card-${i}" onclick="selectWeatherDay(${i})" class="weather-day-card flex-none w-20 ${isToday} rounded-2xl p-2 text-center shadow-sm flex flex-col justify-center cursor-pointer transition-all duration-300 backdrop-blur-sm"><p class="text-xs font-bold text-gray-600 mb-1 pointer-events-none">${titleStr}</p><p class="text-2xl mb-1 pointer-events-none">${icon}</p><p class="text-[11px] font-black text-pink-600 pointer-events-none">${min}°~${max}°</p></div>`; 
+                html += `<div id="weather-day-card-${i}" onclick="selectWeatherDay(${i})" class="weather-day-card jelly-effect flex-none w-20 ${isToday} rounded-2xl p-2 text-center shadow-sm flex flex-col justify-center cursor-pointer transition-all duration-300 backdrop-blur-sm"><p class="text-xs font-bold text-gray-600 mb-1 pointer-events-none">${titleStr}</p><p class="text-2xl mb-1 pointer-events-none">${icon}</p><p class="text-[11px] font-black text-pink-600 pointer-events-none">${min}°~${max}°</p></div>`; 
             } 
             container.innerHTML = html; 
             selectWeatherDay(0); 
