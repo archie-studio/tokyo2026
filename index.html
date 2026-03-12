@@ -50,7 +50,6 @@
     .card-title { font-weight: bold; color: #333; font-size: 17px; }
     .card-desc { color: #666; font-size: 14px; margin-top: 8px; line-height: 1.6; border-top: 1px dotted #eee; padding-top: 8px; }
     
-    /* 🌟 新增：動態交通導航按鈕動畫 */
     @keyframes iconBreath { 0%, 100% { transform: scale(1); box-shadow: 0 4px 10px rgba(255,182,193,0.2); } 50% { transform: scale(1.15); box-shadow: 0 6px 15px rgba(255,182,193,0.4); } }
     .transit-btn { animation: iconBreath 2.5s infinite ease-in-out; }
     .transit-btn:active { animation: none; transform: scale(0.9); }
@@ -96,7 +95,7 @@
     <div class="splash-tour-name">COOLCHI’S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.2.0 (Build 20260406)</div>
+    <div class="splash-version">v1.2.1 (Build 20260406)</div>
   </div>
 
   <div class="hero-header">
@@ -185,7 +184,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=成田機場第二航廈&destination=市川站&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=成田機場第二航廈&destination=市川站&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -194,7 +193,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=市川站&destination=HOTEL+R9+Premium+Ichikawa&travelmode=walking" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=市川站&destination=HOTEL+R9+Premium+Ichikawa&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -203,7 +202,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=中目黑櫻花&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=中目黑櫻花&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -217,16 +216,16 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=淺草雷門&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=淺草雷門&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://cdn.zekkei-japan.jp/images/spots/0b6079b6bb893a525c39c88eb5d95077.jpg" data-nav="淺草雷門"><div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div><p class="card-desc">從錦糸町搭乘計程車直達雷門，節省體力。遊覽仲見世通、淺草寺。</p></div>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://cdn.zekkei-japan.jp/images/spots/0b6079b6bb893a525c39c88eb5d95077.jpg" data-nav="淺草雷門"><div><span class="time-tag">09:40</span><span class="card-title">淺草雷門參拜</span></div><p class="card-desc">從錦糸町搭乘大眾運輸直達雷門，節省體力。遊覽仲見世通、淺草寺。</p></div>
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=淺草雷門&destination=上野恩賜公園&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=淺草雷門&destination=上野恩賜公園&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -235,7 +234,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=上野恩賜公園&destination=阿美橫町&travelmode=walking" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=上野恩賜公園&destination=阿美橫町&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -249,7 +248,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=鶴岡八幡宮&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=鶴岡八幡宮&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -258,7 +257,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=鶴岡八幡宮&destination=高德院鎌倉大佛&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=鶴岡八幡宮&destination=高德院鎌倉大佛&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -267,16 +266,16 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=高德院鎌倉大佛&destination=鎌倉高校前站&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=高德院鎌倉大佛&destination=鎌倉高校前站&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://imgzh.tabiiro.travel/kankou.tabiiro.jp/articles/sections/1751006301-1746098828-pixta_74415181_M.webp" data-nav="鎌倉高校前站"><div><span class="time-tag">13:50</span><span class="card-title">江之電體驗</span></div><p class="card-desc">司機將空車前往鐮倉高校前站附近。我們將自行搭乘江之電前往，體驗經典海邊電車路線。預計 14:30 從鎌倉高校前離開。</p></div>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://imgzh.tabiiro.travel/kankou.tabiiro.jp/articles/sections/1751006301-1746098828-pixta_74415181_M.webp" data-nav="鎌倉高校前站"><div><span class="time-tag">13:50</span><span class="card-title">江之電體驗＆鎌倉高校平交道</span></div><p class="card-desc">司機將空車前往鐮倉高校前站附近。我們將自行搭乘江之電前往，體驗經典海邊電車路線。預計 14:30 從鎌倉高校前離開。</p></div>
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=鎌倉高校前站&destination=江之島&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=鎌倉高校前站&destination=江之島&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -285,7 +284,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=江之島&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=江之島&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -299,7 +298,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=河口湖大石公園&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=河口湖大石公園&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -308,7 +307,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=河口湖大石公園&destination=ほうとう研究所&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=河口湖大石公園&destination=ほうとう研究所&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -317,7 +316,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=ほうとう研究所&destination=山中湖+KABA&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=ほうとう研究所&destination=山中湖+KABA&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -326,7 +325,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=山中湖+KABA&destination=忍野八海&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=山中湖+KABA&destination=忍野八海&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -335,7 +334,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=忍野八海&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=忍野八海&destination=東京車站&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -349,7 +348,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=明治神宮&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=明治神宮&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -358,7 +357,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=明治神宮&destination=東京車站+丸之內&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=明治神宮&destination=東京車站+丸之內&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -367,7 +366,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=東京車站+丸之內&destination=東京車站+KITTE&travelmode=walking" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-walking"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=東京車站+丸之內&destination=東京車站+KITTE&travelmode=walking" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-walking"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -381,7 +380,7 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=築地外市場&travelmode=transit" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-subway"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=築地外市場&travelmode=transit" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
@@ -390,12 +389,21 @@
           
           <div class="flex flex-col items-center my-1">
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
-              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=成田機場第二航廈&travelmode=driving" target="_blank" class="transit-btn bg-white w-10 h-10 rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-lg hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <a href="https://www.google.com/maps/dir/?api=1&origin=HOTEL+R9+Premium+Ichikawa&destination=成田機場第二航廈&travelmode=driving" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-subway"></i></a>
               <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
               <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
           </div>
 
-          <div class="card-v2" onclick="openModal(this)" data-img="https://image.kkday.com/v2/image/get/c_fit%2Cq_55%2Ct_webp%2Cw_960/s1.kkday.com/product_161696/20240131092250_idXXH/jpg" data-nav="成田機場"><div><span class="time-tag">13:00</span><span class="card-title">專車接送機</span></div><p class="card-desc">專車抵達飯店門口接送前往機場，準備返台。</p></div>
+          <div class="card-v2" onclick="openModal(this)" data-img="https://hotel-r9.jp/images/img_R9Pi_slide01.jpg" data-nav="HOTEL R9 Premium Ichikawa"><div><span class="time-tag">13:00</span><span class="card-title">返回飯店專車送機</span></div><p class="card-desc">搭乘地鐵返回飯店領取行李，專車已在飯店門口等候，準備接送前往機場。</p></div>
+
+          <div class="flex flex-col items-center my-1">
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <a href="http://googlemaps.google.com/43" target="_blank" class="transit-btn bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50"><i class="fas fa-car"></i></a>
+              <div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div>
+              <i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i>
+          </div>
+
+          <div class="card-v2" onclick="openModal(this)" data-img="https://image.kkday.com/v2/image/get/c_fit%2Cq_55%2Ct_webp%2Cw_960/s1.kkday.com/product_161696/20240131092250_idXXH/jpg" data-nav="成田機場第二航廈"><div><span class="time-tag">14:00</span><span class="card-title">抵達成田機場</span></div><p class="card-desc">抵達機場辦理報到手續。最後衝刺免稅商店採買伴手禮，帶著滿滿的美好回憶平安返家！</p></div>
         </div>
     </div>
   </div>
