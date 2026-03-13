@@ -13,7 +13,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Playfair+Display:wght@600;700&family=Noto+Sans+TC:wght@400;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=LXGW+WenKai+TC&family=Playfair+Display:wght@600;700&family=Noto+Sans+TC:wght@400;700&family=Zhi_Mang_Xing&display=swap" rel="stylesheet">
 
   <style>
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
@@ -48,7 +48,7 @@
     /* 第二拍：下方卡片骨牌式浮現 */
     @keyframes staggerFadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
     .day-panel.active > * { opacity: 0; animation: staggerFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-    .day-panel.active > *:nth-child(1) { animation-delay: 0.30s; } /* 標題跟著一起浮現 */
+    .day-panel.active > *:nth-child(1) { animation-delay: 0.30s; } 
     .day-panel.active > *:nth-child(2) { animation-delay: 0.35s; }
     .day-panel.active > *:nth-child(3) { animation-delay: 0.40s; }
     .day-panel.active > *:nth-child(4) { animation-delay: 0.45s; }
@@ -63,7 +63,7 @@
     .day-panel.active > *:nth-child(13) { animation-delay: 0.90s; }
     .stagger-item { opacity: 0; animation: staggerFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: calc(var(--i) * 0.06s + 0.3s); }
 
-    /* 🚨 修正版第三拍：文字波浪循環動畫 CSS */
+    /* 第三拍：文字波浪循環動畫 CSS */
     @keyframes charBounceFirst {
         0% { transform: translateY(0); }
         1.56% { transform: translateY(-5px); color: #ff758c; } 
@@ -79,7 +79,6 @@
         100% { transform: translateY(0); }
     }
 
-    /* 確保標題的每一個字元預設是可見的，只是加上啟動類別後才開始跳動 */
     .day-title-badge span { display: inline-block; }
     .day-title-badge.start-wave span:nth-child(1) { animation: charBounceFirst 8s infinite; }
     .day-title-badge.start-wave span:not(:nth-child(1)) { animation: charWaveNext 8s infinite; }
@@ -91,8 +90,11 @@
     .hero-header { background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 241, 235, 0.5)), url('https://image2url.com/r2/default/images/1773364675837-5d49caff-ca55-4a17-899d-12bf98eaffa3.png'); background-size: cover; background-position: center; border-radius: 0 0 40px 40px; padding: 65px 20px 25px; text-align: center; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
     
     @keyframes headerBreath { 0%, 100% { transform: scale(1); box-shadow: 0 8px 20px rgba(255,182,193,0.4); } 50% { transform: scale(1.06); box-shadow: 0 15px 30px rgba(255,182,193,0.6); } }
-    .header-logo { width: 150px; height: 150px; background: white; border-radius: 50%; margin: 0 auto 10px; padding: 0px; box-shadow: 0 8px 20px rgba(255,182,193,0.4); object-fit: cover; animation: headerBreath 2.5s infinite ease-in-out; border: 3px solid white; }
+    .header-logo { width: 140px; height: 140px; background: white; border-radius: 50%; padding: 0px; box-shadow: 0 8px 20px rgba(255,182,193,0.4); object-fit: cover; animation: headerBreath 2.5s infinite ease-in-out; border: 3px solid white; }
     .header-logo:active { animation: none; transform: scale(0.92); }
+
+    /* 🚨 客製化草寫日期陰影，提升辨識度 */
+    .date-script-text { font-family: 'Dancing Script', cursive; color: white; text-shadow: 0 2px 4px rgba(255, 117, 140, 0.6), 0 0 10px rgba(255, 182, 193, 0.8); }
 
     .title-glow { color: #e11d48; text-shadow: -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff, -1.5px 1.5px 0 #fff, 1.5px 1.5px 0 #fff, 0px 0px 10px rgba(255, 255, 255, 0.9), 0px 0px 15px rgba(255, 255, 255, 0.8); }
 
@@ -167,20 +169,26 @@
     <div class="splash-title-en">COOLCHI'S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.23 (Build 202603)</div>
+    <div class="splash-version">v1.24 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider z-20"></div>
     
-    <div class="absolute top-6 left-6 text-left font-bold text-gray-800 tracking-tight z-20 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
-        <p class="text-[20px] leading-tight font-['Playfair_Display'] italic">2026</p>
-        <p class="text-[14px] font-['Playfair_Display']">4.4 - 4.9</p>
+    <div class="flex items-center justify-center gap-5 relative z-20 mt-3 mb-2">
+        <div class="date-script-text text-[38px] font-bold">2026</div>
+        
+        <img src="https://image2url.com/r2/default/images/1773342357086-7d80766f-4fc6-4a77-84a5-0a63e2fe9f73.jpg" class="header-logo cursor-pointer jelly-effect !m-0" onclick="switchTab('home', document.querySelector('.nav-item'))">
+        
+        <div class="flex flex-col items-center justify-center date-script-text text-[26px] font-bold leading-none">
+            <span>4.4</span>
+            <span class="text-[18px] my-1">|</span>
+            <span>4.9</span>
+        </div>
     </div>
 
-    <img src="https://image2url.com/r2/default/images/1773342357086-7d80766f-4fc6-4a77-84a5-0a63e2fe9f73.jpg" class="header-logo cursor-pointer relative z-20 jelly-effect" onclick="switchTab('home', document.querySelector('.nav-item'))">
     <div class="mt-4 relative z-20">
-        <h1 class="text-[28px] font-black font-['Zhi_Mang_Xing'] tracking-widest title-glow">2026東京賞櫻旅行助手</h1>
+        <h1 class="text-[28px] font-black font-['Zhi_Mang_Xing'] tracking-widest title-glow">東京賞櫻旅行助手</h1>
     </div>
   </div>
 
@@ -619,7 +627,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if(tabId === 'help') filterHelp('shopping', document.querySelector('.cat-btn'));
       if(tabId === 'exchange') renderRecords();
-      if(tabId === 'schedule') prepareScheduleAnimation(); // 🚨 切換到行程表時，準備起動動畫時序
+      if(tabId === 'schedule') prepareScheduleAnimation(); 
     }
 
     function toggleNotes() {
@@ -646,7 +654,7 @@
         loadVoices();
         fetchWeather();
         fetchExchangeRate();
-        prepareTitleWaveHTML(); // 🚨 預先處理標題的 HTML (把字切開)
+        prepareTitleWaveHTML(); 
 
         const jpyInput = document.getElementById('jpy-input');
         if (jpyInput) {
@@ -656,7 +664,6 @@
         }
     }
 
-    // 🚨 修正版：預先將標題文字切分成單個 <span>，讓 CSS 動畫可以單獨控制每個字
     function prepareTitleWaveHTML() {
         document.querySelectorAll('.day-title-badge').forEach(title => {
             const text = title.innerText;
@@ -665,10 +672,8 @@
             chars.forEach((char, index) => {
                 const span = document.createElement('span');
                 span.innerText = char;
-                // 處理空白字元，使其在 HTML 中能正確顯示寬度
-                if (char === ' ' || char === ' ') span.innerHTML = '&nbsp;';
+                if (char === ' ' || char === ' ') span.innerHTML = ' ';
                 
-                // 除了第一個字外，其餘字的波浪動畫都需要加上延遲，形成波浪感
                 if (index > 0) {
                     span.style.animationDelay = `${0.5 + (index * 0.05)}s`;
                 }
@@ -677,14 +682,10 @@
         });
     }
 
-    // 🚨 全新：管理行程表面板的動畫時序 (1. 按鈕飛入 -> 2. 卡片浮現 -> 3. 多等3秒 -> 4. 標題波浪)
     function prepareScheduleAnimation() {
-        // 先移除所有標題的動畫啟動類別，確保重新開始
         document.querySelectorAll('.day-title-badge').forEach(b => b.classList.remove('start-wave'));
 
-        // 預估第一拍按鈕飛入 (0.4s) + 第二拍卡片全部浮現 (最長延遲 0.9s + 動畫 0.5s)
-        // 大約在 1.4s ~ 1.5s 後大家都站定。
-        // 站定後「多等三秒」。總延遲設定為 4.5秒。
+        // 🚨 更新時序：等待時間縮短為 2500ms (1.5s 佈局 + 1s 靜置)
         setTimeout(() => {
             const activeScheduleTab = document.querySelector('#tab-schedule.active');
             if (activeScheduleTab) {
@@ -696,7 +697,7 @@
                     }
                 }
             }
-        }, 4500); 
+        }, 2500); 
     }
 
     async function fetchExchangeRate() {
@@ -719,7 +720,6 @@
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
       const target = document.getElementById('day-panel-' + dayNum);
       
-      // 重新觸發卡片骨牌動畫 (重置 animation)
       target.style.animation = 'none'; target.offsetHeight; target.style.animation = null;
       target.classList.add('active');
       
@@ -727,7 +727,6 @@
       el.classList.add('active');
       el.scrollIntoView({ behavior: 'smooth', inline: 'center' });
 
-      // 🚨 切換天數時，也要重新跑一次動畫時序管理
       prepareScheduleAnimation();
     }
 
@@ -955,7 +954,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.23", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.24", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
