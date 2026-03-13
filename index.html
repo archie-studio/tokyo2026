@@ -17,7 +17,6 @@
 
   <style>
     :root { --sakura-pink: #ffb7c5; --deep-pink: #ff758c; --soft-bg: #fff5f7; }
-    /* 恢復純色舒適背景 */
     body { font-family: 'Noto Sans TC', sans-serif; background: var(--soft-bg); padding-bottom: 140px; overflow-x: hidden; min-height: 100vh; }
     * { -webkit-tap-highlight-color: transparent; }
 
@@ -28,27 +27,54 @@
     .day-panel { display: none; }
     .day-panel.active { display: block; }
 
-    /* 骨牌式層疊浮現 (Staggered Fade-in) 保留 */
+    /* 🚨 第一拍：頂部按鈕從右側飛入 (發牌特效) */
+    @keyframes flyInRight { 0% { opacity: 0; transform: translateX(30px); } 100% { opacity: 1; transform: translateX(0); } }
+    .tab-content.active .day-btn { opacity: 0; animation: flyInRight 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+    .tab-content.active .day-btn:nth-child(1) { animation-delay: 0.05s; }
+    .tab-content.active .day-btn:nth-child(2) { animation-delay: 0.10s; }
+    .tab-content.active .day-btn:nth-child(3) { animation-delay: 0.15s; }
+    .tab-content.active .day-btn:nth-child(4) { animation-delay: 0.20s; }
+    .tab-content.active .day-btn:nth-child(5) { animation-delay: 0.25s; }
+    .tab-content.active .day-btn:nth-child(6) { animation-delay: 0.30s; }
+
+    .tab-content.active .cat-btn { opacity: 0; animation: flyInRight 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+    .tab-content.active .cat-btn:nth-child(1) { animation-delay: 0.05s; }
+    .tab-content.active .cat-btn:nth-child(2) { animation-delay: 0.10s; }
+    .tab-content.active .cat-btn:nth-child(3) { animation-delay: 0.15s; }
+    .tab-content.active .cat-btn:nth-child(4) { animation-delay: 0.20s; }
+    .tab-content.active .cat-btn:nth-child(5) { animation-delay: 0.25s; }
+    .tab-content.active .cat-btn:nth-child(6) { animation-delay: 0.30s; }
+
+    /* 🚨 第二拍：下方卡片骨牌式浮現 (稍微延遲，等按鈕飛完) */
     @keyframes staggerFadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
     .day-panel.active > * { opacity: 0; animation: staggerFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
-    .day-panel.active > *:nth-child(1) { animation-delay: 0.05s; }
-    .day-panel.active > *:nth-child(2) { animation-delay: 0.10s; }
-    .day-panel.active > *:nth-child(3) { animation-delay: 0.15s; }
-    .day-panel.active > *:nth-child(4) { animation-delay: 0.20s; }
-    .day-panel.active > *:nth-child(5) { animation-delay: 0.25s; }
-    .day-panel.active > *:nth-child(6) { animation-delay: 0.30s; }
-    .day-panel.active > *:nth-child(7) { animation-delay: 0.35s; }
-    .day-panel.active > *:nth-child(8) { animation-delay: 0.40s; }
-    .day-panel.active > *:nth-child(9) { animation-delay: 0.45s; }
-    .day-panel.active > *:nth-child(10) { animation-delay: 0.50s; }
-    .day-panel.active > *:nth-child(11) { animation-delay: 0.55s; }
-    .day-panel.active > *:nth-child(12) { animation-delay: 0.60s; }
-    .day-panel.active > *:nth-child(13) { animation-delay: 0.65s; }
-    .day-panel.active > *:nth-child(14) { animation-delay: 0.70s; }
-    .day-panel.active > *:nth-child(15) { animation-delay: 0.75s; }
-    .stagger-item { opacity: 0; animation: staggerFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: calc(var(--i) * 0.06s); }
+    .day-panel.active > *:nth-child(1) { animation-delay: 0.30s; }
+    .day-panel.active > *:nth-child(2) { animation-delay: 0.35s; }
+    .day-panel.active > *:nth-child(3) { animation-delay: 0.40s; }
+    .day-panel.active > *:nth-child(4) { animation-delay: 0.45s; }
+    .day-panel.active > *:nth-child(5) { animation-delay: 0.50s; }
+    .day-panel.active > *:nth-child(6) { animation-delay: 0.55s; }
+    .day-panel.active > *:nth-child(7) { animation-delay: 0.60s; }
+    .day-panel.active > *:nth-child(8) { animation-delay: 0.65s; }
+    .day-panel.active > *:nth-child(9) { animation-delay: 0.70s; }
+    .day-panel.active > *:nth-child(10) { animation-delay: 0.75s; }
+    .day-panel.active > *:nth-child(11) { animation-delay: 0.80s; }
+    .day-panel.active > *:nth-child(12) { animation-delay: 0.85s; }
+    .day-panel.active > *:nth-child(13) { animation-delay: 0.90s; }
+    .stagger-item { opacity: 0; animation: staggerFadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; animation-delay: calc(var(--i) * 0.06s + 0.3s); }
 
-    /* 果凍彈跳回饋 (Jelly Bounce) 保留 */
+    /* 🚨 第三拍：文字波浪循環動畫 CSS */
+    @keyframes charBounceFirst {
+        0%, 8.33%, 100% { transform: translateY(0); }
+        2.08% { transform: translateY(-5px); color: #ff758c; }
+        4.16% { transform: translateY(0); }
+        6.24% { transform: translateY(-5px); color: #ff758c; }
+    }
+    @keyframes charWaveNext {
+        0%, 10%, 100% { transform: translateY(0); }
+        5% { transform: translateY(-5px); color: #ff758c; }
+    }
+
     .jelly-effect { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease, color 0.3s ease; }
     .jelly-effect:active { transform: scale(0.92) translateY(2px); transition: transform 0.1s; }
 
@@ -131,7 +157,7 @@
     <div class="splash-title-en">COOLCHI'S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.20 (Build 202603)</div>
+    <div class="splash-version">v1.21 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
@@ -527,7 +553,7 @@
   </div>
 
   <nav class="nav-bar fixed bottom-0 w-full flex justify-around py-4 pb-8 z-50">
-    <div onclick="switchTab('home', this)" class="nav-item jelly-effect active flex flex-col items-center"><i class="fas fa-home text-2xl"></i><span class="text-[10px] font-bold mt-1">首頁</span></div>
+    <div onclick="switchTab('home', this)" class="nav-item active jelly-effect flex flex-col items-center"><i class="fas fa-home text-2xl"></i><span class="text-[10px] font-bold mt-1">首頁</span></div>
     <div onclick="switchTab('schedule', this)" class="nav-item jelly-effect flex flex-col items-center"><i class="fas fa-calendar-alt text-2xl"></i><span class="text-[10px] font-bold mt-1">行程表</span></div>
     <div onclick="switchTab('help', this)" class="nav-item jelly-effect flex flex-col items-center"><i class="fas fa-comment-dots text-2xl"></i><span class="text-[10px] font-bold mt-1">日文字卡</span></div>
     <div onclick="switchTab('exchange', this)" class="nav-item jelly-effect flex flex-col items-center"><i class="fas fa-coins text-2xl"></i><span class="text-[10px] font-bold mt-1">匯率記帳</span></div>
@@ -603,6 +629,7 @@
         loadVoices();
         fetchWeather();
         fetchExchangeRate();
+        initTitleAnimation(); // 🚨 啟動標題波浪動畫
 
         const jpyInput = document.getElementById('jpy-input');
         if (jpyInput) {
@@ -610,6 +637,28 @@
                 document.getElementById('tw-result').innerText = `約 NT$ ${Math.round(e.target.value * EXCHANGE_RATE).toLocaleString()} 元`; 
             });
         }
+    }
+
+    // 🚨 全新：標題文字切分與波浪動畫賦予
+    function initTitleAnimation() {
+        document.querySelectorAll('.day-title-badge').forEach(title => {
+            const text = title.innerText;
+            title.innerHTML = '';
+            const chars = Array.from(text);
+            chars.forEach((char, index) => {
+                const span = document.createElement('span');
+                span.innerText = char;
+                if (char === ' ') span.innerHTML = '&nbsp;';
+                span.style.display = 'inline-block';
+                if (index === 0) {
+                    span.style.animation = 'charBounceFirst 6s infinite';
+                } else {
+                    span.style.animation = 'charWaveNext 6s infinite';
+                    span.style.animationDelay = `calc(0.5s + ${index} * 0.05s)`;
+                }
+                title.appendChild(span);
+            });
+        });
     }
 
     async function fetchExchangeRate() {
@@ -862,7 +911,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.20", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.21", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
