@@ -169,20 +169,20 @@
     <div class="splash-title-en">COOLCHI'S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.25 (Build 202603)</div>
+    <div class="splash-version">v1.26 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
     <div id="countdown" class="absolute top-6 right-6 text-[10px] bg-white/80 px-3 py-1 rounded-full text-pink-500 font-bold tracking-wider z-20"></div>
     
-    <div class="flex items-center justify-center gap-5 relative z-20 mt-3 mb-2">
-        <div class="date-script-text text-[28px] font-bold">2026</div>
+    <div class="relative z-20 mt-3 mb-2 flex items-center justify-center h-[150px] w-full">
+        <div class="absolute left-[15%] date-script-text text-[32px] font-bold">2026</div>
         
-        <img src="https://image2url.com/r2/default/images/1773342357086-7d80766f-4fc6-4a77-84a5-0a63e2fe9f73.jpg" class="header-logo cursor-pointer jelly-effect !m-0" onclick="switchTab('home', document.querySelector('.nav-item'))">
+        <img src="https://image2url.com/r2/default/images/1773342357086-7d80766f-4fc6-4a77-84a5-0a63e2fe9f73.jpg" class="header-logo absolute left-1/2 transform -translate-x-1/2 cursor-pointer jelly-effect !m-0" onclick="switchTab('home', document.querySelector('.nav-item'))">
         
-        <div class="flex flex-col items-center justify-center date-script-text text-[28px] font-bold leading-none">
+        <div class="absolute right-[15%] flex flex-col items-center justify-center date-script-text text-[32px] font-bold leading-none">
             <span>4.4</span>
-            <span class="text-[16px] my-1">|</span>
+            <span class="text-[18px] my-1">|</span>
             <span>4.9</span>
         </div>
     </div>
@@ -369,7 +369,7 @@
           
           <div class="flex flex-col items-center my-1"><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><div onclick="openNav('忍野八海', '東京車站', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="w-0 h-4 border-l-[4px] border-dotted border-pink-200"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2"></i></div>
 
-          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站" data-detail="告別壯麗的海岸，搭車返回東京市區。大家可以找間喜歡的餐廳好好吃頓晚餐，再搭地鐵回飯店休息。"><div><span class="time-tag">18:00</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站" data-detail="告別壯麗的富士山，搭車返回東京市區。大家可以找間喜歡的餐廳好好吃頓晚餐，再搭地鐵回飯店休息。"><div><span class="time-tag">18:00</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
         </div>
 
         <div id="day-panel-5" class="day-panel">
@@ -953,7 +953,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.25", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.26", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
