@@ -113,11 +113,9 @@
     .card-title { font-weight: bold; color: #333; font-size: 17px; }
     .card-desc { color: #666; font-size: 14px; margin-top: 8px; line-height: 1.6; border-top: 1px dotted #eee; padding-top: 8px; }
     
-    /* 🚨 新增：虛線流動軌跡動畫 */
     @keyframes routeFlow { 0% { background-position: 0 0; } 100% { background-position: 0 8px; } }
     .route-line { width: 4px; height: 18px; background-image: linear-gradient(to bottom, #ffb7c5 50%, transparent 50%); background-size: 100% 8px; animation: routeFlow 0.8s linear infinite; border-radius: 2px; opacity: 0.8; }
 
-    /* 🚨 新增：向下箭頭呼吸彈跳動畫 */
     @keyframes arrowFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
     .arrow-float { animation: arrowFloat 1.5s ease-in-out infinite; }
 
@@ -170,7 +168,7 @@
     <div class="splash-title-en">COOLCHI'S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.29 (Build 202603)</div>
+    <div class="splash-version">v1.30 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
@@ -242,7 +240,12 @@
     </div>
 
     <div class="card-v2 jelly-effect mt-4 !cursor-default">
-        <h3 class="text-lg font-bold mb-3 text-gray-700">📱 VJW 入境資訊</h3>
+        <h3 class="text-lg font-bold mb-3 text-gray-700 flex items-center">
+            📱 VJW 入境
+            <a href="https://www.vjw.digital.go.jp/main/#/vjwplo001" target="_blank" class="jelly-effect ml-3 inline-flex items-center justify-center bg-gradient-to-r from-pink-400 to-pink-500 text-white text-[13px] px-3 py-1 rounded-full font-black tracking-wide shadow-[0_4px_10px_rgba(255,117,140,0.3)] active:scale-95 transition-transform no-underline">
+                進入首頁 <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+        </h3>
         <div class="text-sm text-gray-600 mb-4 leading-relaxed bg-gray-50 p-4 rounded-xl border border-gray-100">
             <p class="mb-2 text-center font-bold text-gray-700">入境日本必備！請於出發前填寫完成</p>
             <a href="https://services.digital.go.jp/zh-cmn-hant/visit-japan-web/guide/#usage-flow" target="_blank" class="block text-center bg-blue-50 text-blue-600 text-base font-bold py-3 px-4 rounded-xl shadow-sm active:scale-95 transition mt-3 mb-3 border border-blue-200"><i class="fas fa-book-open mr-2"></i>點我查看：VJW 官方圖文教學</a>
@@ -345,9 +348,9 @@
 
           <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://storage.chictrip.com.tw/poi/23f061ca-91f8-4f42-bdfb-e9565000ead9.jpg" data-nav="江之島" data-detail="漫步跨海大橋來到這座神聖的小島。這裡充滿了悠閒的海濱風情，必吃比臉還要大的「現烤章魚仙貝」與新鮮的「魩仔魚丼」！"><div><span class="time-tag">14:45</span><span class="card-title">江之島散策</span></div><p class="card-desc">感受海風、參訪江島神社與商店街。預計 16:00 離開。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="route-line"></div><div onclick="openNav('江之島', '東京車站', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="route-line"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2 arrow-float"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="route-line"></div><div onclick="openNav('江之島', '銀座', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="route-line"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2 arrow-float"></i></div>
 
-          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站" data-detail="告別壯麗的海岸，搭車返回東京市區。大家可以找間喜歡的餐廳好好吃頓晚餐，再搭地鐵回飯店休息。"><div><span class="time-tag">18:30</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2023/12/28-144709.webp" data-nav="銀座" data-detail="告別壯麗的海岸，搭車返回繁華的銀座商圈。這裡有長輩們最想逛的 On、Hoka 跑鞋，以及好買的 3COINS 日雜和 Bic Camera 電器！大家可以分頭採買，晚餐就在銀座自由享用，結束後再搭地鐵回飯店休息。"><div><span class="time-tag">18:30</span><span class="card-title">返回東京市區-銀座</span></div><p class="card-desc">抵達銀座商圈，長輩專屬購物時間（On、Hoka、3COINS、Bic Camera），晚餐後返回飯店。</p></div>
         </div>
 
         <div id="day-panel-4" class="day-panel">
@@ -370,9 +373,9 @@
 
           <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://imgs.gotrip.hk/wp-content/uploads/2021/03/I_967196266605b1f6dc3386-1024x683.jpg" data-nav="忍野八海" data-detail="由富士山融雪過濾後形成的八個清澈湧泉。水質清澈見底，甚至能看見深處優游的魚兒與池底倒影，被譽為「神之泉」，風景如詩如畫。"><div><span class="time-tag">14:45</span><span class="card-title">忍野八海</span></div><p class="card-desc">停留 45 分鐘。欣賞富士山雪水濾出的清澈湧泉奇景。15:30 離開。</p></div>
           
-          <div class="flex flex-col items-center my-1"><div class="route-line"></div><div onclick="openNav('忍野八海', '東京車站', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="route-line"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2 arrow-float"></i></div>
+          <div class="flex flex-col items-center my-1"><div class="route-line"></div><div onclick="openNav('忍野八海', '銀座', 'driving')" class="transit-btn jelly-effect cursor-pointer bg-white w-[30px] h-[30px] rounded-full flex items-center justify-center border-2 border-pink-100 text-pink-500 text-[14px] hover:bg-pink-50 shadow-sm"><i class="fas fa-car"></i></div><div class="route-line"></div><i class="fas fa-caret-down text-pink-200 text-xl -mt-2 arrow-float"></i></div>
 
-          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_1295,h_863/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/zapsssbhqqsn3wjg4eia/%E6%9D%B1%E4%BA%AC(Tokyo)%E5%B8%82%E5%8D%80%E3%80%81%E7%9A%87%E5%B1%85%E6%9D%B1%E4%BA%AC(Tokyo)%E7%AB%99%E5%A4%9C%E6%99%AF%E4%B8%AD%E9%80%94%E5%81%9C%E7%95%99%E4%B9%8B%E6%97%85.jpg" data-nav="東京車站" data-detail="告別壯麗的富士山，搭車返回東京市區。大家可以找間喜歡的餐廳好好吃頓晚餐，再搭地鐵回飯店休息。"><div><span class="time-tag">18:00</span><span class="card-title">返回東京市區</span></div><p class="card-desc">抵達東京市區，自由逛街與享用晚餐，結束後搭乘地鐵返回市川飯店休息。</p></div>
+          <div class="card-v2 jelly-effect" onclick="openModal(this)" data-img="https://resources.matcha-jp.com/resize/720x2000/2023/12/28-144709.webp" data-nav="銀座" data-detail="結束富士山之旅，專車直達銀座商圈！昨天沒買齊的 On、Hoka 運動鞋，或是 3COINS 挖寶、Bic Camera 搬電器，今天還能繼續逛。大家自由分頭採買、挑間好餐廳吃晚餐，滿載而歸回飯店。"><div><span class="time-tag">18:00</span><span class="card-title">返回東京市區-銀座</span></div><p class="card-desc">直達銀座商圈，滿足全家大小的購物清單（鞋款、日雜、電器），晚餐後搭地鐵回飯店。</p></div>
         </div>
 
         <div id="day-panel-5" class="day-panel">
@@ -871,7 +874,7 @@
         if (navigator.clipboard && window.isSecureContext) { 
             navigator.clipboard.writeText(text).then(() => { showCopySuccess(btnElement); }); 
         } else { 
-            const textArea = document.createElement("textarea"); textArea.value = text; textArea.style.position = "fixed"; textArea.style.left = "-999999px"; textArea.style.top = "-999999px"; document.body.appendChild(textArea); textArea.focus(); textArea.select(); try { document.execCommand('copy'); showCopySuccess(btnElement); } catch (err) { alert('複製失敗，請手手動複製！'); } textArea.remove(); 
+            const textArea = document.createElement("textarea"); textArea.value = text; textArea.style.position = "fixed"; textArea.style.left = "-999999px"; textArea.style.top = "-999999px"; document.body.appendChild(textArea); textArea.focus(); textArea.select(); try { document.execCommand('copy'); showCopySuccess(btnElement); } catch (err) { alert('複製失敗，請手動複製！'); } textArea.remove(); 
         } 
     }
     
@@ -956,7 +959,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.29", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.30", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
