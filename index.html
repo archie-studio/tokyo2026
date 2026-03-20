@@ -168,7 +168,7 @@
     <div class="splash-title-en">COOLCHI'S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.30 (Build 202603)</div>
+    <div class="splash-version">v1.31 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
@@ -242,7 +242,7 @@
     <div class="card-v2 jelly-effect mt-4 !cursor-default">
         <h3 class="text-lg font-bold mb-3 text-gray-700 flex items-center">
             📱 VJW 入境
-            <a href="https://www.vjw.digital.go.jp/main/#/vjwplo001" target="_blank" class="jelly-effect ml-3 inline-flex items-center justify-center bg-gradient-to-r from-pink-400 to-pink-500 text-white text-[13px] px-3 py-1 rounded-full font-black tracking-wide shadow-[0_4px_10px_rgba(255,117,140,0.3)] active:scale-95 transition-transform no-underline">
+            <a href="https://www.vjw.digital.go.jp/main/#/vjwplo001" target="_blank" rel="noopener noreferrer" onclick="window.open(this.href, '_blank'); return false;" class="jelly-effect ml-3 inline-flex items-center justify-center bg-gradient-to-r from-pink-400 to-pink-500 text-white text-[13px] px-3 py-1 rounded-full font-black tracking-wide shadow-[0_4px_10px_rgba(255,117,140,0.3)] active:scale-95 transition-transform no-underline">
                 進入首頁 <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </h3>
@@ -252,12 +252,13 @@
             <strong class="text-pink-600 text-[11px] block text-center"><i class="fas fa-lightbulb"></i> 若操作有困難，也可請領隊於當天幫忙填寫喔！</strong>
         </div>
         <div class="space-y-3">
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">JX802</p></div><button onclick="copyText('JX802', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">航空公司名稱</p><p class="text-sm font-bold text-gray-800 leading-tight">JX:STARLUX AIRLINES(SJX)</p></div><button onclick="copyText('JX:STARLUX AIRLINES(SJX)', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">802</p></div><button onclick="copyText('802', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p></div><button onclick="copyText('272-0034', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p><p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p></div><button onclick="copyText('CHIBA', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">市區町村</p><p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p></div><button onclick="copyText('ICHIKAWA-SHI', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p><p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p></div><button onclick="copyText('1-8-6, ICHIKAWA', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">住宿處・飯店名稱</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium 市川站前</p></div><button onclick="copyText('HOTEL R9 Premium 市川站前', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">逗留地點/酒店名</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium Ichikawa Ekimae</p></div><button onclick="copyText('HOTEL R9 Premium Ichikawa Ekimae', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p><p class="text-sm font-bold text-gray-800">+81473743712</p></div><button onclick="copyText('+81473743712', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
         </div>
     </div>
@@ -959,7 +960,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.30", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.31", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
