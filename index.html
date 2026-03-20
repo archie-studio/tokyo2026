@@ -168,7 +168,7 @@
     <div class="splash-title-en">COOLCHI'S TOUR</div>
     <div id="splash-terminal"></div>
     <div id="splash-progress"><div id="splash-progress-bar"></div></div>
-    <div class="splash-version">v1.31 (Build 202603)</div>
+    <div class="splash-version">v1.32 (Build 202603)</div>
   </div>
 
   <div class="hero-header">
@@ -254,13 +254,23 @@
         <div class="space-y-3">
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">航空公司名稱</p><p class="text-sm font-bold text-gray-800 leading-tight">JX:STARLUX AIRLINES(SJX)</p></div><button onclick="copyText('JX:STARLUX AIRLINES(SJX)', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">航班號</p><p class="text-sm font-bold text-gray-800">802</p></div><button onclick="copyText('802', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
-            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">272-0034</p></div><button onclick="copyText('272-0034', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
+            <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">郵遞區號</p><p class="text-sm font-bold text-gray-800 leading-tight">2720034</p></div><button onclick="copyText('2720034', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">都道府縣</p><p class="text-sm font-bold text-gray-800 leading-tight">CHIBA</p></div><button onclick="copyText('CHIBA', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">市區町村</p><p class="text-sm font-bold text-gray-800 leading-tight">ICHIKAWA-SHI</p></div><button onclick="copyText('ICHIKAWA-SHI', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div class="pr-2"><p class="text-xs font-bold text-gray-400 mb-1">町域・番地</p><p class="text-sm font-bold text-gray-800 leading-tight">1-8-6, ICHIKAWA</p></div><button onclick="copyText('1-8-6, ICHIKAWA', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">逗留地點/酒店名</p><p class="text-sm font-bold text-gray-800">HOTEL R9 Premium Ichikawa Ekimae</p></div><button onclick="copyText('HOTEL R9 Premium Ichikawa Ekimae', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
             <div class="bg-white p-3 rounded-xl border-2 border-gray-100 flex justify-between items-center"><div><p class="text-xs font-bold text-gray-400 mb-1">飯店電話</p><p class="text-sm font-bold text-gray-800">+81473743712</p></div><button onclick="copyText('+81473743712', this)" class="jelly-effect bg-pink-100 text-pink-600 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap ml-2">複製</button></div>
         </div>
+    </div>
+
+    <div class="card-v2 jelly-effect mt-4 !cursor-default">
+        <h3 class="text-lg font-bold mb-3 text-gray-700 flex items-center">
+            ✅ 出發前行李檢查
+            <span class="text-[10px] ml-auto bg-pink-100 text-pink-600 px-2 py-1 rounded-full font-bold">個人進度</span>
+        </h3>
+        <p class="text-[12px] text-gray-500 mb-3 font-bold">點擊即可打勾，進度只會保存在您的手機中喔！</p>
+        <div id="checklist-container" class="space-y-2">
+            </div>
     </div>
 
     <div class="card-v2 jelly-effect mt-4 mb-8 !cursor-default">
@@ -626,6 +636,39 @@
       polite: [{ cn: "謝謝.", jp: "ありがとうございます。" }, { cn: "不好意思/借過.", jp: "すみません。" }, { cn: "沒關係/不用了.", jp: "大丈夫です。" }]
     };
 
+    // 🚨 行李檢查清單資料與狀態管理
+    const checklistItems = [
+        { id: 'chk1', text: '護照正本 (效期半年以上)' },
+        { id: 'chk2', text: '日幣現金 & 信用卡 (需開通海外刷卡)' },
+        { id: 'chk3', text: '手機 & 實體網卡 / eSIM' },
+        { id: 'chk4', text: '行動電源 & 充電線 (不可托運)' },
+        { id: 'chk5', text: '個人常備藥品' },
+        { id: 'chk6', text: '家裡鑰匙' }
+    ];
+    let checklistState = JSON.parse(localStorage.getItem('tokyo_checklist_state')) || {};
+
+    function renderChecklist() {
+        const container = document.getElementById('checklist-container');
+        if(!container) return;
+        container.innerHTML = checklistItems.map(item => {
+            const isChecked = checklistState[item.id];
+            const bgClass = isChecked ? 'bg-pink-50 border-pink-200' : 'bg-white border-gray-100';
+            const textClass = isChecked ? 'line-through text-gray-400' : 'text-gray-700';
+            const iconClass = isChecked ? 'fas fa-check-square text-pink-500' : 'far fa-square text-gray-300';
+
+            return `<div class="flex items-center p-3 rounded-xl border-2 transition-all cursor-pointer jelly-effect ${bgClass}" onclick="toggleChecklist('${item.id}')">
+                <i class="${iconClass} text-xl mr-3"></i>
+                <span class="text-sm font-bold ${textClass}">${item.text}</span>
+            </div>`;
+        }).join('');
+    }
+
+    function toggleChecklist(id) {
+        checklistState[id] = !checklistState[id];
+        localStorage.setItem('tokyo_checklist_state', JSON.stringify(checklistState));
+        renderChecklist();
+    }
+
     function switchTab(tabId, el) {
       document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
@@ -658,6 +701,7 @@
         initSplashScreen();
         initCountdown();
         renderRecords();
+        renderChecklist(); // 🚨 初始化行李清單
         loadVoices();
         fetchWeather();
         fetchExchangeRate();
@@ -960,7 +1004,7 @@
         const splash = document.getElementById('splash-screen'); 
         const terminal = document.getElementById('splash-terminal'); 
         const progressBar = document.getElementById('splash-progress-bar'); 
-        const fakeData = [ "COOLCHI’S TOUR System v1.31", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
+        const fakeData = [ "COOLCHI’S TOUR System v1.32", "Initializing core modules...", "Loading local data: /assets/tokyo_map.dat", "Fetching real-time weather: Open-Meteo API...", "Parsing 7-day forecast data...", "Syncing travel schedule: /2026/april/cherry_blossom", "Updating dynamic transit connectors...", "Initializing SOS Emergency protocol...", "Bypassing clipboard security checks...", "Checking group member info...", "Preparing map navigation...", "Finalizing setup...", "Ready." ]; 
         let dataIndex = 0; let progress = 0; 
         
         if (!terminal || !progressBar) return;
